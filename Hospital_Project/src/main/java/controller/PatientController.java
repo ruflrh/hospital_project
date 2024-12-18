@@ -1,0 +1,115 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import common.Common;
+import dao.PatientDAO;
+import vo.PatientVO;
+
+@Controller
+public class PatientController {
+	PatientDAO patient_dao;
+	public void setPatient_dao(PatientDAO patient_dao) {
+		this.patient_dao = patient_dao;
+	}
+	
+	//기본 메인화면
+	@RequestMapping(value = {"/", "main.do"})
+	public String main_start(Model model) {
+		//배너 이미지 담기
+        ArrayList<String> imageList = new ArrayList<String>();
+        
+        imageList.add("/hos/resources/images/임시배너1.PNG");
+        imageList.add("/hos/resources/images/임시배너2.PNG");
+        imageList.add("/hos/resources/images/임시배너3.PNG");
+        imageList.add("/hos/resources/images/idcheck_img.gif");
+        
+        model.addAttribute("images", imageList);
+		return Common.main.VIEW_PATH + "MainPage_User.jsp";
+	}
+	
+	//로그인 페이지
+	@RequestMapping("login_page.do")
+	public String login() {
+		return "/WEB-INF/views/login/login.jsp";
+	}
+	
+	//회원가입 페이지
+	@RequestMapping("register_page.do")
+	public String register() {
+		return "/WEB-INF/views/login/register.jsp";
+	}
+	
+	/*
+	@RequestMapping("find_address.do") 
+	public String findAddress() { 
+		return "/WEB-INF/views/find_address.jsp"; 
+	}
+	*/
+
+	//환자정보 insert -----------------------------------------------------------------------------
+	@RequestMapping("insert_patient.do")
+	public String insertPatient(PatientVO vo, String pat_email_addr, 
+								String pat_phone1_1, String pat_phone1_2,
+								String pat_phone2_1, String pat_phone2_2) {
+		
+		String fullEmail = vo.getPat_email() + "@" + pat_email_addr;
+		String fullPhone = vo.getPat_phone() +  "-" + pat_phone1_1 +  "-" +  pat_phone1_2;
+		String fullPhone2 = vo.getPat_phone2() +  "-" +  pat_phone2_1 +  "-" +  pat_phone2_2;
+		
+		vo.setPat_email(fullEmail);
+		vo.setPat_phone(fullPhone);
+		vo.setPat_phone2(fullPhone2);
+		
+		int res = patient_dao.insertPatient(vo);
+		System.out.println("insert 결과 : " + res);
+		return "redirect:login.do";
+	} //insertPatient
+	
+	//환자정보 select (아이디 중복체크를 위한) ----------------------------------------------------------
+	@RequestMapping("check_id.do")
+	@ResponseBody
+	public String checkId(String pat_id) {
+		PatientVO vo = patient_dao.selectPatientById(pat_id);
+		
+		String result = "no";
+		if(vo != null) { //해당 아이디와 동일한 환자정보가 존재하는 경우
+			result = "yes";
+		}
+		
+		String resultStr = String.format("[{'result' : '%s'}]", result);
+		return resultStr;
+	} //checkId
+	
+	//회원정보 select (로그인 시 아이디, 비밀번호 체크를 위한)  ----------------------------------------------------------
+	@RequestMapping("login.do")
+	@ResponseBody
+	public String login(String pat_id, String pat_pwd) {
+		//아이디가 존재하는지 체크
+		PatientVO vo1 = patient_dao.selectPatientById(pat_id); 
+		
+		//비밀번호가 일치하는지 체크
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pat_id", pat_id);
+		map.put("pat_pwd", pat_pwd);
+		PatientVO vo2 = patient_dao.selectPatient(map);
+		
+		String result = "id_not_exist";
+		if(vo2 != null) { //아이디와 비밀번호가 모두 일치하는 경우
+			result = "login_success";
+		} else if (vo1 != null) { //비밀번호는 일치하지 않지만 아이디는 일치하는 경우
+			result = "id_exist";
+		}
+		
+		String resultStr = String.format("[{'result' : '%s'}]", result);
+		return resultStr; 
+	}
+}
