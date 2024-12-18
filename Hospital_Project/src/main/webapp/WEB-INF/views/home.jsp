@@ -14,6 +14,10 @@
 커밋테스트 -- 태히
 커밋테스트 -- 태히(메인)
 
+<<<<<<< HEAD
 커밋테스트 -- 기홍
+=======
+커밋테스트 -- 결(branch_gg)
+>>>>>>> branch 'main' of https://github.com/ruflrh/hospital_project.git
 </body>
 </html>
