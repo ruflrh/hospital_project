@@ -107,8 +107,8 @@
 				
 				<!-- 로그인 확인 처리 -->
 				<c:if test="${param.pat_idx eq null or empty param.pat_idx}">
-					<a id="login" href="login.do">로그인 &nbsp; |</a>
-					<a id="register" href="member_register.do">회원가입</a>
+					<a id="login" href="login_page.do">로그인 &nbsp; |</a>
+					<a id="register" href="register_page.do">회원가입</a>
 				</c:if>
 				
 				<c:if test="${param.pat_idx ne null and not empty param.pat_idx}">

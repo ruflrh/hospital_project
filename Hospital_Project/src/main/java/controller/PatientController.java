@@ -37,7 +37,7 @@ public class PatientController {
 	}
 	
 	//로그인 페이지
-	@RequestMapping(value= {"/", "login_page.do"})
+	@RequestMapping("login_page.do")
 	public String login() {
 		return "/WEB-INF/views/login/login.jsp";
 	}
