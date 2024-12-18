@@ -96,6 +96,8 @@
 					let data = xhr.responseText;
 					let json = ( new Function('return '+data) )();
 					
+					let pat_idx = json[1].pat_idx;
+					
 					if(json[0].result == "id_not_exist"){
 						alert("존재하지 않는 아이디 입니다.");
 						return;
@@ -105,7 +107,7 @@
 						return;
 					} else {
 						alert("로그인 성공");
-						location.href = 'main.do';
+						location.href = 'main.do?pat_idx=' + pat_idx;
 					}
 				}
 			}

@@ -11,81 +11,6 @@
 	
 		<link rel="stylesheet" href="/hos/resources/css/menubar_user.css">
 		
-		<script>
-			//의료진,진료과
-			function professerContent() {
-				document.getElementById('reservation_content').style.display = 'none';
-			    document.getElementById('board_content').style.display = 'none';
-			    document.getElementById('introduce_content').style.display = 'none';
-			    document.getElementById('professer_content').style.display = 'block';
-			    document.getElementById('menubar').style.height = '200px';
-			}
-		 
-		    //진료예약
-			function reservationContent() {
-				document.getElementById('professer_content').style.display = 'none';
-			    document.getElementById('board_content').style.display = 'none';
-			    document.getElementById('introduce_content').style.display = 'none';
-			    document.getElementById('reservation_content').style.display = 'block';
-			    document.getElementById('menubar').style.height = '250px';
-			}
-		    
-		    //병원게시판
-			function boardContent() {
-				document.getElementById('professer_content').style.display = 'none';
-			    document.getElementById('reservation_content').style.display = 'none';
-			    document.getElementById('introduce_content').style.display = 'none';
-			    document.getElementById('board_content').style.display = 'block';
-			    document.getElementById('menubar').style.height = '350px';
-			}
-		    
-			//병원안내
-			function introduceContent() {
-				document.getElementById('professer_content').style.display = 'none';
-			    document.getElementById('reservation_content').style.display = 'none';
-			    document.getElementById('board_content').style.display = 'none';
-			    document.getElementById('introduce_content').style.display = 'block';
-			    document.getElementById('menubar').style.height = '485px';
-			}
-			
-			//건강정보
-			function healthContent() {
-				document.getElementById('professer_content').style.display = 'none';
-			    document.getElementById('reservation_content').style.display = 'none';
-			    document.getElementById('board_content').style.display = 'none';
-			    document.getElementById('introduce_content').style.display = 'none';
-			    document.getElementById('menubar').style.height = '50px';
-			}
-			//=======================================================================
-			//메뉴바 오픈	
-			function hideMenubarContent() {
-				document.getElementById('professer_content').style.display = 'none';
-			    document.getElementById('reservation_content').style.display = 'none';
-			    document.getElementById('board_content').style.display = 'none';
-			    document.getElementById('introduce_content').style.display = 'none';
-			    document.getElementById('menubar').style.height = '50px';
-			}
-			// 부모 요소인 #menubar에 mouseleave이벤트 추가
-			document.getElementById('menubar').addEventListener('mouseleave', () => {
-			    hideMenubarContent(); // 메뉴바를 벗어났을 때 콘텐츠 숨김
-			});
-			//=======================================================================
-			//로그아웃
-			function logout(idx) {
-				if(!confirm("로그아웃 하시겠습니까?")){
-					return;
-				}else{
-					idx = "";
-					location.href="main.do";
-				}
-			}//logout
-			//=======================================================================
-			//마이페이지팝업 띄우기
-			function mypage_popup(idx) {
-				document.getElementById('myPagePopUp').style.display = 'block';
-			}
-		</script>
-		
 	</head>
 	<body>
 		<div id="menubar" onmouseleave="hideMenubarContent()">
@@ -227,6 +152,83 @@
 		</div>
 		
 	</body>
+	
+	<script>
+		//의료진,진료과
+		function professerContent() {
+			document.getElementById('reservation_content').style.display = 'none';
+		    document.getElementById('board_content').style.display = 'none';
+		    document.getElementById('introduce_content').style.display = 'none';
+		    document.getElementById('professer_content').style.display = 'block';
+		    document.getElementById('menubar').style.height = '200px';
+		}
+	 
+	    //진료예약
+		function reservationContent() {
+			document.getElementById('professer_content').style.display = 'none';
+		    document.getElementById('board_content').style.display = 'none';
+		    document.getElementById('introduce_content').style.display = 'none';
+		    document.getElementById('reservation_content').style.display = 'block';
+		    document.getElementById('menubar').style.height = '250px';
+		}
+	    
+	    //병원게시판
+		function boardContent() {
+			document.getElementById('professer_content').style.display = 'none';
+		    document.getElementById('reservation_content').style.display = 'none';
+		    document.getElementById('introduce_content').style.display = 'none';
+		    document.getElementById('board_content').style.display = 'block';
+		    document.getElementById('menubar').style.height = '350px';
+		}
+	    
+		//병원안내
+		function introduceContent() {
+			document.getElementById('professer_content').style.display = 'none';
+		    document.getElementById('reservation_content').style.display = 'none';
+		    document.getElementById('board_content').style.display = 'none';
+		    document.getElementById('introduce_content').style.display = 'block';
+		    document.getElementById('menubar').style.height = '485px';
+		}
+		
+		//건강정보
+		function healthContent() {
+			document.getElementById('professer_content').style.display = 'none';
+		    document.getElementById('reservation_content').style.display = 'none';
+		    document.getElementById('board_content').style.display = 'none';
+		    document.getElementById('introduce_content').style.display = 'none';
+		    document.getElementById('menubar').style.height = '50px';
+		}
+		//=======================================================================
+		//메뉴바 오픈	
+		function hideMenubarContent() {
+			document.getElementById('professer_content').style.display = 'none';
+		    document.getElementById('reservation_content').style.display = 'none';
+		    document.getElementById('board_content').style.display = 'none';
+		    document.getElementById('introduce_content').style.display = 'none';
+		    document.getElementById('menubar').style.height = '50px';
+		}
+		// 부모 요소인 #menubar에 mouseleave이벤트 추가
+		document.getElementById('menubar').addEventListener('mouseleave', () => {
+		    hideMenubarContent(); // 메뉴바를 벗어났을 때 콘텐츠 숨김
+		});
+		//=======================================================================
+		//로그아웃
+		function logout(idx) {
+			if(!confirm("로그아웃 하시겠습니까?")){
+				return;
+			}else{
+				idx = "";
+				location.href="main.do";
+			}
+		}//logout
+		
+		//=======================================================================
+		//마이페이지팝업 띄우기
+		function mypage_popup(pat_idx) {
+			location.href = 'select_patient.do?pat_idx=' + pat_idx;
+			document.getElementById('myPagePopUp').style.display = 'block';
+		}
+	</script>
 </html>
 
 
