@@ -8,7 +8,8 @@
 		
 		<style>
 			#main_div{
-				width: 100%;
+				border: 1px solid black;
+				width: 1000px;
 				margin: 0px auto;
 			}
 			
@@ -24,6 +25,12 @@
 				font-size: 25px;
 				font-weight: bold;
 				margin: 10px 0px;
+			}
+			
+			/* 필수입력란 표시 */
+			.essential{
+				font-size: 10px;
+				color: red;
 			}
 			
 			table{
@@ -106,28 +113,119 @@
 			}
 		</style>
 		
+		<script src="/hos/resources/js/httpRequest.js"></script>
 		<script>
+			//비밀번호가 일치한지 확인하는 변수
+			let chk_pwd_value = 'n';
+			//아이디가 중복체크가 되었는지 확인하는 변수
+			let chk_id_value = 'n';
+		
 			//두개의 비밀번호가 일치하는지 체크하는 함수
 			function chk_pwd() {
+				chk_pwd_value = 'n';
+				
 				let pwd = document.getElementsByName("pat_pwd")[0];
 		        let pwd2 = document.getElementsByName("pat_pwd2")[0];
 		        let pwd_text = document.getElementById("pwd_text"); 
 				
 				if(pwd.value == pwd2.value){
+					chk_pwd_value = 'y';
 					pwd_text.innerHTML = "";
+				}
+				else{
+					chk_pwd_value = 'n';
+					pwd_text.innerHTML = "비밀번호가 일치하지 않습니다.";
 				}
 			}
 			
 			//이메일 주소에 따라 input text 값 변경하는 함수
 			function chk_email() {
 			    let email_addr = document.getElementById("email_addr");
-			    let pat_email2 = document.getElementsByName("pat_email2")[0];
+			    let pat_email_addr = document.getElementsByName("pat_email_addr")[0];
 			    
 			    if (email_addr.options[email_addr.selectedIndex].value != "") {
-			        pat_email2.value = email_addr.options[email_addr.selectedIndex].value;
+			    	pat_email_addr.value = email_addr.options[email_addr.selectedIndex].value;
 			    }
 			}
+			
+			function chk_id_change() {
+				chk_id_value = 'n';
+			}
+			//아이디 중복체크 버튼 클릭
+			function chk_id() {
+				let id = document.getElementsByName("pat_id")[0].value;
+				
+				if(id == ''){
+					alert("아이디를 입력하세요.");
+					return;
+				}
+				
+				let url = "check_id.do";
+				let param = "pat_id="+encodeURIComponent(id);
+				sendRequest(url, param, chk_id_result, "post");
+			}
+			//chk_id() => 콜백함수
+			function chk_id_result() {
+				if(xhr.readyState == 4 && xhr.status == 200){
+					let pat_id = document.getElementsByName("pat_id")[0];
+					let data = xhr.responseText;
+					let json = ( new Function('return '+data) )();
+					
+					if(json[0].result == "yes"){
+						alert("이미 존재하는 아이디 입니다.");
+						pat_id.focus();
+					}
+					else {
+						chk_id_value = 'y';
+						alert("사용가능한 아이디 입니다.");
+						
+						//아이디 입력칸 비활성화
+						//pat_id.disabled = "disabled";
+						return;
+					}
+				}
+			}
+			
+			//회원가입 버튼 클릭
+			function register( f ) {
+				//아이디 중복검사 했는지 체크
+				if(chk_id_value == 'n'){
+					alert("아이디 중복확인을 진행해주세요.");
+					return;
+				}
+				//비밀번호 일치 체크
+				if(chk_pwd_value == 'n'){
+					alert("비밀번호가 일치하지 않습니다.");
+					return;
+				}
+				
+				//유효성체크
+				let pat_id = document.getElementsByName("pat_id")[0].value;
+				let pat_name = document.getElementsByName("pat_name")[0].value;
+				let pat_pwd = document.getElementsByName("pat_pwd")[0].value;
+				let pat_email = document.getElementsByName("pat_email")[0].value;
+				let pat_email_addr = document.getElementsByName("pat_email_addr")[0].value;
+				let pat_address_post = document.getElementsByName("pat_address_post")[0].value;
+				let pat_address_road = document.getElementsByName("pat_address_road")[0].value;
+				let pat_address_detail = document.getElementsByName("pat_address_detail")[0].value;
+				let pat_phone = document.getElementsByName("pat_phone")[0].value;
+				let pat_phone1_1 = document.getElementsByName("pat_phone1_1")[0].value;
+				let pat_phone1_2 = document.getElementsByName("pat_phone1_2")[0].value;
+				
+				if(pat_id == '' || pat_name == '' || pat_email == '' || pat_email_addr == '' ||
+				   pat_address_post == '' || pat_address_road == '' || pat_address_detail == '' ||
+				   pat_phone == '' || pat_phone1_1 == '' || pat_phone1_2 == '') {
+					alert("빈칸을 모두 입력해주세요.");
+					return;
+				}
+				
+				alert("회원가입이 완료되었습니다.");
+				f.method = "post";
+				f.action = "insert_patient.do";
+				f.submit();
+			}
 		</script>
+		
 	</head>
 	<body>
 		<div id="main_div">
@@ -137,37 +235,37 @@
 				<form>
 					<table border="1">
 						<tr>
-							<th>이름</th>
+							<th>이름<a class="essential">*</a></th>
 							<td><input name="pat_name"></td>
 						</tr>
 						<tr>
-							<th>아이디</th>
+							<th>아이디<a class="essential">*</a></th>
 							<td>
-								<input name="pat_id">
-								<input id="id_btn" type="button" value="중복확인">
+								<input name="pat_id" onchange="chk_id_change();">
+								<input id="id_btn" type="button" value="중복확인" onclick="chk_id( this.form );">
 							</td>
 						</tr>
 						
-						<!-- 비밀번호 & 비밀번호 확인 ================================================== -->
+						<!-- 비밀번호 & 비밀번호 확인 ------------------------------------------------------------------->
 						<tr>
-							<th>비밀번호</th>
+							<th>비밀번호<a class="essential">*</a></th>
 							<td><input type="password" name="pat_pwd" onkeyup="chk_pwd();"></td>
 						</tr>
 						<tr>
-							<th>비밀번호 확인</th>
+							<th>비밀번호 확인<a class="essential">*</a></th>
 							<td>
 								<input type="password" name="pat_pwd2" onkeyup="chk_pwd();"><br>
 								<a id="pwd_text">비밀번호가 일치하지 않습니다.</a>
 							</td>
 						</tr>
 						
-						<!-- 이메일 ================================================== -->
+						<!-- 이메일 ------------------------------------------------------------------->
 						<tr>
-							<th>이메일</th>
+							<th>이메일<a class="essential">*</a></th>
 							<td>
-								<input class="email" name="pat_email1">
+								<input class="email" name="pat_email">
 								<a> @ </a>
-								<input class="email" name="pat_email2">
+								<input class="email" name="pat_email_addr">
 								
 								<select id="email_addr" onchange="chk_email();">
 									<option value="">직접입력</option>
@@ -179,9 +277,9 @@
 							</td>
 						</tr>
 						
-						<!-- 주소 ================================================== -->
+						<!-- 주소 ------------------------------------------------------------------->
 						<tr>
-							<th>주소</th>
+							<th>주소<a class="essential">*</a></th>
 							<td>
 								<input id="address_post" name="pat_address_post">
 								
@@ -192,11 +290,11 @@
 							</td>
 						</tr>
 						
-						<!-- 연락처 ================================================== -->
+						<!-- 연락처 ------------------------------------------------------------------->
 						<tr>
-							<th>연락처</th>
+							<th>연락처<a class="essential">*</a></th>
 							<td> 
-								<select class="pat_phone" name="pat_phone1_1">
+								<select class="pat_phone" name="pat_phone">
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="016">016</option>
@@ -204,15 +302,14 @@
 									<option value="018">018</option>
 									<option value="019">019</option>
 								</select> - 
-								<input class="pat_phone" name="pat_phone1_2"> -
-	
-								<input class="pat_phone" name="pat_phone1_3">
+								<input class="pat_phone" name="pat_phone1_1" maxlength="4"> -
+								<input class="pat_phone" name="pat_phone1_2" maxlength="4">
 							</td>
 						</tr>
 						<tr>
 							<th>비상연락처</th>
 							<td>
-								<select class="pat_phone" name="pat_phone2_1">
+								<select class="pat_phone" name="pat_phone2">
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="016">016</option>
@@ -220,33 +317,33 @@
 									<option value="018">018</option>
 									<option value="019">019</option>
 								</select> - 
-								<input class="pat_phone" name="pat_phone2_2"> -
-								<input class="pat_phone" name="pat_phone2_3">
+								<input class="pat_phone" name="pat_phone2_1"> -
+								<input class="pat_phone" name="pat_phone2_2">
 							</td>
 						</tr>
 						<tr>
-							<th>생년월일</th>
+							<th>생년월일<a class="essential">*</a></th>
 							<td><input type="date" name="pat_birthday"></td>
 						</tr>
 						<tr>
-							<th>성별</th>
+							<th>성별<a class="essential">*</a></th>
 							<td>
 								<input class="gender" type="radio" name="pat_gender" value="남자" checked>남자
 								<input class="gender" type="radio" name="pat_gender" value="여자">여자
 							</td>
 						</tr>
 					</table>
-				</form>
-	
-				<input id="back_btn" type="button" value="가입취소" onclick="history.back();">
-				<input id="reg_btn" type="button" value="회원가입">
 
+					<!-- 회원가입 or 가입취소 버튼 ----------------------------------------------------------------->
+					<input id="back_btn" type="button" value="가입취소" onclick="history.back();">
+					<input id="reg_btn" type="button" value="회원가입" onclick="register( this.form );">
+				</form>
 			</div>
 		</div>
 	</body>
 	
+	<!-- 주소찾기 API ------------------------------------------------------------------------------>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
 	<script>
 	    function find_address() {
 	        new daum.Postcode({

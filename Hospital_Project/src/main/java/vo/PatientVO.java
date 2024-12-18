@@ -1,21 +1,38 @@
 package vo;
 
+/*
+--환자테이블
+CREATE TABLE patient (
+		pat_idx		 NUMBER(3)	NOT NULL,
+		pat_name	 VARCHAR2(30)	NOT NULL,
+		pat_id		 VARCHAR2(100)	NOT NULL,
+		pat_pwd		 VARCHAR2(100)	NOT NULL,
+		pat_email 	 VARCHAR2(200)	NOT NULL,
+		pat_address_post	 NUMBER(10)	NULL,
+		pat_address_road	 VARCHAR2(100)	NULL,
+		pat_address_detail	 VARCHAR2(100)	NULL,
+		pat_phone	 VARCHAR2(20)	NULL,
+		pat_phone2	 VARCHAR2(20)	NULL,
+		pat_birthday	 DATE 		NULL,
+		pat_gender	 VARCHAR2(10)	NOT NULL
+);
+
+--시퀀스
+create sequence pat_idx_seq;
+*/
+
 public class PatientVO {
-	private int pat_idx, pat_address_post;
-	private String pat_name, pat_id, pat_pwd, pat_email, pat_address_road, pat_address_detail,
-		pat_phone, pat_phone2, pat_birthday, pat_gender;
+	
+	private int pat_idx;
+	private String pat_name, pat_id, pat_pwd, pat_email,
+				pat_address_post, pat_address_road, pat_address_detail,
+				pat_phone, pat_phone2, pat_birthday, pat_gender;
 	
 	public int getPat_idx() {
 		return pat_idx;
 	}
 	public void setPat_idx(int pat_idx) {
 		this.pat_idx = pat_idx;
-	}
-	public int getPat_address_post() {
-		return pat_address_post;
-	}
-	public void setPat_address_post(int pat_address_post) {
-		this.pat_address_post = pat_address_post;
 	}
 	public String getPat_name() {
 		return pat_name;
@@ -40,6 +57,12 @@ public class PatientVO {
 	}
 	public void setPat_email(String pat_email) {
 		this.pat_email = pat_email;
+	}
+	public String getPat_address_post() {
+		return pat_address_post;
+	}
+	public void setPat_address_post(String pat_address_post) {
+		this.pat_address_post = pat_address_post;
 	}
 	public String getPat_address_road() {
 		return pat_address_road;
@@ -77,5 +100,4 @@ public class PatientVO {
 	public void setPat_gender(String pat_gender) {
 		this.pat_gender = pat_gender;
 	}
-	
 }
