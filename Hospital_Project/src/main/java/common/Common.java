@@ -17,4 +17,14 @@ public class Common {
 		public static final String VIEW_PATH = "/WEB-INF/views/info/";
 	}
 
+	public static class Menu{
+		public static final String VIEW_PATH = "/WEB-INF/views/menu/";
+	}
+	public static class reservation{
+		public static final String VIEW_PATH = "/WEB-INF/views/reservation/";
+		
+	}
+	public static class dept{
+		public static final String VIEW_PATH = "/WEB-INF/views/dept/";
+	}
 }
