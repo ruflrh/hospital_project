@@ -12,12 +12,4 @@ public class ReservationDAO {
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	
-	
-	
-	/*
-	 * public List<ReservationVO> select_list() { List<ReservationVO> list =
-	 * sqlSession.selectList("r.able_date"); return list; }
-	 */
-
 }

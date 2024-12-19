@@ -27,11 +27,10 @@
 	</beans:bean>
 	
 	<beans:bean class="controller.InfoController"/>
-	
-	<beans:bean class="kty_controller.ReservationController">
+
+	<beans:bean class="controller.ReservationController">
 		<beans:property name="reservation_dao" ref="reservation_dao"></beans:property>
 	</beans:bean>
-	
 </beans:beans>
 
 
