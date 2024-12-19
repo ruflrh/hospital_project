@@ -23,9 +23,6 @@ public class ReservationController {
 	}
 	
 
-    @Autowired
-    private CalendarService calendarService; // 캘린더 로직 분리
-
     @RequestMapping("member_info.do")
     public String reservation() {
         return Common.reservation.VIEW_PATH + "member_info.jsp";

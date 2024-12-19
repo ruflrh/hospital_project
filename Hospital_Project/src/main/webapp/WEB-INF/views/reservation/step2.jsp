@@ -15,12 +15,9 @@
         <input type="button" value="교수 B" class="professor-card" onclick="selectProfessor('professorB')">
         <input type="button" value="교수 C" class="professor-card" onclick="selectProfessor('professorC')">
     </div>
-
-    <!-- 캘린더 표시 영역 -->
-  <%--   <div id="calendarContainer" style="display: none;">
-        <jsp:include page="step3.jsp">
-        </jsp:include>
-    </div> --%>
+	<div>
+		<input type="button" value="이전" onclick="history.back();">
+	</div>
     
 
 

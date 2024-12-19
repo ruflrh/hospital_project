@@ -21,7 +21,7 @@
 						
 				<a href="#" id="professer" 
 					onmouseover="professerContent()">진료과/의료진</a>
-				<a href="#" id="reservation" 
+				<a href="member_info.do" id="reservation" 
 					onmouseover="reservationContent()">진료예약</a>
 				<a href="#" id="board" 
 					onmouseover="boardContent()">병원게시판</a>
