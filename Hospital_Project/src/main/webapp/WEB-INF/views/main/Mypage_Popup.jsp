@@ -38,13 +38,12 @@
 			}
 			
 		</style>
-		
+					
 		<script>
 			function close_popup() {
 				let popup = document.getElementById("myPagePopUp");
 				popup.style.display = 'none';
 			}
-		
 		</script>
 	</head>
 	<body>
@@ -53,10 +52,10 @@
 			
 			<div>
 			<img src="/hos/resources/images/profile.png" id="profile">
-			<p style="font-weight: bold; float: left; margin-left: 10px;">한준희</p>
+			<p style="font-weight: bold; float: left; margin-left: 10px;">${ vo.pat_name }</p>
 			<a class="popup_a" style="float: right; 
 				margin-right: 7px;" href="certificates_print.do">증명서 발급안내</a>
-			<p style="float: left; margin-left: 10px;">1702o505@naver.com</p>
+			<p style="float: left; margin-left: 10px;">${ vo.pat_email }</p>
 			</div>
 			
 			<div style="display: inline-block; margin-top: 20px;">
@@ -67,6 +66,8 @@
 			</div>
 		</div>
 	</body>
+
+	
 </html>
 
 

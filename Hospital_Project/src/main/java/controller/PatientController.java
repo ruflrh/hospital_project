@@ -48,13 +48,6 @@ public class PatientController {
 		return "/WEB-INF/views/login/register.jsp";
 	}
 	
-	/*
-	@RequestMapping("find_address.do") 
-	public String findAddress() { 
-		return "/WEB-INF/views/find_address.jsp"; 
-	}
-	*/
-
 	//환자정보 insert -----------------------------------------------------------------------------
 	@RequestMapping("insert_patient.do")
 	public String insertPatient(PatientVO vo, String pat_email_addr, 
@@ -109,7 +102,20 @@ public class PatientController {
 			result = "id_exist";
 		}
 		
-		String resultStr = String.format("[{'result' : '%s'}]", result);
+		
+		//아이디에 해당하는 pat_idx 가져오기
+		int pat_idx = patient_dao.selectPatientIdx(pat_id);
+		
+		String resultStr = String.format("[{'result' : '%s'}, {'pat_idx' : '%d'}]", result, pat_idx);
 		return resultStr; 
+	}
+	
+	//환자정보 조회 ----------------------------------------------------------------------------------------------
+	@RequestMapping("mypage_popup.do")
+	public String selectPatient(Model model, int pat_idx) {
+		PatientVO vo = patient_dao.selectPatientByIdx(pat_idx);
+		model.addAttribute("vo", vo);
+		
+		return Common.main.VIEW_PATH + "Mypage_Popup.jsp?pat_idx=" + pat_idx;
 	}
 }
