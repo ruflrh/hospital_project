@@ -63,8 +63,8 @@ public class PatientController {
 		vo.setPat_phone2(fullPhone2);
 		
 		int res = patient_dao.insertPatient(vo);
-		System.out.println("insert 결과 : " + res);
-		return "redirect:login.do";
+		//System.out.println("insert 결과 : " + res);
+		return "redirect:main.do";
 	} //insertPatient
 	
 	//환자정보 select (아이디 중복체크를 위한) ----------------------------------------------------------
@@ -110,12 +110,13 @@ public class PatientController {
 		return resultStr; 
 	}
 	
-	//환자정보 조회 ----------------------------------------------------------------------------------------------
-	@RequestMapping("mypage_popup.do")
+	//환자정보 조회(마이페이지 이동) ----------------------------------------------------------------------------------------------
+	@RequestMapping("mypage.do")
 	public String selectPatient(Model model, int pat_idx) {
 		PatientVO vo = patient_dao.selectPatientByIdx(pat_idx);
 		model.addAttribute("vo", vo);
-		
-		return Common.main.VIEW_PATH + "Mypage_Popup.jsp?pat_idx=" + pat_idx;
+		return Common.mypage.VIEW_PATH + "mypage_main.jsp";
 	}
+	
+	
 }

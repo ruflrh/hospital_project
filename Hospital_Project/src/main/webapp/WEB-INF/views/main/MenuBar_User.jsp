@@ -10,6 +10,7 @@
 		<title>Insert title here</title>
 	
 		<link rel="stylesheet" href="/hos/resources/css/menubar_user.css">
+		<script src="/hos/resources/js/httpRequest.js"></script>
 		
 	</head>
 	<body>
@@ -21,7 +22,7 @@
 						
 				<a href="#" id="professer" 
 					onmouseover="professerContent()">진료과/의료진</a>
-				<a href="#" id="reservation" 
+				<a href="member_info.do" id="reservation" 
 					onmouseover="reservationContent()">진료예약</a>
 				<a href="#" id="board" 
 					onmouseover="boardContent()">병원게시판</a>
@@ -38,8 +39,7 @@
 				
 				<c:if test="${param.pat_idx ne null and not empty param.pat_idx}">
 					<a id="logout" onclick="logout(${param.pat_idx});">로그아웃 &nbsp; |</a>
-					<a id="mypage" onclick="mypage_popup(${param.pat_idx});">마이페이지</a>
-					<jsp:include page="/WEB-INF/views/main/Mypage_Popup.jsp"/>
+					<a id="mypage" onclick="mypage(${param.pat_idx});">마이페이지</a>
 				</c:if>
 			</center>
 					
@@ -47,7 +47,7 @@
 			<div id="professer_content">
 				<center>
 					<div style="display: inline-block">
-						<h3 style="margin: 10px;">진료과/의료진sss</h3>
+						<h3 style="margin: 10px;">진료과/의료진</h3>
 						<h5 style="margin-bottom: 5px;">진료과/의료진 통합검색</h5>
 						<input placeholder="의료진이름 입력" style="height: 25px;">
 						<input type="button" value="검색" 
@@ -223,13 +223,15 @@
 		}//logout
 		
 		//=======================================================================
-		//마이페이지팝업 띄우기
-		function mypage_popup(pat_idx) {
-
-			location.href = 'mypage_popup.do?pat_idx=' + pat_idx;
-			document.getElementById('myPagePopUp').style.display = 'block';
+		//마이페이지로 이동
+		function mypage(pat_idx) {
+			location.href="mypage.do?pat_idx=" + pat_idx;
 		}
 	</script>
 </html>
+
+
+
+
 
 

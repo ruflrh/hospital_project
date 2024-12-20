@@ -23,6 +23,11 @@
 					return;
 				}
 				
+				window.open(
+			        "Call_Reservation.do", // 팝업에 띄울 페이지 
+			        "팝업창",      // 팝업창 이름
+			        "width=600,height=500,scrollbars=no,resizable=no" // 옵션
+		        );
 			}
 		</script>
 		
