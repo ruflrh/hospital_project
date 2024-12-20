@@ -31,6 +31,9 @@
 	<beans:bean class="controller.ReservationController">
 		<beans:property name="reservation_dao" ref="reservation_dao"></beans:property>
 	</beans:bean>
+
+	<beans:bean class="controller.MypageController">
+	</beans:bean>
 </beans:beans>
 
 

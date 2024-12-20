@@ -118,4 +118,12 @@ public class PatientController {
 		
 		return Common.main.VIEW_PATH + "main.do?pat_idx=" + pat_idx;
 	}
+	
+	//마이페이지로 연결 ----------------------------------------------------------------------------------------------
+	@RequestMapping("mypage.do")
+	public String mypage(Model model, int pat_idx) {
+		PatientVO vo = patient_dao.selectPatientByIdx(pat_idx);
+		model.addAttribute("vo", vo);
+		return Common.mypage.VIEW_PATH + "mypage_main.jsp";
+   }
 }
