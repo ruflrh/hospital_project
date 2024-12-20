@@ -3,18 +3,19 @@ package vo;
 /*
 --진료과테이블
 CREATE TABLE department (
-	dept_idx 		NUMBER(10) 	NOT NULL,
+	dept_idx		NUMBER(10) 	NOT NULL,
 	dept_name 	VARCHAR2(100) 	NULL,
-	dept_payment 	NUMBER(10) 	NULL
+	dept_payment 	NUMBER(10) 	NULL,
+	dept_loc		VARCHAR2(20) 	NULL,
 );
- 
+
 --시퀀스
 create sequence dept_idx_seq;
 */
 
 public class DepartmentVO {
 	private int dept_idx;
-	private String dept_name, dept_payment;
+	private String dept_name, dept_payment, dept_loc;
 	
 	public int getDept_idx() {
 		return dept_idx;
@@ -33,5 +34,11 @@ public class DepartmentVO {
 	}
 	public void setDept_payment(String dept_payment) {
 		this.dept_payment = dept_payment;
+	}
+	public String getDept_loc() {
+		return dept_loc;
+	}
+	public void setDept_loc(String dept_loc) {
+		this.dept_loc = dept_loc;
 	}
 }
