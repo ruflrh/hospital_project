@@ -28,12 +28,12 @@ public class ReservationController {
     }
 
     @RequestMapping("step2.do")
-    public String step2() {
+    public String step2_reservation() {
         return Common.reservation.VIEW_PATH + "step2.jsp";
     }
     
     @RequestMapping("/step3.do")
-    public String handleStep3(
+    public String handleStep3_reservation(
             @RequestParam("professor") String professor,
             @RequestParam("availableDays") String availableDays,
             Model model
