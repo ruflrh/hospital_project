@@ -13,7 +13,7 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="config/mybatis/mapper/patient.xml" />
+		<mapper resource="config/mybatis/mapper/login.xml" />
 	</mappers>
 </configuration>
 

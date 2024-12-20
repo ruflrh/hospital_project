@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="dao_PatDAO" class="dao.PatientDAO">
+	<bean id="login_dao" class="dao.LoginDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 	

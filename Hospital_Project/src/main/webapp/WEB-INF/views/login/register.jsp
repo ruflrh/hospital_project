@@ -160,7 +160,7 @@
 					return;
 				}
 				
-				let url = "check_id.do";
+				let url = "register_check_id.do";
 				let param = "pat_id="+encodeURIComponent(id);
 				sendRequest(url, param, chk_id_result, "post");
 			}
@@ -221,7 +221,7 @@
 				
 				alert("회원가입이 완료되었습니다.");
 				f.method = "post";
-				f.action = "insert_patient.do";
+				f.action = "register_patient_insert.do";
 				f.submit();
 			}
 		</script>
