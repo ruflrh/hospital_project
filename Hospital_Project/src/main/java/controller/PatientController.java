@@ -39,13 +39,13 @@ public class PatientController {
 	//로그인 페이지
 	@RequestMapping("login_page.do")
 	public String login() {
-		return "/WEB-INF/views/login/login.jsp";
+		return Common.login.VIEW_PATH + "login.jsp";
 	}
 	
 	//회원가입 페이지
 	@RequestMapping("register_page.do")
 	public String register() {
-		return "/WEB-INF/views/login/register.jsp";
+		return Common.login.VIEW_PATH + "register.jsp";
 	}
 	
 	//환자정보 insert -----------------------------------------------------------------------------
@@ -116,6 +116,6 @@ public class PatientController {
 		PatientVO vo = patient_dao.selectPatientByIdx(pat_idx);
 		model.addAttribute("vo", vo);
 		
-		return "?pat_idx=" + pat_idx;
+		return Common.main.VIEW_PATH + "main.do?pat_idx=" + pat_idx;
 	}
 }
