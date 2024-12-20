@@ -87,7 +87,7 @@
 					return;
 				}
 				
-				let url = "login.do";
+				let url = "login_chk_correct.do";
 				let param = "pat_id=" + pat_id + "&pat_pwd=" + pat_pwd;
 				sendRequest(url, param, login_result_fn, "post");
 			}

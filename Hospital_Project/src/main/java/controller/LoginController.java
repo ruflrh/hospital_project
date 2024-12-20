@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.Common;
-import dao.PatientDAO;
+import dao.LoginDAO;
 import vo.PatientVO;
 
 @Controller
-public class PatientController {
-	PatientDAO patient_dao;
-	public void setPatient_dao(PatientDAO patient_dao) {
-		this.patient_dao = patient_dao;
+public class LoginController {
+	LoginDAO login_dao;
+	public void setLogin_dao(LoginDAO login_dao) {
+		this.login_dao = login_dao;
 	}
 	
 	//기본 메인화면
@@ -38,17 +39,17 @@ public class PatientController {
 	//로그인 페이지
 	@RequestMapping("login_page.do")
 	public String login() {
-		return "/WEB-INF/views/login/login.jsp";
+		return Common.login.VIEW_PATH + "login.jsp";
 	}
 	
 	//회원가입 페이지
 	@RequestMapping("register_page.do")
 	public String register() {
-		return "/WEB-INF/views/login/register.jsp";
+		return Common.login.VIEW_PATH + "register.jsp";
 	}
 	
 	//환자정보 insert -----------------------------------------------------------------------------
-	@RequestMapping("insert_patient.do")
+	@RequestMapping("register_patient_insert.do")
 	public String insertPatient(PatientVO vo, String pat_email_addr, 
 								String pat_phone1_1, String pat_phone1_2,
 								String pat_phone2_1, String pat_phone2_2) {
@@ -61,16 +62,16 @@ public class PatientController {
 		vo.setPat_phone(fullPhone);
 		vo.setPat_phone2(fullPhone2);
 		
-		int res = patient_dao.insertPatient(vo);
-		//System.out.println("insert 결과 : " + res);
-		return "redirect:main.do";
+		int res = login_dao.insertPatient(vo);
+		System.out.println("insert 결과 : " + res);
+		return "redirect:login.do";
 	} //insertPatient
 	
 	//환자정보 select (아이디 중복체크를 위한) ----------------------------------------------------------
-	@RequestMapping("check_id.do")
+	@RequestMapping("register_check_id.do")
 	@ResponseBody
 	public String checkId(String pat_id) {
-		PatientVO vo = patient_dao.selectPatientById(pat_id);
+		PatientVO vo = login_dao.selectPatientById(pat_id);
 		
 		String result = "no";
 		if(vo != null) { //해당 아이디와 동일한 환자정보가 존재하는 경우
@@ -82,17 +83,17 @@ public class PatientController {
 	} //checkId
 	
 	//회원정보 select (로그인 시 아이디, 비밀번호 체크를 위한)  ----------------------------------------------------------
-	@RequestMapping("login.do")
+	@RequestMapping("login_chk_correct.do")
 	@ResponseBody
 	public String login(String pat_id, String pat_pwd) {
 		//아이디가 존재하는지 체크
-		PatientVO vo1 = patient_dao.selectPatientById(pat_id); 
+		PatientVO vo1 = login_dao.selectPatientById(pat_id); 
 		
 		//비밀번호가 일치하는지 체크
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pat_id", pat_id);
 		map.put("pat_pwd", pat_pwd);
-		PatientVO vo2 = patient_dao.selectPatient(map);
+		PatientVO vo2 = login_dao.selectPatient(map);
 		
 		String result = "id_not_exist";
 		if(vo2 != null) { //아이디와 비밀번호가 모두 일치하는 경우
@@ -103,19 +104,19 @@ public class PatientController {
 		
 		
 		//아이디에 해당하는 pat_idx 가져오기
-		int pat_idx = patient_dao.selectPatientIdx(pat_id);
+		int pat_idx = login_dao.selectPatientIdx(pat_id);
 		
 		String resultStr = String.format("[{'result' : '%s'}, {'pat_idx' : '%d'}]", result, pat_idx);
 		return resultStr; 
 	}
 	
-	//환자정보 조회(마이페이지 이동) ----------------------------------------------------------------------------------------------
-	@RequestMapping("mypage.do")
-	public String selectPatient(Model model, int pat_idx) {
-		PatientVO vo = patient_dao.selectPatientByIdx(pat_idx);
-		model.addAttribute("vo", vo);
-		return Common.mypage.VIEW_PATH + "mypage_main.jsp";
-	}
-	
+	//환자정보 조회 ----------------------------------------------------------------------------------------------
+	/*
+	 * @RequestMapping("login_select_patient.do") public String selectPatient(Model
+	 * model, int pat_idx) { PatientVO vo = patient_dao.selectPatientByIdx(pat_idx);
+	 * model.addAttribute("vo", vo);
+	 * 
+	 * return Common.main.VIEW_PATH + "main.do?pat_idx=" + pat_idx; }
+	 */
 	
 }
