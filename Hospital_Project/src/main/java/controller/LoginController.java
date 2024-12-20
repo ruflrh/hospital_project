@@ -102,6 +102,7 @@ public class LoginController {
 			result = "id_exist";
 		}
 		
+		System.out.println(result);
 		
 		//아이디에 해당하는 pat_idx 가져오기
 		int pat_idx = login_dao.selectPatientIdx(pat_id);

@@ -98,6 +98,8 @@
 					
 					let pat_idx = json[1].pat_idx;
 					
+					console.log(json[0].result);
+					
 					if(json[0].result == "id_not_exist"){
 						alert("존재하지 않는 아이디 입니다.");
 						return;
