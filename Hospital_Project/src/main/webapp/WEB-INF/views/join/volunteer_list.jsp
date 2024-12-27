@@ -49,8 +49,7 @@
 			
 			/* 제목 a태그 */	
 			#notice_div table a { text-decoration: none;
-								  color:black;
-								   }
+								  color:black; }
 			/* 제목 td */					   
 			#notice_div table tr #title_td { padding:10px;
 											 overflow: hidden;
@@ -109,7 +108,7 @@
 						</td>
 						<td>2024-07-12</td>
 						<td>2551</td>
-						<td><img src="/hos/resources/img/file.png"></td>
+						<td><img src="/hos/resources/images/file.png"></td>
 					</tr>
 					
 					<tr>
@@ -119,7 +118,7 @@
 						</td>
 						<td>2024-07-12</td>
 						<td>2551</td>
-						<td><img src="/hos/resources/img/file.png"></td>
+						<td><img src="/hos/resources/images/file.png"></td>
 					</tr>
 					
 					<tr>
@@ -129,7 +128,7 @@
 						</td>
 						<td>2024-07-12</td>
 						<td>2551</td>
-						<td><img src="/hos/resources/img/file.png"></td>
+						<td><img src="/hos/resources/images/file.png"></td>
 					</tr>
 					
 					<tr>
@@ -139,7 +138,7 @@
 						</td>
 						<td>2024-07-12</td>
 						<td>2551</td>
-						<td><img src="/hos/resources/img/file.png"></td>
+						<td><img src="/hos/resources/images/file.png"></td>
 					</tr>
 					
 					<tr>
@@ -149,7 +148,7 @@
 						</td>
 						<td>2024-07-12</td>
 						<td>2551</td>
-						<td><img src="/hos/resources/img/file.png"></td>
+						<td><img src="/hos/resources/images/file.png"></td>
 					</tr>
 					
 					<tr>
@@ -159,8 +158,9 @@
 						</td>
 						<td>2024-07-12</td>
 						<td>2551</td>
-						<td><img src="/hos/resources/img/file.png"></td>
+						<td><img src="/hos/resources/images/file.png"></td>
 					</tr>
+					
 				</table>
 			</div>
 			

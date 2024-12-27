@@ -102,8 +102,12 @@
 								
 						<p style="display: flex;">칭찬 및 감사 의견 접수</p>
 						<section class="buttons">
-							<button class="board_button">감사합니다! 글쓰기</button>
-							<button class="board_button">감사합니다! 전체보기</button>
+							<button class="board_button"
+									onclick="location.href='info_thanks_insert_form.do'">감사합니다! 글쓰기
+							</button>
+							<button class="board_button" 
+									onclick="location.href='info_thanks_list_form.do'">감사합니다! 전체보기
+							</button>
 						</section>
 					</div>
 					<div class="box">
@@ -113,7 +117,8 @@
 								
 						<p style="display: flex;">제안 및 불편 고충 접수</p>
 						<section class="buttons">
-							<button class="board_button">건의합니다! 글쓰기</button>
+							<button class="board_button"
+									onclick="location.href='info_compl_insert_form.do'">건의합니다! 글쓰기</button>
 						</section>
 					</div>
 					<div class="box">
@@ -122,7 +127,8 @@
 								style="width: 32px; margin-left: 170px;"></h2>
 						<p style="display: flex;">우리병원 자원봉사</p>
 						<section class="buttons">
-							<button class="board_button">자원봉사 게시글 글쓰기</button>
+							<button class="board_button"
+									onclick="location.href='info_volunteer_list_form.do'">자원봉사 전체보기</button>
 						</section>
 					</div>
 				</center>

@@ -63,13 +63,15 @@
 							<img src="/hos/resources/images/증명서 발급.png" width="50px">
 						</td>
 						<td>
-							<img src="/hos/resources/images/오시는 길.png" width="50px">
+							<img src="/hos/resources/images/오시는 길.png" 
+								 onclick="location.href='way_info.do'"
+								 width="50px">
 						</td>
 					</tr>
 					<tr>
 						<td><a>진료비 결제</a></td>					
 						<td><a>증명서 발급</a></td>					
-						<td><a>오시는 길</a></td>					
+						<td><a href="way_info.do">오시는 길</a></td>					
 					</tr>
 					<tr>
 						<td colspan="3">
@@ -101,12 +103,12 @@
 					<tr>
 						<td>
 							<div style="margin: 10px; border: 1px solid black;">
-								<h3>공지사항 상위 게시글들</h3>
+								<h3><a onclick="location.href='info_notice_form.do'">공지사항 상위 게시글들</a></h3>
 							</div>
 						</td>
 						<td>
 							<div style="margin: 10px; border: 1px solid black;">
-								<h3>자원봉사 상위 게시글들</h3>
+								<h3><a onclick="location.href='info_volunteer_list_form.do'">자원봉사 상위 게시글들</a></h3>
 							</div>
 						</td>
 					</tr>

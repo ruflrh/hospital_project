@@ -25,8 +25,8 @@ res_idx	pat_idx	pro_idx	res_time			res_chk	pay_chk
 */
 
 public class ReservationVO {
-	public int res_idx, pat_idx, pro_idx, res_chk, pay_chk;
-	public String res_time;
+	private int res_idx, pat_idx, pro_idx, res_chk, pay_chk;
+	private String res_time;
 	
 	public int getRes_idx() {
 		return res_idx;

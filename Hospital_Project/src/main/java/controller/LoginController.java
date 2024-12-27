@@ -83,32 +83,32 @@ public class LoginController {
 	} //checkId
 	
 	//회원정보 select (로그인 시 아이디, 비밀번호 체크를 위한)  ----------------------------------------------------------
-	@RequestMapping("login_chk_correct.do")
-	@ResponseBody
-	public String login(String pat_id, String pat_pwd) {
-		//아이디가 존재하는지 체크
-		PatientVO vo1 = login_dao.selectPatientById(pat_id); 
-		
-		//비밀번호가 일치하는지 체크
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pat_id", pat_id);
-		map.put("pat_pwd", pat_pwd);
-		PatientVO vo2 = login_dao.selectPatient(map);
-		
-		String result = "id_not_exist";
-		if(vo2 != null) { //아이디와 비밀번호가 모두 일치하는 경우
-			result = "login_success";
-		} else if (vo1 != null) { //비밀번호는 일치하지 않지만 아이디는 일치하는 경우
-			result = "id_exist";
-		}
-		
-		
-		//아이디에 해당하는 pat_idx 가져오기
-		int pat_idx = login_dao.selectPatientIdx(pat_id);
-		
-		String resultStr = String.format("[{'result' : '%s'}, {'pat_idx' : '%d'}]", result, pat_idx);
-		return resultStr; 
-	}
+	   @RequestMapping("login_chk_correct.do")
+	   @ResponseBody
+	   public String login(String pat_id, String pat_pwd) {
+	      //아이디가 존재하는지 체크
+	      PatientVO vo1 = login_dao.selectPatientById(pat_id); 
+	      
+	      //비밀번호가 일치하는지 체크
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      map.put("pat_id", pat_id);
+	      map.put("pat_pwd", pat_pwd);
+	      PatientVO vo2 = login_dao.selectPatient(map);
+	      
+	      String result = "id_not_exist";
+	      int pat_idx = 0;
+	      if(vo2 != null) { //아이디와 비밀번호가 모두 일치하는 경우
+	         result = "login_success";
+	         pat_idx = login_dao.selectPatientIdx(pat_id);
+	      } else if (vo1 != null) { //비밀번호는 일치하지 않지만 아이디는 일치하는 경우
+	         result = "id_exist";
+	      }
+	      
+	      //아이디에 해당하는 pat_idx 가져오기
+	      
+	      String resultStr = String.format("[{'result' : '%s'}, {'pat_idx' : '%d'}]", result, pat_idx);
+	      return resultStr; 
+	   }
 	
 	//환자정보 조회 ----------------------------------------------------------------------------------------------
 	/*

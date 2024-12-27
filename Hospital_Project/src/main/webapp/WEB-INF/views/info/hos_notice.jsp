@@ -8,8 +8,7 @@
 		
 		<style>
 			/* 큰 틀 */
-			#container{ border:1px solid black;
-				 	    width:1000px;
+			#container{ width:1000px;
 				 	    height:800px;
 				 		margin: 150px auto; 
 				 		position:relative; }
@@ -34,16 +33,30 @@
 						 	  
 			#notice_div table { border-collapse:collapse;
 								width:1000px;
-								height:200px;
+								height:350px;
 								position:absolute;
 								top: 150px;
-								text-align:center; }
+								text-align:center;
+								table-layout:fixed; }
 								
-			#notice_div table th { border-top: 2px solid black;
-								   border-bottom: 2px solid black; }
+			#notice_div table tr:first-child { border-bottom: 1px solid black; }
+			#notice_div table tr:last-child { border-bottom: 1px solid black; }
+								
+			#notice_div table th { border-top: 2px solid black; }
 								   
-			#notice_div table td { border-bottom: 1px solid black; }
+			#notice_div table td { border-bottom: 1px solid gray; }
+				
+			/* 제목 a태그 */
+			#notice_div a {  text-decoration: none;
+								  color:black; }		
 								   
+			/* 제목 td*/
+			#title_td { padding:10px;
+						overflow: hidden;
+  						text-overflow: ellipsis;
+ 						white-space: nowrap; }
+			
+			
 			/* 페이지 */
 			#page { position:absolute;
 					bottom: 10px;
@@ -72,6 +85,14 @@
 			
 			<div id="notice_div">
 				<table>
+					<colgroup>
+						<col width="5%"/>
+						<col width="50%"/>
+						<col width="25%"/>
+						<col width="20%"/>
+						<col width="10%"/>
+					</colgroup>
+				
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
@@ -82,7 +103,9 @@
 					
 					<tr>
 						<td>1</td>
-						<td><a href="#">본관 1주차장 운영중단 및 공사 안내</a></td>
+						<td id="title_td">
+						<a href="#">본관 1주차장 운영중단 및 공사 안내테스트테스트 제목 테스트ㅇ안녕하세요안녕하ㅔ요ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</a>
+						</td>
 						<td>2024-07-12</td>
 						<td>2551</td>
 						<td><img src="/hos/resources/images/file.png"></td>

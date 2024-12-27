@@ -27,6 +27,10 @@
 	</beans:bean>
 	
 	<beans:bean class="controller.InfoController"/>
+	
+	<beans:bean class="controller.JoinController">
+		<beans:property name="patBoard_dao" ref="patBoard_dao_bean"/>
+	</beans:bean>
 
 	<beans:bean class="controller.ReservationController">
 		<beans:property name="reservation_dao" ref="reservation_dao"></beans:property>
@@ -35,6 +39,9 @@
 	<beans:bean class="controller.MypageController">
 		<beans:property name="login_dao" ref="login_dao"/>
 	</beans:bean>
+	
+	<context:annotation-config/>
+	
 </beans:beans>
 
 

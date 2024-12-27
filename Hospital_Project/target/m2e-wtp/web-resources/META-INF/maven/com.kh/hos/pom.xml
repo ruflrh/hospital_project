@@ -5,7 +5,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kh</groupId>
 	<artifactId>hos</artifactId>
-	<name>hos</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -220,4 +219,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	<name>Hospital_Project</name>
 </project>

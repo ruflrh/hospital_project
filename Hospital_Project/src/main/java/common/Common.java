@@ -16,6 +16,10 @@ public class Common {
 	public static class info{
 		public static final String VIEW_PATH = "/WEB-INF/views/info/";
 	}
+	
+	public static class join{
+		public static final String VIEW_PATH = "/WEB-INF/views/join/";
+	}
 
 	public static class Menu{
 		public static final String VIEW_PATH = "/WEB-INF/views/menu/";
