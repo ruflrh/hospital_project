@@ -18,7 +18,7 @@
         <input type="button" value="교수 C" class="professor-card" onclick="selectProfessor('professorC')">
     </div>
 	<div>
-		<input type="button" value="이전" onclick="history.back();">
+		<input id="back" type="button" value="이전" onclick="history.back();">
 	</div>
     
 

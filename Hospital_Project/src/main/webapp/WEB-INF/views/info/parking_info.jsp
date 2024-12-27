@@ -8,8 +8,7 @@
 		
 		<style>
 			/* 큰 틀 */
-			#container{ border:1px solid black;
-				 	    width:1000px;
+			#container{ width:1000px;
 				 		margin: 150px auto; 
 				 		position:relative; }
 				 		
