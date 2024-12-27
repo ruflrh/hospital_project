@@ -3,7 +3,7 @@
 *{margin: 0; padding: 0;}
 
 .slider-container {
-    width: 100%;
+    width: 1920px;
     height: 400px;
     overflow: hidden;
     position: relative;
@@ -35,7 +35,7 @@
 }
 
 .slider-btn.prev {
-left: 10px; /* 왼쪽 버튼 위치 */
+	left: 10px; /* 왼쪽 버튼 위치 */
 }
 
 .slider-btn.next {
@@ -62,6 +62,21 @@ left: 10px; /* 왼쪽 버튼 위치 */
 
 .pagination .dot.active {
     background-color: #f89e35; /* 활성 dot 색상 */
+}
+
+.banner_master_button {
+    position: absolute;
+    top: 92%;
+    right: 10px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 100; /* 더 높은 값으로 설정 */
+    transform: translateY(-50%); /* 세로 중앙 정렬 */
+}
+
+.banner_master_button:hover {
+	color: red;
 }
 
 

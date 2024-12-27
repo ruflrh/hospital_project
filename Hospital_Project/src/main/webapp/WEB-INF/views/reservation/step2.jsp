@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>교수 선택</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/reservation-kty/step2.css">
+    <link rel="stylesheet"  href="resources/css/reservation-kty/step2.css">
 </head>
 <body>
     <h1 style="text-align: center;">교수 선택</h1>
@@ -16,7 +16,7 @@
         <input type="button" value="교수 C" class="professor-card" onclick="selectProfessor('professorC')">
     </div>
 	<div>
-		<input type="button" value="이전" onclick="history.back();">
+		<input id="back" type="button" value="이전" onclick="history.back();">
 	</div>
     
 

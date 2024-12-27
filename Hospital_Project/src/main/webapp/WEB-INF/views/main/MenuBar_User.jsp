@@ -9,7 +9,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 	
-		<link rel="stylesheet" href="/hos/resources/css/menubar_user.css">
+		<link rel="stylesheet" href="/hos/resources/css/menubar_user.css?v=1.0">
 		<script src="/hos/resources/js/httpRequest.js"></script>
 		
 	</head>
@@ -17,8 +17,8 @@
 		<div id="menubar" onmouseleave="hideMenubarContent()">
 			<center>
 				<img src="/hos/resources/images/임의의 로고.png" 
-					style="width: 50px; cursor: pointer; position: absolute;
-						left: 350px;" onclick="main.do">
+				     style="width: 50px; cursor: pointer; position: absolute; left: 350px;" 
+				     onclick="toMain(${param.pat_idx})">
 						
 				<a href="#" id="professer" 
 					onmouseover="professerContent()">진료과/의료진</a>
@@ -28,8 +28,7 @@
 					onmouseover="boardContent()">병원게시판</a>
 				<a href="#" id="introduce" 
 					onmouseover="introduceContent()">병원안내</a>
-				<a href="#" id="health" 
-					onmouseover="healthContent()">건강정보</a>
+				<a id="health" onmouseover="healthContent()">건강정보</a>
 				
 				<!-- 로그인 확인 처리 -->
 				<c:if test="${param.pat_idx eq null or empty param.pat_idx}">
@@ -39,7 +38,7 @@
 				
 				<c:if test="${param.pat_idx ne null and not empty param.pat_idx}">
 					<a id="logout" onclick="logout(${param.pat_idx});">로그아웃 &nbsp; |</a>
-					<a id="mypage" onclick="mypage(${param.pat_idx});">마이페이지</a>
+					<a id="mypage" onclick="location.href='mypage.do?pat_idx=${param.pat_idx}'">마이페이지</a>
 				</c:if>
 			</center>
 					
@@ -102,8 +101,12 @@
 								
 						<p style="display: flex;">칭찬 및 감사 의견 접수</p>
 						<section class="buttons">
-							<button class="board_button">감사합니다! 글쓰기</button>
-							<button class="board_button">감사합니다! 전체보기</button>
+							<button class="board_button"
+									onclick="location.href='info_thanks_insert_form.do'">감사합니다! 글쓰기
+							</button>
+							<button class="board_button" 
+									onclick="location.href='info_thanks_list_form.do'">감사합니다! 전체보기
+							</button>
 						</section>
 					</div>
 					<div class="box">
@@ -113,7 +116,8 @@
 								
 						<p style="display: flex;">제안 및 불편 고충 접수</p>
 						<section class="buttons">
-							<button class="board_button">건의합니다! 글쓰기</button>
+							<button class="board_button"
+									onclick="location.href='info_compl_insert_form.do'">건의합니다! 글쓰기</button>
 						</section>
 					</div>
 					<div class="box">
@@ -122,7 +126,8 @@
 								style="width: 32px; margin-left: 170px;"></h2>
 						<p style="display: flex;">우리병원 자원봉사</p>
 						<section class="buttons">
-							<button class="board_button">자원봉사 게시글 글쓰기</button>
+							<button class="board_button"
+									onclick="location.href='info_volunteer_list_form.do'">자원봉사 전체보기</button>
 						</section>
 					</div>
 				</center>
@@ -149,8 +154,18 @@
 				    </div>
 				</center>
 			</div>
+			
+			<!-- 건강정보 호버 시 -->	
+			<div id="health_content" style="margin-top: 40px;">
+				<center>
+					<input type="button" class="board_button" value="자가진단 서비스"
+						style="width: 200px;" onclick="location.href='diagnosis_list.do'">
+					<input type="button" class="board_button" value="의료기기 탐색"
+						style="width: 200px;" onclick="location.href='device_list.do'">
+				</center>
+			</div>
+			
 		</div>
-		
 	</body>
 	
 	<script>
@@ -196,7 +211,7 @@
 		    document.getElementById('reservation_content').style.display = 'none';
 		    document.getElementById('board_content').style.display = 'none';
 		    document.getElementById('introduce_content').style.display = 'none';
-		    document.getElementById('menubar').style.height = '50px';
+		    document.getElementById('menubar').style.height = '150px';
 		}
 		//=======================================================================
 		//메뉴바 오픈	
@@ -221,11 +236,10 @@
 				location.href="main.do";
 			}
 		}//logout
-		
 		//=======================================================================
-		//마이페이지로 이동
-		function mypage(pat_idx) {
-			location.href="mypage.do?pat_idx=" + pat_idx;
+		//이미지 클릭 시 메인 페이지로 전환
+		function toMain(pat_idx) {
+		    location.href="main.do?pat_idx=" + pat_idx;
 		}
 	</script>
 </html>

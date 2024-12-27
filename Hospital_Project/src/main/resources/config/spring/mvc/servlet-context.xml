@@ -22,8 +22,14 @@
 	</beans:bean>
 	<context:component-scan base-package="com.kh.dept" /> -->
 	
+	<!-- Autowired사용을 위한 속성 -->
+	<context:annotation-config/>
+	
 	<beans:bean class="controller.LoginController">
 		<beans:property name="login_dao" ref="login_dao"/>
+		<beans:property name="banner_dao" ref="banner_dao"/>
+		<beans:property name="mss" ref="mss"/>
+		<beans:property name="mypage_dao" ref="mypage_dao"/>
 	</beans:bean>
 	
 	<beans:bean class="controller.InfoController"/>
@@ -34,7 +40,24 @@
 
 	<beans:bean class="controller.MypageController">
 		<beans:property name="login_dao" ref="login_dao"/>
+		<beans:property name="mypage_dao" ref="mypage_dao"/>
 	</beans:bean>
+	
+	<beans:bean class="controller.BannerController">
+		<beans:property name="banner_dao" ref="banner_dao"/>
+	</beans:bean>
+	
+	<beans:bean class="controller.DiagnosisController">		
+		<beans:property name="diagnosisDao" ref="diagnosis_dao_bean"/>
+	</beans:bean>
+	
+	<beans:bean class="controller.DeviceController">
+		<beans:property name="deviceDao" ref="device_dao_bean"/>
+	</beans:bean>
+	
+	<beans:bean class="controller.JoinController">
+		<beans:property name="patBoard_dao" ref="patBoard_dao_bean"/>
+	</beans:bean>	
 </beans:beans>
 
 

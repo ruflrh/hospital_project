@@ -42,4 +42,16 @@ public class LoginDAO {
 		return vo;
 	}
 	
+	//이메일과 이름으로 회원조회
+	public PatientVO selectPatientByEmailAndName(Map<String, String> map) {
+		PatientVO vo = sqlSession.selectOne("login.select_patient_by_emailandName", map);
+		return vo;
+	}
+	
+	//이메일과 아이디로 회원조회
+	public PatientVO selectPatientByEmailAndId(Map<String, String> map) {
+		PatientVO vo = sqlSession.selectOne("login.select_patient_by_emailandId", map);
+		return vo;
+	}
+	
 }
