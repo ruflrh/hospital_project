@@ -17,8 +17,8 @@
 		<div id="menubar" onmouseleave="hideMenubarContent()">
 			<center>
 				<img src="/hos/resources/images/임의의 로고.png" 
-					style="width: 50px; cursor: pointer; position: absolute;
-						left: 350px;" onclick="main.do">
+				     style="width: 50px; cursor: pointer; position: absolute; left: 350px;" 
+				     onclick="toMain(${param.pat_idx})">
 						
 				<a href="#" id="professer" 
 					onmouseover="professerContent()">진료과/의료진</a>
@@ -39,7 +39,7 @@
 				
 				<c:if test="${param.pat_idx ne null and not empty param.pat_idx}">
 					<a id="logout" onclick="logout(${param.pat_idx});">로그아웃 &nbsp; |</a>
-					<a id="mypage" onclick="mypage(${param.pat_idx});">마이페이지</a>
+					<a id="mypage" onclick="location.href='mypage.do?pat_idx=${param.pat_idx}'">마이페이지</a>
 				</c:if>
 			</center>
 					
@@ -221,11 +221,10 @@
 				location.href="main.do";
 			}
 		}//logout
-		
 		//=======================================================================
-		//마이페이지로 이동
-		function mypage(pat_idx) {
-			location.href="mypage.do?pat_idx=" + pat_idx;
+		//이미지 클릭 시 메인 페이지로 전환
+		function toMain(pat_idx) {
+		    location.href="main.do?pat_idx=" + pat_idx;
 		}
 	</script>
 </html>

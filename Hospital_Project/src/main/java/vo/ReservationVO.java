@@ -1,6 +1,9 @@
 package vo;
 
 /*
+drop table reservation;
+drop sequence res_idx_seq;
+
 --예약테이블
 CREATE TABLE reservation (
 	res_idx 		NUMBER(4) 	NOT NULL,
@@ -22,6 +25,36 @@ res_idx	pat_idx	pro_idx	res_time			res_chk	pay_chk
 4	-	-	2024-03-05 16:30		0	0
 		
 50	12	24	2024-03-05 15:30		1	0 
+
+--DB 구축
+insert into reservation values(
+	res_idx_seq.nextVal,
+	16, --윤도현 환자
+	2, --이진구 교수
+	TO_DATE('2024/12/25 15:00', 'YYYY/MM/DD HH24:MI'), --예약날짜/시간
+	1, --예약완료
+	-1 --진료비결제안함
+);
+
+insert into reservation values(
+	res_idx_seq.nextVal,
+	16, --윤도현 환자
+	3, --강지인 교수
+	TO_DATE('2024/01/15 12:30', 'YYYY/MM/DD HH24:MI'), --예약날짜/시간
+	1, --예약완료
+	-1 --진료비결제안함
+);
+
+insert into reservation values(
+	res_idx_seq.nextVal,
+	16, --윤도현 환자
+	1, --강영애 교수
+	TO_DATE('2024/02/27 13:00', 'YYYY/MM/DD HH24:MI'), --예약날짜/시간
+	1, --예약완료
+	-1 --진료비결제안함
+);
+
+commit;
 */
 
 public class ReservationVO {

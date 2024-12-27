@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -139,7 +142,7 @@
 			}
 			
 			/* 가입취소, 회원가입 버튼 */
-			#back_btn, #reg_btn{
+			.back_btn, #reg_btn{
 				border: none;
 				width: 150px;
 				height: 40px;
@@ -148,34 +151,20 @@
 				border: 1px solid lightgray;
 				background-color: white;
 			}
+			
 			#reg_btn {
 				background-color: gray;
 				color: white;
 			}
+			
+			.essential{
+				font-size: 10px;
+				color: red;
+			}
 		</style>
 		
 		<script>
-			//두개의 비밀번호가 일치하는지 체크하는 함수
-			function chk_pwd() {
-				let pwd_now = document.getElementById("pwd_now").value;
-		        let pwd_new1 = document.getElementById("pwd_new1").value;
-		        let pwd_new2 = document.getElementById("pwd_new2").value; 
-				
-		        if(pwd_new1 != pwd_new2) {
-		        	alert("비밀번호가 일치하지 않습니다.");
-		        }
-			}
-			
-			//이메일 주소에 따라 input text 값 변경하는 함수
-			function chk_email() {
-			    let email_addr = document.getElementById("email_addr");
-			    let pat_email2 = document.getElementsByName("pat_email2")[0];
-			    
-			    if (email_addr.options[email_addr.selectedIndex].value != "") {
-			        pat_email2.value = email_addr.options[email_addr.selectedIndex].value;
-			    }
-			}
-			
+			//비밀번호 변경 <-> 회원정보 수정 모드 변경
 			function change_mode( id ) {
 				let pwd_btn = document.getElementById("change_pwd_btn");
 				let info_btn = document.getElementById("change_info_btn");
@@ -198,11 +187,77 @@
 					update_infomation.style.display = "block";
 				}
 			}
+		
+			//두개의 비밀번호가 일치하는지 체크하는 함수
+			function chk_pwd() {
+				//현재 비밀번호
+				let pwd = ${ vo.pat_pwd };
+				//비밀번호 입력값
+				let pwd_now = document.getElementById("pwd_now").value;
+				
+				//새 비밀번호
+				let pwd_new1 = document.getElementById("pwd_new1").value;
+		        let pwd_new2 = document.getElementById("pwd_new2").value; 
+				
+		        if(pwd_new1 == '' || pwd_new2 == ''){
+		        	alert("빈칸을 모두 입력하세요.");
+		        	return;
+		        }
+		        
+				if(pwd != pwd_now){
+					alert("현재 비밀번호와 일치하지 않습니다.");
+					return;
+				}   
+		        
+		        if(pwd_new1 != pwd_new2) {
+		        	alert("새 비밀번호가 일치하지 않습니다.");
+		        	return;
+		        }
+		        
+		        location.href = 'mypage_update_pwd.do?pwd_new=' + pwd_new1 +"&pat_idx=" + ${ vo.pat_idx };
+			}
+			
+			//이메일 주소에 따라 input text 값 변경하는 함수
+			function chk_email() {
+			    let email_addr = document.getElementById("email_addr");
+			    let email_addr2 = document.getElementsByName("pat_email_addr")[0];
+			    
+			    if (email_addr.options[email_addr.selectedIndex].value != "") {
+			    	email_addr2.value = email_addr.options[email_addr.selectedIndex].value;
+			    }
+			}
+			
+			function update_info( f ) {
+				//유효성체크
+				let pat_email = document.getElementsByName("pat_email")[0].value;
+				let pat_email_addr = document.getElementsByName("pat_email_addr")[0].value;
+				let pat_address_post = document.getElementsByName("pat_address_post")[0].value;
+				let pat_address_road = document.getElementsByName("pat_address_road")[0].value;
+				let pat_address_detail = document.getElementsByName("pat_address_detail")[0].value;
+				let pat_phone = document.getElementsByName("pat_phone")[0].value;
+				let pat_phone1_1 = document.getElementsByName("pat_phone1_1")[0].value;
+				let pat_phone1_2 = document.getElementsByName("pat_phone1_2")[0].value;
+				
+				if(pat_email == '' || pat_email_addr == '' ||
+				   pat_address_post == '' || pat_address_road == '' || pat_address_detail == '' ||
+				   pat_phone == '' || pat_phone1_1 == '' || pat_phone1_2 == '') {
+					alert("빈칸을 모두 입력해주세요.");
+					return;
+				}
+				
+				alert("정보수정이 완료되었습니다.");
+				
+				f.method = "post";
+				f.action = "mypage_update_info.do";
+				f.submit();
+			}
 			
 		</script>
 	</head>
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="main_div">
 			<a id="update_text">회원정보수정</a>
 			<hr>
@@ -232,60 +287,65 @@
 						<td><input id="pwd_new2" type="password"></td>
 					</tr>
 				</table>
-
+		
 				<input id="pwd_btn" type="button" value="비밀번호 변경" onclick="chk_pwd();">		
+				<input class="back_btn" type="button" value="취소" onclick="history.back();">
 				<hr>
 			</div>
 			
 			<!-- 기본정보 변경 -->			
 			<div id="update_infomation" style="display:none">
 				<form>
+					<input type="hidden" name="pat_idx" value="${ vo.pat_idx }">
+					<input type="hidden" name="pat_name" value="${ vo.pat_name }">
+					<input type="hidden" name="pat_pwd" value="${ vo.pat_pwd }">
+				 
 					<table border="1">
 						<tr>
 							<th>이름</th>
-							<td>고결</td>
+							<td>${ vo.pat_name }</td>
 						</tr>
 						<tr>
 							<th>아이디</th>
-							<td>gogyul</td>
+							<td>${ vo.pat_id }</td>
 						</tr>
 						
 						<!-- 이메일 ================================================== -->
 						<tr>
-							<th>이메일</th>
-							<td>
-								<input class="email" name="pat_email1">
-								<a> @ </a>
-								<input class="email" name="pat_email2">
-								
-								<select id="email_addr" onchange="chk_email();">
-									<option value="">직접입력</option>
-									<option value="gmail.com">gmail.com</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="naver.com">naver.com</option>
-									<option value="nate.com">nate.com</option>
-								</select>
-							</td>
+						    <th>이메일<a class="essential">*</a></th>
+						    <td>
+						        <input class="email" name="pat_email" value="${fn:split(vo.pat_email, '@')[0]}">
+						        <a>	@ </a>
+						        <input class="email" name="pat_email_addr" value="${fn:split(vo.pat_email, '@')[1]}">
+						        
+						        <select id="email_addr" name="pat_email_addr" onchange="chk_email();">
+						            <option value="">직접입력</option>
+						            <option value="gmail.com">gmail.com</option>
+						            <option value="hanmail.net">hanmail.net</option>
+						            <option value="naver.com">naver.com</option>
+						            <option value="nate.com">nate.com</option>
+						        </select>
+						    </td>
 						</tr>
 						
 						<!-- 주소 ================================================== -->
 						<tr>
-							<th>주소</th>
+							<th>주소<a class="essential">*</a></th>
 							<td>
-								<input id="address_post" name="pat_address_post">
+								<input id="address_post" name="pat_address_post" value="${ vo.pat_address_post }">
 								
 								<input id="address_btn" type="button" value="주소찾기" onclick="find_address();"><br>
 								
-								<input id="address_road" name="pat_address_road"><br>
-								<input id="address_detail" name="pat_address_detail" placeholder="상세 주소를 입력하세요">
+								<input id="address_road" name="pat_address_road" value="${ vo.pat_address_road }"><br>
+								<input id="address_detail" name="pat_address_detail" value="${ vo.pat_address_detail }" placeholder="상세 주소를 입력하세요">
 							</td>
 						</tr>
 						
 						<!-- 연락처 ================================================== -->
 						<tr>
-							<th>연락처</th>
+							<th>연락처<a class="essential">*</a></th>
 							<td> 
-								<select class="pat_phone" name="pat_phone1_1">
+								<select class="pat_phone" name="pat_phone" defaultValue="${fn:split(vo.pat_phone,'-')[0]}">
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="016">016</option>
@@ -293,15 +353,15 @@
 									<option value="018">018</option>
 									<option value="019">019</option>
 								</select> - 
-								<input class="pat_phone" name="pat_phone1_2"> -
+								<input class="pat_phone" name="pat_phone1_1" value="${fn:split(vo.pat_phone,'-')[1]}"> -
 	
-								<input class="pat_phone" name="pat_phone1_3">
+								<input class="pat_phone" name="pat_phone1_2" value="${fn:split(vo.pat_phone,'-')[2]}">
 							</td>
 						</tr>
 						<tr>
 							<th>비상연락처</th>
 							<td>
-								<select class="pat_phone" name="pat_phone2_1">
+								<select class="pat_phone" name="pat_phone2">
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="016">016</option>
@@ -309,32 +369,38 @@
 									<option value="018">018</option>
 									<option value="019">019</option>
 								</select> - 
-								<input class="pat_phone" name="pat_phone2_2"> -
-								<input class="pat_phone" name="pat_phone2_3">
+								<input class="pat_phone" name="pat_phone2_1" value="${fn:split(vo.pat_phone2,'-')[1]}"> -
+								<input class="pat_phone" name="pat_phone2_2" value="${fn:split(vo.pat_phone2,'-')[2]}">
 							</td>
 						</tr>
 						<tr>
 							<th>생년월일</th>
-							<td><input type="date" name="pat_birthday"></td>
+							<%-- <td><input type="date" name="pat_birthday" value="${vo.pat_birthday}"></td> --%>
+							<td><input type="date" name="pat_birthday" 
+								 value="${ fn:split(vo.pat_birthday, ' ')[0] }"></td>
+							
 						</tr>
 						<tr>
 							<th>성별</th>
 							<td>
-								<input class="gender" type="radio" name="pat_gender" value="남자" checked>남자
-								<input class="gender" type="radio" name="pat_gender" value="여자">여자
+								<input class="gender" type="radio" name="pat_gender" value="남자"
+									${vo.pat_gender == '남자' ? 'checked' : ''}>남자
+								<input class="gender" type="radio" name="pat_gender" value="여자"
+									${vo.pat_gender == '여자' ? 'checked' : ''}>여자
 							</td>
 						</tr>
 					</table>
 	
+					<input class="back_btn" type="button" value="취소" onclick="history.back();">
+					<input id="reg_btn" type="button" value="기본정보수정" onclick="update_info(this.form);">
 				</form>
 
-				<input id="back_btn" type="button" value="가입취소" onclick="history.back();">
-				<input id="reg_btn" type="button" value="기본정보수정">
 			</div> <!-- update_infomation -->
 			
 		</div> <!-- main_div -->
 	</body>
 	
+	<!-- 주소 API -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	    function find_address() {

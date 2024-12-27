@@ -10,4 +10,8 @@
 	<bean id="reservation_dao" class="dao.ReservationDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
+
+	<bean id="mypage_dao" class="dao.MypageDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
 </beans>

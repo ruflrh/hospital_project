@@ -8,7 +8,6 @@
 		
 		<style>
 			#main_div{
-				border: 1px solid black;
 				width: 1000px;
 				margin: 10px auto;
 			}
@@ -50,21 +49,21 @@
 			}
 			#start_day{
 				position: absolute;
-				left: 10px;
-				top: 25px;
+				left: 40px;
+				top: 50px;
 				width: 120px;
 			}
 			#end_day{
 				position: absolute;
-				left: 150px;			
-				top: 25px;
+				left: 180px;			
+				top: 50px;
 				width: 120px;
 			}
 			/* input[type="button"] - 조회버튼 */
 			#date_btn{
 				position: absolute;
-				left: 290px;
-				top: 25px;
+				left: 320px;
+				top: 50px;
 				width: 50px;
 			}
 			
@@ -108,6 +107,8 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		
 		<div id="main_div">
 			<div>
 				<a id="payment_text">온라인 진료비 결제</a>

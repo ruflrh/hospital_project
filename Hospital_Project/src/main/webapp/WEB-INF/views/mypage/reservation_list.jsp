@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -99,70 +101,42 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="main_div">
 			<div id="list_main">
 				<a id="reservation_text">예약 내역</a>
 				
 				<hr id="hr_main">
 				
-				<div class="reser_div">
-				    <img class="image" src="/hos/resources/images/prof_image.png">
-				    <div class="dept_name">
-				        <a class="dept">순환기내과</a>
-				        <a class="name">김용진</a> <a class="engname">( Kim, Yong Jin )</a><br>
-				    </div>
-				    
-				    <table>
-				        <tr>
-				            <th>신청일</th>
-				            <td>2024-11-10</td>
-				        </tr>
-				        <tr>
-				            <th>진료일정</th>
-				            <td>2024-12-28 14:00</td>
-				        </tr>
-				        <tr>
-				            <th>위치</th>
-				            <td>본원 2층</td>
-				        </tr>
-				    </table>
-				    
-				    <div class="btn_div">
-				        <input type="button" value="예약 취소">
-				        <input type="button" value="예약 변경">
-				    </div>
-				</div>
-				
-				<hr>
-				
-				<div class="reser_div">
-					<img class="image" src="/hos/resources/images/prof_image.png">
-				
-					<div class="dept_name">
-						<a class="dept">이비인후과</a>
-						<a class="name">김도영</a> <a class="engname">( Kim, Do Young )</a><br>
+				<!-- 예약내역 출력 -->
+				<c:forEach var="vo" items="${ list }" >
+					<div class="reser_div">
+					    <img class="image" src="/hos/resources/images/${ vo.pro_file }">
+					    <div class="dept_name">
+					        <a class="dept">${ vo.dept_name }</a>
+					        <a class="name">${ vo.pro_name }</a> <a class="engname"></a><br>
+					    </div>
+					    
+					    <table>
+					        <tr>
+					            <th>진료일정</th>
+					            <td>${ vo.res_time }</td>
+					        </tr>
+					        <tr>
+					            <th>위치</th>
+					            <td>${ vo.dept_loc }</td>
+					        </tr>
+					    </table>
+					    
+					    <div class="btn_div">
+					        <input type="button" value="예약 취소">
+					        <input type="button" value="예약 변경">
+					    </div>
 					</div>
-					
-					<table>
-						<tr>
-							<th>신청일</th>
-							<td>2024-10-21</td>
-						</tr>
-						<tr>
-							<th>진료일정</th>
-							<td>2024-01-14 12:00</td>
-						</tr>
-						<tr>
-							<th>위치</th>
-							<td>본원 B1층</td>
-						</tr>
-					</table>
-					
-					<div class="btn_div">
-						<input type="button" value="예약 취소">
-						<input type="button" value="예약 변경">
-					</div>
-				</div>
+					<hr>
+				</c:forEach>
+				
 			</div>	
 		</div>
 	</body>

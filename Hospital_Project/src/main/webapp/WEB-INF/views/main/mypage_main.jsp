@@ -139,7 +139,7 @@
         <div class="container" style="margin-top: 100px;">
             <h1 id="welcome">${sessionScope.patient.pat_name}</h1><span>님 환영합니다!</span>
             <input type="button" class="container1_buttons" value="회원정보 수정"
-            	style="margin-left: 20px;" onclick="location.href='mypage_update_form.do?pat_idx=${sessionScope.patient.pat_idx}'">
+            	style="margin-left: 20px;" onclick="location.href='update_info.do'">
             <hr width="580px;" style="margin-top: 10px;">
             <table id="patient_table">
                 <tr>
@@ -158,7 +158,7 @@
             </table>
         </div><br>
         <div class="container" style="width: 400px; margin-top: 100px;">
-            <a class="container_a" href="mypage_certificates_print.do">증명서 발급 안내</a>
+            <a class="container_a" href="certificates_print.do">증명서 발급 안내</a>
             <span><img src="/hos/resources/images/증명서 발급.png" class="sub_image"></span>
             <hr width="380px;" style="margin-top: 10px;">
             <ul class="container_ul">
@@ -171,15 +171,15 @@
             </ul>
         </div>
         <div class="container" style="width: 1060px; position: relative;">
-        	<div class="container3_div" onclick="location.href='mypage_reservation_list.do?pat_idx=${sessionScope.patient.pat_idx}'">
+        	<div class="container3_div" onclick="location.href='reservation_list.do?pat_idx=${sessionScope.patient.pat_phone.pat_idx}'">
         		<img src="/hos/resources/images/마이페이지_예약내역.png" class="container3_image"><br>
             	<p class="container3_a">예약내역</p>
         	</div>
-        	<div class="container3_div" onclick="location.href='mypage_payment_page.do?pat_idx=${sessionScope.patient.pat_idx}'">
+        	<div class="container3_div" onclick="location.href='payment_page.do?pat_idx=${sessionScope.patient.pat_phone.pat_idx}'">
         		<img src="/hos/resources/images/마이페이지_진료비결제.png" class="container3_image"><br>
             	<p class="container3_a">진료비결제</p>
         	</div>
-        	<div class="container3_div" onclick="location.href='mypage_managing_posts.do?pat_idx=${sessionScope.patient.pat_idx}'">
+        	<div class="container3_div" onclick="location.href='managing_posts.do?pat_idx=${sessionScope.patient.pat_phone.pat_idx}'">
         		<img src="/hos/resources/images/마이페이지_작성글관리.png" class="container3_image"><br>
             	<p class="container3_a">작성글관리</p>
         	</div>

@@ -34,7 +34,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="select_patient_by_idx" parameterType="int" resultType="vo.PatientVO">
-	select * from patient where pat_idx = #{ pat_idx } 
+	select * from patient where pat_idx = #{ pat_idx }
+</select>
+
+<select id="select_patient_by_emailandName" parameterType="java.util.Map" resultType="vo.PatientVO">
+	select * from patient 
+	where pat_name = #{ pat_name } and pat_email = #{ pat_email } 	
+</select>
+
+<select id="select_patient_by_emailandId" parameterType="java.util.Map" resultType="vo.PatientVO">
+	select * from patient 
+	where pat_id = #{ pat_id } and pat_email = #{ pat_email } 	
 </select>
 	
 </mapper>

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+   
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,6 +15,7 @@
 		<script>
 			//상담 신청 팝업 띄우기
 			function callCenter() {
+				console.log(sessionScope.patient.pat_id);
 				let name = document.getElementById("calling_name").value;
 				let tel = document.getElementById("calling_tel").value;
 				
@@ -23,13 +28,32 @@
 					return;
 				}
 				
+				window.open(
+			        "Call_Reservation.do", // 팝업에 띄울 페이지 
+			        "팝업창",      // 팝업창 이름
+			        "width=600,height=500,scrollbars=no,resizable=no" // 옵션
+		        );
 			}
 		</script>
 		
 	</head>
 	<body>
-		<!-- 메뉴바 -->
-		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		<c:choose>
+		    <c:when test="${sessionScope.patient != null}">
+		        <c:if test="${fn:trim(sessionScope.patient.pat_id) eq 'admin'}">
+		        	<% System.out.println("id가 admin임"); %>
+		            <jsp:include page="/WEB-INF/views/main/MenuBar_Master.jsp"/>
+		        </c:if>
+		        <c:if test="${sessionScope.patient.pat_id ne 'admin'}">
+		        	<% System.out.println("id가 admin이 아님"); %>
+		            <jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		        </c:if>
+		    </c:when>
+		    <c:otherwise>
+		    	<% System.out.println("로그인 전의 메뉴바"); %>
+		        <jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		    </c:otherwise>
+		</c:choose>
 		
 		<!-- 배너 -->
 		<jsp:include page="/WEB-INF/views/main/MainBanner.jsp"/>
@@ -39,7 +63,7 @@
 		<!-- 상담예약/진료비 결제/증명서 발급/자가진단 서비스 -->
 		<div>
 			<center>
-				<table id="banner_under_table">
+				<table>
 					<tr>
 						<div class="transition-card">
 							<h4 id="calling">상담예약</h4>
@@ -56,13 +80,13 @@
 						</div>
 					</tr>
 					<tr>
-						<td>
+						<td align="center">
 							<img src="/hos/resources/images/진료비 결제.png" width="50px">
 						</td>
-						<td>
+						<td align="center">
 							<img src="/hos/resources/images/증명서 발급.png" width="50px">
 						</td>
-						<td>
+						<td align="center">
 							<img src="/hos/resources/images/오시는 길.png" width="50px">
 						</td>
 					</tr>
@@ -72,7 +96,7 @@
 						<td><a>오시는 길</a></td>					
 					</tr>
 					<tr>
-						<td colspan="3">
+						<td colspan="3" align="center">
 							<button class="service-button" style="margin-top: 30px">
 						        <span class="title">자가진단 서비스 :</span> 
 						        <span class="description">

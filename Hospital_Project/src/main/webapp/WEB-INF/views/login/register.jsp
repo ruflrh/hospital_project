@@ -139,13 +139,9 @@
 			}
 			
 			//이메일 주소에 따라 input text 값 변경하는 함수
-			function chk_email() {
-			    let email_addr = document.getElementById("email_addr");
+			function chk_email(email_addr) {
 			    let pat_email_addr = document.getElementsByName("pat_email_addr")[0];
-			    
-			    if (email_addr.options[email_addr.selectedIndex].value != "") {
-			    	pat_email_addr.value = email_addr.options[email_addr.selectedIndex].value;
-			    }
+			    pat_email_addr.value = email_addr;
 			}
 			
 			function chk_id_change() {
@@ -267,7 +263,7 @@
 								<a> @ </a>
 								<input class="email" name="pat_email_addr">
 								
-								<select id="email_addr" onchange="chk_email();">
+								<select id="email_addr" onchange="chk_email(this.value);">
 									<option value="">직접입력</option>
 									<option value="gmail.com">gmail.com</option>
 									<option value="hanmail.net">hanmail.net</option>
