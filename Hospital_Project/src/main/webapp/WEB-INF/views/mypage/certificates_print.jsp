@@ -30,17 +30,17 @@
 			}
 			
 			.title{
-				font-size: 30px;
+				font-size: 20px;
 				font-weight: bold;
-				margin-bottom: 10px;
+				margin: 10px 0px;
 			}
 			
 			/* cert_info 태그들 */
-			table{	
+			#main_div table{	
 				border-collapse: collapse;
 				width: 1000px;
 			}
-			table td{
+			#main_div table td{
 				padding: 10px;
 			}
 			#table_header th{
@@ -52,8 +52,9 @@
 				margin: 10px;
 			}
 			
-			hr{
+			#main_div hr{
 				width: 1000px;
+				margin: 10px 0px;
 			}
 			
 			/* td - 환자정보 */
@@ -68,7 +69,7 @@
 			}
 			
 			/* 증명서 발급받기 버튼 */
-			input[type="button"]{
+			#main_div input[type="button"]{
 				display: block;
 				margin: 10px auto;
 				font-size: 17px;
@@ -95,6 +96,8 @@
 		</script>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		
 		<div id="main_div">
 			<a id="cert_text">증명서 발급</a>
 			<hr>
@@ -203,7 +206,7 @@
 					
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -220,7 +223,7 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_confirm'">
 			</div>
 			
 			<!-- 진료비 납입 확인서 =========================================================-->
@@ -231,13 +234,13 @@
 				<table>
 				    <tr>
 				        <td class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_payment'">
 			</div>
 			
 			<!-- 진료비 계산서, 영수증 =========================================================-->
@@ -254,7 +257,7 @@
 				
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -271,7 +274,7 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_receipt'">
 			</div>
 
 			<!-- 처방전 사본 =========================================================-->
@@ -288,7 +291,7 @@
 					
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -305,7 +308,7 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_prescription'">
 			</div>
 			
 			<!-- 진단서 사본 =========================================================-->
@@ -321,7 +324,7 @@
 					
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -338,7 +341,7 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_diagnosis'">
 			</div>
 			
 		</div><!-- main_div -->

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -43,6 +45,15 @@
 				color: white;
 			}
 		</style>
+		
+		<script>
+		function delete_post(pat_idx) {
+		    if (confirm("작성하신 글을 삭제하시겠습니까?")) {
+		        location.href = 'mypage_delete_post.do?board_idx=' + '${param.board_idx}' + '&pat_idx=' + pat_idx;
+		    }
+		}
+
+		</script>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
@@ -51,19 +62,23 @@
 			<a id="detail_text">나의 작성글</a>
 			<hr id="title_hr">
 			
-			<p id="title">다들 너무 친절하게 치료해주셔서 감사했습니다!</p>
-			<p>2024-12-1 | 고결</p>
+			<p id="title">${ vo.board_title }</p>
+			<p>${ vo.board_date } | ${ vo.board_name }</p>
 			
-			<p><b>접수구분</b>&emsp;감사합니다</p>
-			<p><b>연락처</b>&emsp;010-1111-2222</p>
+			<p><b>접수구분</b>&emsp;
+				<c:if test="${ vo.board_type eq 'thanks' }">감사합니다</c:if>
+				<c:if test="${ vo.board_type ne 'thanks' }">건의합니다</c:if>
+			</p>
+			<p><b>연락처</b>&emsp;${ vo.board_phone }</p>
 			<hr>
 			
-			<p>덕분에 빠르게 회복할 수 있었습니다 ~ ^^</p>
+			<p>${ vo.board_content }</p>
 			<hr>
 			
 			<div id="btn">
-				<input type="button" value="수정" onclick="location.href='modify_post.do'">
-				<input type="button" value="삭제">
+				<input type="button" value="수정" onclick="location.href='mypage_update_post_form.do?board_idx=${vo.board_idx}'">
+				<input type="button" value="삭제" onclick="delete_post(${ vo.pat_idx });">
+				<input type="button" value="목록" onclick="history.back();">
 			</div>
 		</div>
 	</body>

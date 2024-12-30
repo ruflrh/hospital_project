@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -51,7 +53,7 @@
 		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
 	
 		<div id="main_div">
-			<a id="post_text">작성글 관리</a>
+			<p id="post_text">작성글 관리</p>
 
 			<table>
 				<tr>
@@ -61,25 +63,21 @@
 					<th>카테고리</th>
 				</tr>
 				
+				<c:forEach var="vo" items="${ list }">
 				<tr>
-					<td>124</td>
+					<td>${ vo.board_idx }</td>
 					<td class="title">
-						<a href="mypage_detail_post.do">
-							다들 너무 친절하게 치료해주셔서 감사했습니다!
+						<a href="mypage_detail_post.do?board_idx=${ vo.board_idx }">
+							${ vo.board_title }
 						</a>
 					</td>
-					<td>2024-12-1</td>
-					<td>감사합니다</td>
-				</tr>
-				
-				<tr>
-					<td>125</td>
-					<td class="title">
-						<a href="#">진료 대기중 대기공간</a>
+					<td>${ vo.board_date }</td>
+					<td>
+						<c:if test="${ vo.board_type eq 'thanks' }">감사합니다</c:if>
+						<c:if test="${ vo.board_type ne 'thanks' }">건의합니다</c:if>
 					</td>
-					<td>2024-12-5</td>
-					<td>건의합니다</td>
 				</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</body>

@@ -3,13 +3,13 @@ package vo;
 /*
 --select
 SELECT 
-	pat.pat_idx AS pat_idx,
-    dept.dept_name AS dept_name,
-    dept.dept_payment AS dept_payment,
-    pro.pro_name AS pro_name,
-    pro.pro_file AS pro_file,
-    res.res_idx AS res_idx,
-    TO_CHAR(res.res_time, 'YYYY-MM-DD HH24:MI') AS res_time
+	pat.pat_idx AS pat_idx, 			--환자번호
+    dept.dept_name AS dept_name,		--진료과
+    dept.dept_payment AS dept_payment,	--진료비
+    pro.pro_name AS pro_name,			--교수이름
+    pro.pro_file AS pro_file,			--교수사진
+    res.res_idx AS res_idx,				--예약번호
+    TO_CHAR(res.res_time, 'YYYY-MM-DD HH24:MI') AS res_time		--예약날짜,시간
 FROM 
     reservation res
 JOIN 
@@ -20,8 +20,6 @@ JOIN
     patient pat ON res.pat_idx = pat.pat_idx
 WHERE 
     pat.pat_idx = 16
-    AND res.res_time > TO_DATE('2024-01-01', 'YYYY-MM-DD')
-    AND res.res_time < TO_DATE('2024-02-26', 'YYYY-MM-DD');
 */
 
 //진료비내역조회VO

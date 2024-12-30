@@ -110,9 +110,33 @@
 		
 		<script>
 			//조회버튼 클릭
-			function set_period( f ) {
-				let start_day = f.start_day.value;
-				let end_day = f.end_day.value;
+			function set_period() {
+			    // 입력받은 시작일과 종료일 가져오기
+			    let start_day = document.getElementById("start_day").value;
+			    let end_day = document.getElementById("end_day").value;
+			
+			    //유효성 검사
+			    if (!start_day || !end_day) {
+			        alert("시작일과 종료일을 모두 입력해주세요.");
+			        return;
+			    }
+			
+			    if (start_day > end_day) {
+			        alert("종료일은 시작일 이후여야 합니다.");
+			        return;
+			    }
+			
+			    let rows = document.querySelectorAll("#payment_list tr");
+			    rows.forEach(row => { //테이블 한 행씩 가져오기
+			        let res_time = row.querySelector("td:nth-child(2)").innerText.trim();
+			
+			        let res_date = res_time.split(" ")[0];
+			        if (res_date >= start_day && res_date <= end_day) {
+			            row.style.display = "";
+			        } else {
+			            row.style.display = "none";
+			        }
+			    });
 			}
 
 			let total = 0;

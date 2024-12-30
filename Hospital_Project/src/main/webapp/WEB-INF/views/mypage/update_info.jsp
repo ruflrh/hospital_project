@@ -353,9 +353,9 @@
 									<option value="018">018</option>
 									<option value="019">019</option>
 								</select> - 
-								<input class="pat_phone" name="pat_phone1_1" value="${fn:split(vo.pat_phone,'-')[1]}"> -
+								<input class="pat_phone" name="pat_phone1_1" maxlength="4" value="${fn:split(vo.pat_phone,'-')[1]}"> -
 	
-								<input class="pat_phone" name="pat_phone1_2" value="${fn:split(vo.pat_phone,'-')[2]}">
+								<input class="pat_phone" name="pat_phone1_2" maxlength="4" value="${fn:split(vo.pat_phone,'-')[2]}">
 							</td>
 						</tr>
 						<tr>

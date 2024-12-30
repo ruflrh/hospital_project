@@ -73,10 +73,11 @@
             }
             
             .container1_buttons{
+            	width: 120px;
             	padding: 5px 10px;
 			    font-weight: bold;
 			    cursor: pointer;
-			    transition: all 0.3s ease;
+			    transition: all 0.2s ease;
             }
             
             .container1_buttons:hover{
@@ -122,6 +123,17 @@
 			    transition: all 0.3s ease;
 			}
         </style>
+    	
+    	<script>
+    		function withdrawal() {
+				if(confirm("탈퇴하시겠습니까?")){
+					if(confirm("· 회원 탈퇴 시 KH대학병원 홈페이지에서 온라인 서비스를 이용하실 수 없습니다.\n"
+							 + "· 회원 탈퇴 시 회원님의 회원정보가 모두 삭제되며 복구할 수 없습니다.")){
+						location.href='mypage_withdrawal.do?pat_idx=' + ${sessionScope.patient.pat_idx};
+					}
+				}
+			}
+    	</script>
     </head>
     <body>
     	<!-- 메뉴바 -->
@@ -138,9 +150,14 @@
 		
         <div class="container" style="margin-top: 100px;">
             <h1 id="welcome">${sessionScope.patient.pat_name}</h1><span>님 환영합니다!</span>
+           
             <input type="button" class="container1_buttons" value="회원정보 수정"
             	style="margin-left: 20px;" onclick="location.href='mypage_update_form.do?pat_idx=${sessionScope.patient.pat_idx}'">
+            <input type="button" class="container1_buttons" value="회원 탈퇴"
+            	style="margin-left: 5px;" onclick="withdrawal();">
+            
             <hr width="580px;" style="margin-top: 10px;">
+            
             <table id="patient_table">
                 <tr>
                     <th>연락처 |</th>
@@ -158,7 +175,7 @@
             </table>
         </div><br>
         <div class="container" style="width: 400px; margin-top: 100px;">
-            <a class="container_a" href="mypage_certificates_print.do">증명서 발급 안내</a>
+            <a class="container_a" href="mypage_certificates_print.do?pat_idx=${sessionScope.patient.pat_idx}">증명서 발급 안내</a>
             <span><img src="/hos/resources/images/증명서 발급.png" class="sub_image"></span>
             <hr width="380px;" style="margin-top: 10px;">
             <ul class="container_ul">

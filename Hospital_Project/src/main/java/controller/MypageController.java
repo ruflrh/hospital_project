@@ -1,19 +1,28 @@
 package controller;
 
-import java.lang.ProcessBuilder.Redirect;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import common.Common;
 import dao.LoginDAO;
 import dao.MypageDAO;
 import vo.MypagePayVO;
 import vo.MypageResListVO;
+import vo.PatBoardVO;
 import vo.PatientVO;
 
 @Controller
@@ -27,6 +36,9 @@ public class MypageController {
 	public void setMypage_dao(MypageDAO mypage_dao) {
 		this.mypage_dao = mypage_dao;
 	}
+	
+	@Autowired
+	ServletContext application;
 	
 	//마이페이지로 연결 ----------------------------------------------------------------------------------------------
 	@RequestMapping("mypage.do")
@@ -76,11 +88,42 @@ public class MypageController {
 		return "redirect:mypage.do?pat_idx=" + pat_idx; 
 	}
 	
+	//회원탈퇴 ----------------------------------------------------------------------------------------------
+	@RequestMapping("mypage_withdrawal.do")
+	public String withdrawalPatient(int pat_idx) {
+		int res = mypage_dao.withdrawalPatient(pat_idx);
+		return "redirect:main.do";
+	}
+	
 	//증명서 발급 ----------------------------------------------------------------------------------------------
 	@RequestMapping("mypage_certificates_print.do")
-	public String certificatesPrint() {
+	public String certificatesPrint(Model model, int pat_idx) {
+		//환자정보조회
+		PatientVO patient = login_dao.selectPatientByIdx(pat_idx);
+		model.addAttribute("patient", patient);
+		
 		return Common.mypage.VIEW_PATH + "certificates_print.jsp";
 	}
+	
+	
+	//진료사실확인서 ----------------------------------------------------------------------------------------------
+	@RequestMapping("mypage_cert_confirm.do")
+	public void certConfirm( HttpServletResponse response, String file_type) throws Exception {
+		String path = "C:\\Users\\user1\\git\\hospital_project\\Hospital_Project\\src\\main\\webapp\\resources\\certificates_files\\" + file_type + ".hwp";
+		
+		File file = new File(path);
+		response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
+		FileInputStream fis = new FileInputStream(path);
+		OutputStream os = response.getOutputStream();
+		
+		int read = 0;
+		byte[] buffer = new byte[1024];
+		while((read = fis.read(buffer)) != -1) {
+			os.write(buffer, 0, read);
+		}
+	}
+	
+	
 	
 	//예약 내역 ----------------------------------------------------------------------------------------------
 	@RequestMapping("mypage_reservation_list.do")
@@ -102,14 +145,95 @@ public class MypageController {
 	}
 	
 	//작성글관리 ----------------------------------------------------------------------------------------------
+	//작성글 조회
 	@RequestMapping("mypage_managing_posts.do")
-	public String managingPost() {
-		return Common.mypage.VIEW_PATH + "managing_posts.jsp";
+	public String managingPost(Model model, int pat_idx) {
+		List<PatBoardVO> list = mypage_dao.selectPatBoardList(pat_idx);
+		model.addAttribute("list", list);
+		
+		return Common.mypage.VIEW_PATH + "my_post/managing_posts.jsp";
 	}
+	
+	//작성글 내용조회
 	@RequestMapping("mypage_detail_post.do")
-	public String detailPost() {
-		return Common.mypage.VIEW_PATH + "detail_post.jsp";
+	public String detailPost(Model model, int board_idx) {
+		PatBoardVO vo = mypage_dao.selectPatBoardDetail(board_idx);
+		model.addAttribute("vo", vo);
+		
+		return Common.mypage.VIEW_PATH + "my_post/detail_post.jsp";
 	}
+	
+	//작성글 삭제
+	@RequestMapping("mypage_delete_post.do")
+	public String deletePost(int board_idx, int pat_idx) {
+		int res = mypage_dao.deletePatBoard(board_idx);
+		
+		return "redirect:mypage_managing_posts.do?pat_idx=" + pat_idx;
+	}
+	
+	//작성글 수정 폼
+	@RequestMapping("mypage_update_post_form.do")
+	public String updatePostForm(Model model, int board_idx) {
+		PatBoardVO vo = mypage_dao.selectPatBoardDetail(board_idx);
+		model.addAttribute("vo", vo);
+		
+		return Common.mypage.VIEW_PATH + "my_post/modify_post.jsp";
+	}
+	
+	//작성글 수정
+	@RequestMapping("mypage_update_post.do")
+	public String updatePost(@ModelAttribute PatBoardVO vo, String board_phone_1, String board_phone_2) {
+		
+		System.out.println("phone1" + board_phone_1);
+		System.out.println("phone2" + board_phone_2);
+		
+		String phone = vo.getBoard_phone() +"-" +board_phone_1+"-"+board_phone_2;
+		vo.setBoard_phone(phone);
+		
+		System.out.println("--title: "+vo.getBoard_title());
+		System.out.println("--phone: "+phone);
+		
+		//사진 파일 업로드
+		String webPath = "resources/uploadThanks/"; //상대경로
+		String savePath = application.getRealPath(webPath); //절대경로
+		
+		System.out.println("--- 절대경로 : " + savePath);
+		
+		//업로드를 위한 파일 정보 
+		MultipartFile photo = vo.getPhoto();
+		String filename = "no_file";
+		
+		if( photo != null && !photo.isEmpty() ) {
+			filename = photo.getOriginalFilename();
+			
+			//저장할 파일 경로
+			File saveFile = new File(savePath, filename);
+			if( !saveFile.exists() ) {
+				//절대경로 존재하지 않는다면 생성
+				saveFile.mkdirs();
+			}else {
+				//파일 동일명 설정
+				long time = System.currentTimeMillis();
+				filename = String.format("%d_%s", time, filename);
+				saveFile = new File(savePath, filename);
+			}
+			
+			//절대경로에 파일 생성
+			try {
+				photo.transferTo(saveFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			
+		}else {
+			filename = "no_file";
+		}
+		vo.setBoard_file(filename);
+		
+		int res = mypage_dao.updatePatBoard(vo);
+		return "redirect:mypage_managing_posts.do?pat_idx=" + vo.getPat_idx();
+	}
+	
 	
 	//메인페이지로 돌아가기 ----------------------------------------------------------------------------------------------
 	@RequestMapping("mypage_main.do")
