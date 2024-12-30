@@ -43,4 +43,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    pat.pat_idx = #{pat_idx}
 </select>
 
+
+<!-- 진료비내역조회 -->
+<select id="select_payment_list" parameterType="int" resultType="vo.MypagePayVO">
+	SELECT 
+		pat.pat_idx AS pat_idx,
+	    dept.dept_name AS dept_name,
+	    dept.dept_payment AS dept_payment,
+	    pro.pro_name AS pro_name,
+	    pro.pro_file AS pro_file,
+	    res.res_idx AS res_idx,
+	    TO_CHAR(res.res_time, 'YYYY-MM-DD HH24:MI') AS res_time
+	FROM 
+	    reservation res
+	JOIN 
+	    professor pro ON res.pro_idx = pro.pro_idx
+	JOIN 
+	    department dept ON pro.dept_idx = dept.dept_idx
+	JOIN 
+	    patient pat ON res.pat_idx = pat.pat_idx
+	WHERE 
+	    pat.pat_idx = #{pat_idx}
+</select>
+
+
 </mapper>

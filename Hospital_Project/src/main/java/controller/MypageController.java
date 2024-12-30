@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import common.Common;
 import dao.LoginDAO;
 import dao.MypageDAO;
+import vo.MypagePayVO;
 import vo.MypageResListVO;
 import vo.PatientVO;
 
@@ -93,7 +94,10 @@ public class MypageController {
 	
 	//진료비 결제 ----------------------------------------------------------------------------------------------
 	@RequestMapping("mypage_payment_page.do")
-	public String paymentPage() {
+	public String paymentPage(Model model, int pat_idx) {
+		List<MypagePayVO> list = mypage_dao.selectPaymentList(pat_idx);
+		model.addAttribute("list", list);
+		
 		return Common.mypage.VIEW_PATH + "payment_page.jsp";
 	}
 	
@@ -101,6 +105,10 @@ public class MypageController {
 	@RequestMapping("mypage_managing_posts.do")
 	public String managingPost() {
 		return Common.mypage.VIEW_PATH + "managing_posts.jsp";
+	}
+	@RequestMapping("mypage_detail_post.do")
+	public String detailPost() {
+		return Common.mypage.VIEW_PATH + "detail_post.jsp";
 	}
 	
 	//메인페이지로 돌아가기 ----------------------------------------------------------------------------------------------

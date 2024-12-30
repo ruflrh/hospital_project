@@ -1,7 +1,10 @@
 package vo;
 
 /*
+drop table department;
+
 --진료과테이블
+
 CREATE TABLE department (
 	dept_idx NUMBER(10) PRIMARY KEY NOT NULL,
 	dept_category VARCHAR2(50) NOT NULL,
@@ -10,87 +13,83 @@ CREATE TABLE department (
 	dept_loc VARCHAR2(20) NULL
 	);
 
---시퀀스
-create sequence dept_idx_seq;
-
-INSERT INTO department VALUES(dept_idx_seq.nextval,"내과","소화기 내과", "","3층");
 
 ---샘플데이터---
 
--- 내과 관련 데이터
+-- 내과 관련 데이터 --내과는 10번대
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '내과', '소화기내과', NULL, '3층');
+VALUES (11, '내과', '소화기내과', NULL, '3층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '내과', '호흡기내과', NULL, '3층');
+VALUES (12, '내과', '호흡기내과', NULL, '3층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '내과', '심장내과', NULL, '3층');
+VALUES (13, '내과', '심장내과', NULL, '3층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '내과', '내분비내과', NULL, '3층');
+VALUES (14, '내과', '내분비내과', NULL, '3층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '내과', '신장내과', NULL, '3층');
+VALUES (15, '내과', '신장내과', NULL, '3층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '내과', '류마티스내과', NULL, '3층');
+VALUES (16, '내과', '류마티스내과', NULL, '3층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '내과', '감염내과', NULL, '3층');
+VALUES (17, '내과', '감염내과', NULL, '3층');
 
 commit;
 
 -- 외과 관련 데이터
-INSERT INTO department 
+INSERT INTO department -- 외과는 20번대
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '외과', '흉부외과', NULL, '2층');
+VALUES (21, '외과', '흉부외과', NULL, '2층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '외과', '정형외과', NULL, '2층');
+VALUES (22, '외과', '정형외과', NULL, '2층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '외과', '신경외과', NULL, '2층');
+VALUES (23, '외과', '신경외과', NULL, '2층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '외과', '성형외과', NULL, '2층');
+VALUES (24, '외과', '성형외과', NULL, '2층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '외과', '산부인과', NULL, '2층');
+VALUES (25, '외과', '산부인과', NULL, '2층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '외과', '비뇨기의학과', NULL, '2층');
+VALUES (26, '외과', '비뇨기의학과', NULL, '2층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '외과', '소아외과', NULL, '2층');
+VALUES (27, '외과', '소아외과', NULL, '2층');
 
 commit;
 
--- 정신건강의학과 관련 데이터
+-- 정신건강의학과 관련 데이터 --정신건강의학과는 30번대
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '정신건강의학과', '우울증, 불안장애, 정신분열', NULL, '4층');
+VALUES (31, '정신건강의학과', '우울증, 불안장애, 정신분열', NULL, '4층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '정신건강의학과', '중독 치료(알코올, 약물)', NULL, '4층');
+VALUES (32, '정신건강의학과', '중독 치료(알코올, 약물)', NULL, '4층');
 
 INSERT INTO department 
 (dept_idx, dept_category, dept_name, dept_payment, dept_loc)
-VALUES (dept_idx_seq.nextval, '정신건강의학과', '소아청소년 정신건강', NULL, '4층');
+VALUES (33, '정신건강의학과', '소아청소년 정신건강', NULL, '4층');
 
 commit;
 

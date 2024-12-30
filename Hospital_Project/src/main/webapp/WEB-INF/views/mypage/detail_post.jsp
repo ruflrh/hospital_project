@@ -23,7 +23,7 @@
 				border: 2px solid gray;
 			}
 
-			p{
+			#main_div p{
 				margin: 10px;
 			}
 
@@ -35,7 +35,7 @@
 				text-align: center;
 				margin: 10px;
 			}
-			input{
+			#main_div input{
 				border: none;
 				width: 150px;
 				height: 40px;
@@ -45,6 +45,8 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="main_div">
 			<a id="detail_text">나의 작성글</a>
 			<hr id="title_hr">

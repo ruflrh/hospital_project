@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,7 +22,7 @@
 			}
 			
 			/* hr태그 */					
-			hr{
+			#main_div hr{
 				width: 980px; /* 좌우로 여백 10px */
 				margin: 10px auto;
 			}	
@@ -35,7 +37,7 @@
 			#date_div{	
 				position: relative;
 			}
-			input[type="date"]{
+			#date_div input[type="date"]{
 				height: 20px;
 			}
 			
@@ -49,31 +51,31 @@
 			}
 			#start_day{
 				position: absolute;
-				left: 40px;
+				left: 10px;
 				top: 50px;
 				width: 120px;
 			}
 			#end_day{
 				position: absolute;
-				left: 180px;			
+				left: 150px;			
 				top: 50px;
 				width: 120px;
 			}
 			/* input[type="button"] - 조회버튼 */
 			#date_btn{
 				position: absolute;
-				left: 320px;
+				left: 290px;
 				top: 50px;
 				width: 50px;
 			}
 			
 			/* 진료일, 진료과, 진료비 테이블 */			
-			table{
+			#main_div table{
 				width: 980px;
 				margin: 20px auto 10px;
 			}
 			/* th태그 */
-			table th{
+			#main_div table th{
 				font-size: 18px;
 				font-weight: bold;
 				background-color: #7cc4e8;
@@ -84,12 +86,12 @@
 				background-color: white;
 			}
 			/* td태그 */
-			table td{
+			#main_div table td{
 				font-size: 17px;
 				height: 50px;
 				border: 3px solid white;
 			}
-			input[type="checkbox"]{
+			#main_div input[type="checkbox"]{
 				zoom: 1.3;
 			}
 			
@@ -105,6 +107,33 @@
 			}
 			
 		</style>
+		
+		<script>
+			//조회버튼 클릭
+			function set_period( f ) {
+				let start_day = f.start_day.value;
+				let end_day = f.end_day.value;
+			}
+
+			let total = 0;
+			function calc_total(checkbox) {
+			    let value = parseInt(checkbox.value, 10);
+	
+			    if (checkbox.checked) {
+			        total += value;
+			    } else {
+			        total -= value;
+			    }
+	
+			    const paymentBtn = document.getElementById("payment_btn");
+			    paymentBtn.value = total + "원 결제진행";
+			}
+			
+			//결제버튼 클릭
+			function payment_btn() {
+				//결제 예정금액 = total
+			}
+		</script>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
@@ -120,9 +149,11 @@
 					<a id="end_text">종료일</a>
 	
 					<br>
-					<input id="start_day" type="date">
-					<input id="end_day" type="date">
-					<input id="date_btn" type="button" value="조회">
+					<form>
+						<input id="start_day" type="date">
+						<input id="end_day" type="date">
+						<input id="date_btn" type="button" value="조회" onclick="set_period(this.form);">
+					</form>
 				</div>
 				
 				<br>
@@ -135,31 +166,21 @@
 					</tr>
 					
 					<!-- 지불해야 할 진료비 리스트 -->
-					<div id="payment_list">
-					<tr>
-						<td><input type="checkbox" id="1"></td>
-						<td>2024-01-24</td>
-						<td><a>이비인후과 (김태희)</a></td>
-						<td><a>23,500원</a></td>
-					</tr>
-					
-					<tr>
-						<td><input type="checkbox" id="2"></td>
-						<td>2024-03-30</td>
-						<td><a>일반외과 (김태윤)</a></td>
-						<td><a>25,500원</a></td>
-					</tr>
-					
-					<tr>
-						<td><input type="checkbox" id="3"></td>
-						<td>2024-11-20</td>
-						<td><a>흉부외과 (한준희)</a></td>
-						<td><a>55,400원</a></td>
-					</tr>
-					</div>
+					<tbody id="payment_list">
+					<c:forEach var="vo" items="${ list }">
+						<tr>
+							<td><input type="checkbox" id="1" value="${ vo.dept_payment }" onchange="calc_total(this);"></td>
+							<td>${ vo.res_time }</td>
+							<td><a>${ vo.dept_name } (${ vo.pro_name })</a></td>
+							<td><a>${ vo.dept_payment }원</a>
+								<span style="display:none;">${vo.dept_payment}</span>
+							</td>
+						</tr>
+					</c:forEach>
+					</tbody>
 				</table>
 				
-				<input id="payment_btn" type="button" value="78,900원 결제진행">
+				<input id="payment_btn" type="button" value="0원 결제진행" onclick="payment_btn();">
 			</div>
 		
 		</div>

@@ -4,7 +4,7 @@
 			padding: 0;
 			}
 		
-			a{text-decoration:none;
+			#menubar a{text-decoration:none;
 			color: black;
 			font-weight: bold;
 			font-size: 22px;
@@ -13,16 +13,17 @@
 			cursor: pointer;
 			}
 			
-			a:hover{ color:red; }
+			#menubar a:hover{ color:red; }
 			
-			#login,
-			#register,
-			#logout,
-			#mypage
-			{font-size: 12px;
-			margin-right: 3px;
-			margin-left: 3px;
+			#menubar #login, 
+			#menubar #register, 
+			#menubar #logout, 
+			#menubar #mypage {
+			    font-size: 12px;
+			    margin-right: 3px;
+			    margin-left: 3px;
 			}
+						
 			
 			div{
 			padding: 10px 0;

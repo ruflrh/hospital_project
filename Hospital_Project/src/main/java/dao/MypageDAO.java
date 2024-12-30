@@ -1,10 +1,12 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import vo.MypagePayVO;
 import vo.MypageResListVO;
 import vo.PatientVO;
 import vo.ReservationVO;
@@ -33,5 +35,13 @@ public class MypageDAO {
 		return list;
 	}
 
+	//진료비내역조회
+	public List<MypagePayVO> selectPaymentList(int pat_idx){
+		//Map<String, Object> map = new HashMap<String, Object>();
+		//map.put("pat_idx", pat_idx);
+		
+		List<MypagePayVO> list = sqlSession.selectList("mypage.select_payment_list", pat_idx);
+		return list;
+	}
 	
 }

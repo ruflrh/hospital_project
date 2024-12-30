@@ -17,37 +17,39 @@
 				font-size: 25px;
 			}
 			
-			table{
+			#main_div table{
 				width: 1000px;
 				margin-top: 20px;
 				border-collapse: collapse;
 				font-size-adjust: 20px;
 			}
-			table th, td{
+			#main_div table th, td{
 				text-align: center;
 				padding: 10px; 
 			}
-			table th{
+			#main_div table th{
 				border-top: 2px solid gray;
 				border-bottom: 2px solid gray;
 			}
-			table td{
+			#main_div table td{
 				border-bottom: 1px solid gray;
 			}
 			.title{
 				text-align: left;
 			}
 			
-			a{
+			#main_div a{
 				text-decoration: none;
 			}
-			a:hover {
+			#main_div a:hover {
 				font-weight: bold;
 			}
 		</style>
 		
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="main_div">
 			<a id="post_text">작성글 관리</a>
 
@@ -62,7 +64,7 @@
 				<tr>
 					<td>124</td>
 					<td class="title">
-						<a href="detail_post.do">
+						<a href="mypage_detail_post.do">
 							다들 너무 친절하게 치료해주셔서 감사했습니다!
 						</a>
 					</td>
