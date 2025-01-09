@@ -31,4 +31,22 @@ public class Common {
 	public static class dept{
 		public static final String VIEW_PATH = "/WEB-INF/views/dept/";
 	}
+	public static class join{
+		public static final String VIEW_PATH = "/WEB-INF/views/join/";
+	}
+	
+	public static class Diagnosis{
+		public static final String VIEW_PATH = "/WEB-INF/views/SelfDiagnosis/";
+	}
+	
+	public static class Device{
+		public static final String VIEW_PATH = "/WEB-INF/views/MedicalDevice/";
+	
+		// 한 페이지에 보여줄 게시글 수
+				public final static int BLOCKLIST = 3;
+
+				// 하단 페이지 메뉴의 수
+				// <- 1 2 3 ->
+				public final static int BLOCKPAGE = 3;
+	}	
 }

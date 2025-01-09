@@ -96,8 +96,6 @@
 					let data = xhr.responseText;
 					let json = ( new Function('return '+data) )();
 					
-					let pat_idx = json[1].pat_idx;
-					
 					if(json[0].result == "id_not_exist"){
 						alert("존재하지 않는 아이디 입니다.");
 						return;
@@ -107,7 +105,8 @@
 						return;
 					} else {
 						alert("로그인 성공");
-						location.href = 'main.do?pat_idx=' + pat_idx;
+						let pat_idx = json[1].pat_idx;
+						location.href="main.do?pat_idx=" + pat_idx;
 					}
 				}
 			}
@@ -135,8 +134,8 @@
 				</form>
 				
 				<a id="find_text">아이디 또는 비밀번호를 잃어버리셨나요?</a>
-				<input class="find" type="button" value="아이디 찾기">
-				<input class="find" type="button" value="비밀번호 찾기"><br>
+				<input class="find" type="button" value="아이디 찾기" onclick="location.href='login_find_id_form.do'">
+				<input class="find" type="button" value="비밀번호 찾기" onclick="location.href='login_find_pwd_form.do'"><br>
 				
 				<a id="member_text">아직 회원가입을 하지 않으셨나요?</a>
 				<input id="member_btn" type="button" value="회원가입" 

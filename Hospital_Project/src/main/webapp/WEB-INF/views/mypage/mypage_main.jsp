@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    
 <!DOCTYPE html>
 <html>
     <head>
@@ -117,62 +121,92 @@
 			    text-align: center; /* 내부 텍스트(또는 a 태그)를 중앙 정렬 */
 			    transition: all 0.3s ease;
 			}
+			
+			.background {
+				position: absolute;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 100%;
+			    background-image: url('/hos/resources/images/메인배경2.png');
+			    background-size: cover;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    z-index: -1; /* 배경을 뒤로 보냄 */
+			}
         </style>
+        
     </head>
     <body>
-        <div class="container" style="margin-top: 200px;">
-            <h1 id="welcome">${vo.pat_name}</h1><span>님 환영합니다!</span>
-            <input type="button" class="container1_buttons" value="회원정보 수정"
-            	style="margin-left: 20px;" onclick="location.href='update_info.do'">
-            <hr width="580px;" style="margin-top: 10px;">
-            <table id="patient_table">
-                <tr>
-                    <th>연락처 |</th>
-                    <td>&emsp;${vo.pat_phone}</td>
-                </tr>
-                <tr>
-                    <th>이메일 |</th>
-                    <td>&emsp;${vo.pat_email}</td>
-                </tr>
-                <tr>
-                    <th>주소&emsp; |</th>
-                    <td>&emsp;${vo.pat_address_road},<br>
-                        &emsp;${vo.pat_address_detail}</td>
-                </tr>
-            </table>
-        </div><br>
-        <div class="container" style="width: 400px; margin-top: 200px;">
-            <a class="container_a" href="certificates_print.do">증명서 발급 안내</a>
-            <span><img src="/hos/resources/images/증명서 발급.png" class="sub_image"></span>
-            <hr width="380px;" style="margin-top: 10px;">
-            <ul class="container_ul">
-                <li>진단서 발급 안내</li>
-                <li>진료 사실 확인서</li>
-                <li>진료비 납입 확인서</li>
-                <li>진료비 계산서, 영수증</li>
-                <li>처방전 사본</li>
-                <li>진단서 사본</li>
-            </ul>
-        </div>
-        <div class="container" style="width: 1060px; position: relative;">
-        	<div class="container3_div" onclick="location.href='reservation_list.do'">
-        		<img src="/hos/resources/images/마이페이지_예약내역.png" class="container3_image"><br>
-            	<p class="container3_a">예약내역</p>
-        	</div>
-        	<div class="container3_div" onclick="location.href='payment_page.do'">
-        		<img src="/hos/resources/images/마이페이지_진료비결제.png" class="container3_image"><br>
-            	<p class="container3_a">진료비결제</p>
-        	</div>
-        	<div class="container3_div" onclick="location.href='managing_posts.do'">
-        		<img src="/hos/resources/images/마이페이지_작성글관리.png" class="container3_image"><br>
-            	<p class="container3_a">작성글관리</p>
-        	</div>
-        	<div id="container3_div_reservation">
-        		<a class="container_a" href="#" style="display: inline;">예약 검색/조회</a>
-        		<img src="/hos/resources/images/마이페이지_검색.png" class="sub_image" style="margin-left: 20px;"><br>
-        	</div>
-        </div>
-    </body>
+    	<div class="background"></div>
+	    <!-- 메뉴바 -->
+	    <c:choose>
+	        <c:when test="${sessionScope.patient != null}">
+	            <c:if test="${fn:trim(sessionScope.patient.pat_id) eq 'admin'}">
+	                <jsp:include page="/WEB-INF/views/main/MenuBar_Master.jsp"/>
+	            </c:if>
+	            <c:if test="${sessionScope.patient.pat_id ne 'admin'}">
+	                <jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	            </c:if>
+	        </c:when>
+	    </c:choose>
+	
+	    <div class="container" style="margin-top: 150px;">
+	        <h1 id="welcome">${sessionScope.patient.pat_name}</h1><span>님 환영합니다!</span>
+	        <input type="button" class="container1_buttons" value="회원정보 수정"
+	               style="margin-left: 20px;" onclick="location.href='mypage_update_form.do?pat_idx=${sessionScope.patient.pat_idx}'">
+	        <hr width="580px;" style="margin-top: 10px;">
+	        <table id="patient_table">
+	            <tr>
+	                <th>연락처 |</th>
+	                <td>&emsp;${sessionScope.patient.pat_phone}</td>
+	            </tr>
+	            <tr>
+	                <th>이메일 |</th>
+	                <td>&emsp;${sessionScope.patient.pat_email}</td>
+	            </tr>
+	            <tr>
+	                <th>주소&emsp; |</th>
+	                <td>&emsp;${sessionScope.patient.pat_address_road},<br>
+	                    &emsp;${sessionScope.patient.pat_address_detail}</td>
+	            </tr>
+	        </table>
+	    </div>
+	    <br>
+	    <div class="container" style="width: 400px; margin-top: 150px;">
+	        <a class="container_a" href="mypage_certificates_print.do">증명서 발급 안내</a>
+	        <span><img src="/hos/resources/images/증명서 발급.png" class="sub_image"></span>
+	        <hr width="380px;" style="margin-top: 10px;">
+	        <ul class="container_ul">
+	            <li>진단서 발급 안내</li>
+	            <li>진료 사실 확인서</li>
+	            <li>진료비 납입 확인서</li>
+	            <li>진료비 계산서, 영수증</li>
+	            <li>처방전 사본</li>
+	            <li>진단서 사본</li>
+	        </ul>
+	    </div>
+	    <div class="container" style="width: 1060px; position: relative;">
+	        <div class="container3_div" onclick="location.href='mypage_reservation_list.do?pat_idx=${sessionScope.patient.pat_idx}'">
+	            <img src="/hos/resources/images/마이페이지_예약내역.png" class="container3_image"><br>
+	            <p class="container3_a">예약내역</p>
+	        </div>
+	        <div class="container3_div" onclick="location.href='mypage_payment_page.do?pat_idx=${sessionScope.patient.pat_idx}'">
+	            <img src="/hos/resources/images/마이페이지_진료비결제.png" class="container3_image"><br>
+	            <p class="container3_a">진료비결제</p>
+	        </div>
+	        <div class="container3_div" onclick="location.href='mypage_managing_posts.do?pat_idx=${sessionScope.patient.pat_idx}'">
+	            <img src="/hos/resources/images/마이페이지_작성글관리.png" class="container3_image"><br>
+	            <p class="container3_a">작성글관리</p>
+	        </div>
+	        <div id="container3_div_reservation">
+	            <a class="container_a" href="#" style="display: inline;">예약 검색/조회</a>
+	            <img src="/hos/resources/images/마이페이지_검색.png" class="sub_image" style="margin-left: 20px;"><br>
+	        </div>
+	    </div>
+	    
+	    
+	</body>
 </html>
 
 

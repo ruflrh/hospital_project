@@ -41,6 +41,7 @@
 						height: 30px;
 						outline:none; }
 						
+<<<<<<< HEAD
 			.board_phone_s { width: 90px; 
 						   height: 34px; }
 			
@@ -189,6 +190,125 @@
 	                        </select>
 	                     </td>
                  	 </tr>
+=======
+			.pat_phone_s { width: 90px; 
+						   height: 34px; }
+			
+			.pat_phone { width: 90px;
+						 height: 30px;
+						 outline:none; }
+						 
+			.title_txt { width: 500px;
+						 height: 30px;
+						 outline:none; }
+			
+			.content_txt { resize:none;
+						   width:600px;
+						   height:600px;
+						   outline:none; }
+						   
+			.file_btn { background:white;
+						border:1px solid gray;
+						width: 500px;
+						height: 34px; }		
+						   
+			/* 하단 버튼 묶음 div*/
+			#btn_div { margin: 20px;
+					   text-align:center; }
+			
+			.list_btn { background:white;
+						width: 180px;
+						height: 50px;
+						font-size:15px;
+						font-weight:bold;
+						border:1px solid black; }
+						
+			.insert_btn { background: #4169E1;
+						  width: 180px;
+						  height: 50px;
+						  font-size:15px;
+						  font-weight:bold;
+						  border:1px solid #4169E1;
+						  color:white;}
+			
+						 
+		</style>
+		
+		<script>
+			function insert(f){
+				      
+				let board_name = f.board_name.value;
+				let board_title = f.board_title.value;
+				let board_content = f.board_content.value;
+				
+				let board_phone = f.board_phone.value;
+			    let board_phone_1 = f.board_phone_1.value;
+			    let board_phone_2 = f.board_phone_2.value;
+
+				
+			    
+			    //유효성체크
+				if( board_name === '' ){
+					alert("이름을 입력하세요.");
+					return;
+				}
+				
+				if( board_phone_1 === '' || board_phone_2 === '' ){
+					alert("번호을 입력하세요.");
+					return;
+				} 
+				
+				if( board_title === '' ){
+					alert("제목을 입력하세요.");
+					return;
+				}
+				
+				if( board_content === '' ){
+					alert("내용을 입력하세요.");
+					return;
+				}
+				
+				f.action = "info_thanks_insert.do";
+				f.submit();
+			}
+			
+
+		</script>
+		
+	</head>
+	
+	
+	<body>
+		<div id="container">
+			<p>감사합니다</p>
+			<form method="post"
+				  enctype="multipart/form-data">
+				
+				<table>
+					<tr>
+						<th>작성자 성함</th>
+						<td>
+							<input class="name_txt" name="board_name"/>
+						</td>
+					</tr>
+					
+					<tr>
+			            <th>휴대폰번호</th>
+			            <td>
+			              <select class="pat_phone_s" name="board_phone">
+			                <option value="010">010</option>
+			                <option value="011">011</option>
+			                <option value="016">016</option>
+			                <option value="017">017</option>
+			                <option value="018">018</option>
+			                <option value="019">019</option>
+			              </select> - 
+			              <input class="pat_phone" name="board_phone_1"> - 
+			              <input class="pat_phone" name="board_phone_2">
+			              <p class="text">연락 가능한 전화번호를 입력해 주세요.</p>
+			            </td>
+			          </tr>
+>>>>>>> branch 'main' of https://github.com/ruflrh/hospital_project.git
 					
 					<tr>
 						<th>제목</th>

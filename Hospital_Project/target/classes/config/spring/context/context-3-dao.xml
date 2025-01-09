@@ -11,9 +11,31 @@
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 	
+<<<<<<< HEAD
 	<!-- 고객참여 - 감사, 건의합니다 -->
 	<bean id="patBoard_dao_bean" class="dao.PatBoardDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 	
+=======
+	<bean id="banner_dao" class="dao.BannerDAO">
+		<property name="sqlSesson" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="diagnosis_dao_bean" class="dao.DiagnosisDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	
+	
+	<bean id="device_dao_bean" class="dao.DeviceDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>	
+	</bean>
+	
+	<bean id="patBoard_dao_bean" class="dao.PatBoardDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>	
+	</bean>
+	
+	<bean id="mypage_dao" class="dao.MypageDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+>>>>>>> branch 'main' of https://github.com/ruflrh/hospital_project.git
 </beans>

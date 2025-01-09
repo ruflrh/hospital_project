@@ -19,9 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						#{board_title},
 						#{board_content},
 						#{board_file},
+<<<<<<< HEAD
 						#{board_email},
 						#{board_phone},
 						#{board_type},
+=======
+						null,
+						#{board_phone},
+						'thanks',
+>>>>>>> branch 'main' of https://github.com/ruflrh/hospital_project.git
 						sysdate,
 						#{board_name} )
 		
