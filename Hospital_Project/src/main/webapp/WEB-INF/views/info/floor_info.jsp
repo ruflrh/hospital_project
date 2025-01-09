@@ -70,6 +70,8 @@
 	
 	
 	<body>
+		<%-- <jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/> --%>
+	
 		<div id="container">
 			<div id="floor_div">
 				<table id="search">

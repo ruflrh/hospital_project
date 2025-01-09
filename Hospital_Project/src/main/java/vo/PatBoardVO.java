@@ -4,20 +4,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 /*
 CREATE TABLE patBoard (
-	board_idx	NUMBER(10) primary key,
-	pat_idx		NUMBER(3)	,
-	board_title	VARCHAR2(300)	,
-	board_content	CLOB	,
-	board_file	VARCHAR2(200)	,
-	board_email	VARCHAR2(200)	,
-	board_phone	VARCHAR2(20)	,
-	board_type	VARCHAR2(100),
-	board_date DATE,
-	board_name VARCHAR2(30)
+	board_idx	 NUMBER(10)	 PRIMARY KEY,
+	pat_idx		 NUMBER(3)	 NOT NULL,
+	board_title	 VARCHAR2(300)	 NULL,
+	board_content	 CLOB	 	 NULL,
+	board_file	 VARCHAR2(200)	 NULL,
+	board_email	 VARCHAR2(200)	 NULL,
+	board_phone	 VARCHAR2(20)	 NULL,
+	board_type	 VARCHAR2(100)	 NULL,
+	board_date	 DATE		 NULL,
+	board_name	 VARCHAR2(30)	 NULL
 );
 	
--- 시퀀스 생성 --
-create sequence seq_patBoard_idx;
+-- 시퀀스 --
+create sequence board_idx_seq;
 	
 */
 

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -67,6 +71,8 @@
 	</head>
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="container">
 		
 			<p>공지사항</p>
@@ -101,39 +107,22 @@
 						<th>파일</th>
 					</tr>
 					
-					<tr>
-						<td>1</td>
-						<td id="title_td">
-						<a href="#">본관 1주차장 운영중단 및 공사 안내테스트테스트 제목 테스트ㅇ안녕하세요안녕하ㅔ요ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</a>
-						</td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
+					<c:forEach var="vo" items="${list}" varStatus="count">
+						<tr>
+							<td>${count.index + 1}</td>
+							<td id="title_td">
+								<a href="info_notice_view.do?not_idx=${vo.not_idx}">${vo.not_title}</a>
+							</td>
+							<td>${fn:split(vo.not_date, ' ')[0] }</td>
+							<td>${vo.not_hits}</td>
+							<td>
+								<c:if test="${vo.not_file ne null}">
+										<img src="/hos/resources/images/file.png">							
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
 					
-					<tr>
-						<td>2</td>
-						<td><a href="#">본관 1주차장 운영중단 및 공사 안내</a></td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
-					
-					<tr>
-						<td>3</td>
-						<td><a href="#">본관 1주차장 운영중단 및 공사 안내</a></td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
-					
-					<tr>
-						<td>4</td>
-						<td><a href="#">본관 1주차장 운영중단 및 공사 안내</a></td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
 				</table>
 			</div>
 			

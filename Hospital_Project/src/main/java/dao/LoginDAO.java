@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,6 +11,12 @@ public class LoginDAO {
 	SqlSession sqlSession;
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
+	}
+	
+	//모든 회원조회
+	public List<PatientVO> SelectList(){
+		List<PatientVO> list = sqlSession.selectList("login.patient_list");
+		return list;
 	}
 	
 	//회원추가

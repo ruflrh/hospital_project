@@ -59,21 +59,20 @@ public class Paging {
 		// sb.append("|");
 		for (int i = startPage; i <= endPage; i++) {
 			if (i > totalPage)
-				break;
+				break;			
 			if (i == nowPage) { // 현재 있는 페이지
-				// 색상변경은 font태그에서 ↓↓
-				sb.append("&nbsp;<b><font color='blue'>");
-				sb.append(i);
-				sb.append("</font></b>");
-			} else {// 현재 페이지가 아니면
-				sb.append("&nbsp;<a href='" + pageURL + "?page=");
-				sb.append(i);
-
-				// 색상변경은 font태그에서 ↓↓
-				sb.append("'><font color='black'>");
-				sb.append(i);
-				sb.append("</a></font>");
-			}
+			    sb.append("<li class='active'>");
+			    sb.append("<a>");
+			    sb.append(i);
+			    sb.append("</a></li>");
+			} else { // 현재 페이지가 아니면
+			    sb.append("<li>");
+			    sb.append("<a href='" + pageURL + "?page=");
+			    sb.append(i);
+			    sb.append("'>");
+			    sb.append(i);
+			    sb.append("</a></li>");
+			}			
 		} // end for
 
 		sb.append("&nbsp;");

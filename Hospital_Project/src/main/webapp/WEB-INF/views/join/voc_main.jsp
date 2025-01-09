@@ -109,6 +109,8 @@
 	
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="container">
 			<p>고객의 소리</p>
 			<div id="thanks_compl_div">

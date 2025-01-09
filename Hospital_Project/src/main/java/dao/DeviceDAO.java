@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,15 @@ import vo.DeviceVO;
 @Repository
 public class DeviceDAO {
 
-	@Autowired
-	private SqlSession sqlSession;
+	/*
+	 * @Autowired private SqlSession sqlSession;
+	 */
+		
+	SqlSession sqlSession; 
 	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
+	this.sqlSession = sqlSession;
 	}
-
+	 	
 	//기기 목록 조회
 	public List<DeviceVO> selectDevice(Map<String, Integer> map) {
 		List<DeviceVO> list = sqlSession.selectList("m.medical_device_list", map);
@@ -34,7 +38,6 @@ public class DeviceDAO {
 	public DeviceVO selectDeviceInfo(int dev_idx) {
 		return sqlSession.selectOne("m.selectDeviceInfo", dev_idx);
 	}	
-
 	
 	 // 키워드 검색 
 	public List<DeviceVO> searchDevicesByKeyword(String keyword ) { 

@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.cover {
+	background-color: #f3e2a9; 
+	width: 400px; /* 오른쪽 화면 전체 덮음 */
+	height: 600px;
+	position: absolute;
+	top: 20px;
+	left: 50px;
+	display: flex; /* 기본적으로 표시 */
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 24px;
+	cursor: pointer; /* 클릭 가능한 마우스 커서 */
+	z-index: 10; /* 다른 요소 위로 배치 */
+}
+
+#parent {
+	position: relative;
+}
+
+.drop-down:hover>.sub {
+	display: block;
+}
+
+.sub {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	border: 1px solid #ccc;
+	padding: 10px;
+}

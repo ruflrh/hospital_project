@@ -4,27 +4,46 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>비밀번호 변경</title>
 	
 	<style>
-		hr{
+		@font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
+			}
+			
+		*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+	
+		#main_div hr{
 			width: 980px;
-			margin: 10px auto;
+			margin: 30px auto;
+			background: #12B8BA;
 		}
 		
-		p{
-			font-size: 25px;
-			font-weight: bold;
-		}
+		#main_title{
+			display: block;
+			margin: 20px 0;
+			font-size: 24px;
+		}	
+		
 		#sub_title{
-			font-size: 15px;
-			margin: 20px;
+			display: block;
+			margin-top: 10px;
+			font-size: 18px;
 		}
 		
-		input {
-			border: 1px solid gray;
+		#main_div input {
+			border: 1px solid #E2E2E2;
 			width: 320px;
 			height: 40px;
+			padding-left: 10px;
+			padding-right: 10px;
 		}
 			
 		#main_div{
@@ -32,28 +51,20 @@
 		}
 		#main_div table{
 			width: 600px;
-			margin: 20px auto;
-		}
-		#update_pwd hr{
-			width: 980px;
 			margin: 0px auto;
 		}
-		
-		#pwd_btn{
-			border: none;
-			width: 150px;
-			height: 40px; 
-			border: 1px solid lightgray;
-			background-color: white;
-			margin-bottom: 20px;
+		#main_div table td{
+			padding-bottom: 10px 0;
 		}
 		
-		#back_btn{
-			border: none;
+		#main_div #pwd_btn,
+		#main_div #back_btn{
 			width: 150px;
 			height: 40px;
-			border: 1px solid lightgray;
-			background-color: white;
+			margin-top: 20px;
+			background-color: #12B8BA;
+			color: white;
+			border: none;
 		}
 	</style>
 	
@@ -79,8 +90,9 @@
 	</script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
 	<div id="main_div">
-		<p>비밀번호 변경</p>
+		<p id="main_title">비밀번호 변경</p>
 		<p id="sub_title">비밀번호를 재설정하신 뒤 로그인 해주세요.</p>
 		
 		<hr>

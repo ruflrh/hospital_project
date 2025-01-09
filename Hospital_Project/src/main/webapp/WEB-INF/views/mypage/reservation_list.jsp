@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,75 +9,95 @@
 		<title>예약 내역</title>
 		
 		<style>
+           @font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
+			}
+			
+			*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+		
 			#main_div{
 				width: 1000px;
-				margin: 10px auto;
+				margin: 20px auto;
+				margin-bottom: 80px;
 			}
 			
 			/* a태그 - "예약내역" */
 			#reservation_text{
 				display: block;
-				margin: 20px 10px;
-				font-size: 25px;
+				font-size: 40px;
+				margin-bottom: 30px;
 			}
 	
-			/* hr태그 */					
-			hr{
-				width: 980px; /* 좌우로 여백 10px */
-				margin: 10px auto;
-			}	
-			/* hr태그 - 예약내역 아래 위치 */	
+			/* hr태그 - 예약내역 바로아래 위치 */	
 			#hr_main{
 				border: 0;
-				background-color: black;
-				height: 3px;
-			}				
-	
-			/* 교수이미지 */
-			.image{
-				float: left;
-				margin: 10px;
-				margin-right: 20px;
-				width: 120px;
-				height: 160px;
-			}
+				background-color: #12B8BA;
+				height: 2px;
+				margin-bottom: 20px;
+			}		
 			
+			/* 스크롤 추가 */		
+			#sub_div{
+				overflow-y: scroll;
+				height: 600px;
+			}
+		
 		   	/* 예약내역 div */
 			.reser_div {
 			    position: relative;
 			    overflow: hidden;
-			    margin: 10px 10px;
+			    margin: 0px 10px;
+			}
+			.reser_div:first-child {
+			    margin-top: 0px;
 			}
 			
 			/* 진료과 + 교수명 div */
 			.dept_name{
-				margin: 20px 0px;
+				margin: 10px 0px;
 			}
 			.dept_name a{
-				font-size: 23px;
+				font-size: 24px;
+				margin-right: 10px;
+			}
+			
+			/* 교수이미지 */
+			.image{
+				float: left;
+				margin: 10px;
+				width: 120px;
+				height: 160px;
 			}
 		
 			/* 진료과 */
 			.dept{
-				font-weight: bold;
-				padding: 8px;
-				border-radius: 15px;
-				background-color: #7cc4e8;	
+				padding: 7px;
+				border-radius: 10px;
+				background-color: #12B8BA;	
+				color: white;
 			}
 			
-			/* 신청일, 진료일정, 위치 table */
-			table {
+			/* 진료일정, 위치 table */
+			#sub_div table {
 		        display: inline-block;
 		        vertical-align: top;
 		    }
-		    table th, td{
+		    #sub_div  table th, td{
 		    	font-size: 20px;
+		    	padding: 3px 0px;
 		    }
-		    table th{
+		    #sub_div  table th{
 		    	width: 130px;
 		    }
-		    table td{
-		    	width: 170px;
+		    #sub_div  table td{
+		    	width: 180px;
 		    }
 		
 		    /* 버튼들을 테이블 오른쪽 끝으로 정렬 */
@@ -87,83 +109,91 @@
 			    right: 10px;
 			}
 			
-			input[type="button"] {
-			    font-size: 23px;
+			.btn_div input[type="button"] {
+			    font-size: 18px;
 			    width: 150px;
-			    height: 50px;
+			    height: 40px;
 			    border: none;
-			    background-color: #7cc4e8;
+			    background-color: #E2E2E2;
 			    margin-bottom: 5px;
 			}
-
+			
+			/* 스크롤바 css */
+			#sub_div::-webkit-scrollbar {
+				margin-top: 16px;
+			    width: 5px;
+			}
+			#sub_div::-webkit-scrollbar-track { 
+			    background-color: white;
+			}
+			#sub_div::-webkit-scrollbar-thumb { 
+			    background-color: #12B8BA;
+			}
+			#sub_div::-webkit-scrollbar-button {
+			    display: none;
+			}
+			
+			/* hover 효과 */
+			#sub_div::-webkit-scrollbar-thumb:hover {
+			    background-color: #0F9C9B;
+			    transition: all 0.2s; /* 작동 안 됨 */
+			}
+			
+			/* 코너에 라운드 효과 */
+			#sub_div::-webkit-scrollbar-track,
+			#sub_div::-webkit-scrollbar-thumb {
+			    border-radius: 5px;
+			}
 		</style>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="main_div">
-			<div id="list_main">
-				<a id="reservation_text">예약 내역</a>
-				
-				<hr id="hr_main">
-				
-				<div class="reser_div">
-				    <img class="image" src="/hos/resources/images/prof_image.png">
-				    <div class="dept_name">
-				        <a class="dept">순환기내과</a>
-				        <a class="name">김용진</a> <a class="engname">( Kim, Yong Jin )</a><br>
-				    </div>
-				    
-				    <table>
-				        <tr>
-				            <th>신청일</th>
-				            <td>2024-11-10</td>
-				        </tr>
-				        <tr>
-				            <th>진료일정</th>
-				            <td>2024-12-28 14:00</td>
-				        </tr>
-				        <tr>
-				            <th>위치</th>
-				            <td>본원 2층</td>
-				        </tr>
-				    </table>
-				    
-				    <div class="btn_div">
-				        <input type="button" value="예약 취소">
-				        <input type="button" value="예약 변경">
-				    </div>
-				</div>
-				
-				<hr>
-				
-				<div class="reser_div">
-					<img class="image" src="/hos/resources/images/prof_image.png">
-				
-					<div class="dept_name">
-						<a class="dept">이비인후과</a>
-						<a class="name">김도영</a> <a class="engname">( Kim, Do Young )</a><br>
+			<a id="reservation_text">예약 내역</a>
+			<hr id="hr_main">
+			
+			<div id="sub_div">
+				<!-- 예약내역 출력 -->
+				<c:forEach var="vo" items="${ list }" >
+					<div class="reser_div">
+					    <img class="image" src="/hos/resources/images/${ vo.pro_file }">
+					    <div class="dept_name">
+					        <a class="dept">${ vo.dept_name }</a>
+					        <a class="name">${ vo.pro_name }</a> <a class="engname"></a><br>
+					    </div>
+					    
+					    <table>
+					        <tr>
+					            <th>진료일정</th>
+					            <td>${ vo.res_time }</td>
+					        </tr>
+					        <tr>
+					            <th>위치</th>
+					            <td>${ vo.dept_loc }</td>
+					        </tr>
+				        	<tr>
+					            <th>진료비 결제</th>
+					            <c:if test="${ vo.pay_chk eq -1}">
+						            <td>X</td>
+					            </c:if>
+					            <c:if test="${ vo.pay_chk ne -1}">
+						            <td>O</td>
+					            </c:if>
+					        </tr>
+					    </table>
+					    
+					    <div class="btn_div">
+					        <input type="button" value="예약 취소">
+					        <input type="button" value="예약 변경">
+					    </div>
 					</div>
-					
-					<table>
-						<tr>
-							<th>신청일</th>
-							<td>2024-10-21</td>
-						</tr>
-						<tr>
-							<th>진료일정</th>
-							<td>2024-01-14 12:00</td>
-						</tr>
-						<tr>
-							<th>위치</th>
-							<td>본원 B1층</td>
-						</tr>
-					</table>
-					
-					<div class="btn_div">
-						<input type="button" value="예약 취소">
-						<input type="button" value="예약 변경">
-					</div>
-				</div>
-			</div>	
+					<hr>
+				</c:forEach>
+			</div>
+				
 		</div>
+		
+		<jsp:include page="/WEB-INF/views/main/Footer.jsp"/>
 	</body>
 </html>

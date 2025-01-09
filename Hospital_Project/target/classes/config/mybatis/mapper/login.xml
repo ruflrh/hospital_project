@@ -46,5 +46,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from patient 
 	where pat_id = #{ pat_id } and pat_email = #{ pat_email } 	
 </select>
+
+<select id="patient_list" resultType="vo.PatientVO">
+	SELECT * FROM patient
+</select>
+
 	
 </mapper>

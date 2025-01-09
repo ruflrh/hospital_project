@@ -64,6 +64,8 @@
 	</head>
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="container">
 			<p>주차안내</p>
 				

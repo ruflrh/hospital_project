@@ -1,12 +1,11 @@
 package util;
-
 /*
         nowPage:현재페이지
         rowTotal:전체데이터갯수
         blockList:한페이지당 게시물수
         blockPage:한화면에 나타낼 페이지 메뉴 수
  */
-public class PagingComment {
+public class Paging_Res_Manage {
 	public static String getPaging(String pageURL,int nowPage, int rowTotal,int blockList, int blockPage){
 		
 		int totalPage/*전체페이지수*/,
@@ -45,7 +44,7 @@ public class PagingComment {
 		sb = new StringBuffer();
 //-----그룹페이지처리 이전 --------------------------------------------------------------------------------------------		
 		if(isPrevPage){
-			sb.append("<a href ='#' onclick='comment_list(");
+			sb.append("<a href ='"+pageURL+"?page=");
 			//sb.append(nowPage - blockPage);
 			sb.append( startPage-1 );
 			sb.append("'>◀</a>");
@@ -64,11 +63,11 @@ public class PagingComment {
 				sb.append("</font></b>");
 			}
 			else{//현재 페이지가 아니면
-				sb.append("&nbsp;<a href='#; onclick=;comment_list+pageURL+?page=");
+				sb.append("&nbsp;<a href='"+pageURL+"?page=");
 				sb.append(i);
 				
 				//색상변경은 font태그에서 ↓↓
-				sb.append(");'><font color='#aaf'>");
+				sb.append("'><font color='black' style='text-decoration: none;'>");
 				sb.append(i);
 				sb.append("</a></font>");
 			}
@@ -78,14 +77,14 @@ public class PagingComment {
 		
 //-----그룹페이지처리 다음 ----------------------------------------------------------------------------------------------
 		if(isNextPage){
-			sb.append("<a href='#' onclick='comment_list(");
+			sb.append("<a href='"+pageURL+"?page=");
 			
 			sb.append(endPage + 1);
 			/*if(nowPage+blockPage > totalPage)nowPage = totalPage;
 			else
 				nowPage = nowPage+blockPage;
 			sb.append(nowPage);*/
-			sb.append("_'>▶</a>");
+			sb.append("'>▶</a>");
 		}
 		else
 			sb.append("▶");

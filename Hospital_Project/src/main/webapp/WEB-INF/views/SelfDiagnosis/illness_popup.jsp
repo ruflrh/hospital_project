@@ -7,19 +7,48 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* 배경 이미지 추가 */
+            background-image: url('/resources/img/device_1231.jpg'); /* 정적 파일 경로 */
+            background-size: cover; /* 화면 크기에 맞게 이미지 조정 */
+            background-repeat: no-repeat; /* 이미지 반복 제거 */
+            background-position: center; /* 이미지 중앙 정렬 */
         }
+
         .info-box {
-            background-color: #f9f9f9;
+            background-color: rgba(255, 255, 255, 0.9); /* 반투명 흰색 배경 */
             border: 1px solid #ccc;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        strong {
+            color: #000;
         }
     </style>
 </head>
 <body>
-    <h1>질병 상세 정보</h1>
     <div class="info-box">
+        <h1>질병 상세 정보</h1>
         <p><strong>질병 이름:</strong> ${disease.ill_name}</p>
         <p><strong>질병 설명:</strong> ${disease.ill_des}</p>
     </div>

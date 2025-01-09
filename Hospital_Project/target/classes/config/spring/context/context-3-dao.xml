@@ -11,6 +11,14 @@
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 	
+	<bean id="professor_dao" class="dao.ProfessorDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="schedule_dao" class="dao.ScheduleDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
 	<bean id="banner_dao" class="dao.BannerDAO">
 		<property name="sqlSesson" ref="sqlSessionBean"/>
 	</bean>
@@ -23,11 +31,27 @@
 		<property name="sqlSession" ref="sqlSessionBean"/>	
 	</bean>
 	
-	<bean id="patBoard_dao_bean" class="dao.PatBoardDAO">
-		<property name="sqlSession" ref="sqlSessionBean"/>	
+	<bean id="mypage_dao" class="dao.MypageDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 	
-	<bean id="mypage_dao" class="dao.MypageDAO">
+	<!-- 고객참여 - 감사, 건의합니다 -->
+	<bean id="patBoard_dao_bean" class="dao.PatBoardDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<!-- 자원봉사 -->
+	<bean id="volunteer_dao_bean" class="dao.VolunteerDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean> 
+	
+	<!-- 자원봉사 댓글 -->
+	<bean id="volcomment_dao_bean" class="dao.VolcommentDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean> 
+	
+	<!-- 공지사항 -->
+	<bean id="notice_dao_bean" class="dao.NoticeDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 </beans>

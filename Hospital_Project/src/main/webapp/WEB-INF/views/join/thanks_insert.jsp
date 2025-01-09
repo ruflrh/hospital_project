@@ -41,12 +41,19 @@
 						height: 30px;
 						outline:none; }
 						
-			.pat_phone_s { width: 90px; 
+			.board_phone_s { width: 90px; 
 						   height: 34px; }
 			
-			.pat_phone { width: 90px;
+			.board_phone { width: 90px;
 						 height: 30px;
 						 outline:none; }
+						 
+			.email { width: 180px;
+					 height:30px;
+					 outline:none; }
+					 
+			#email_addr { width:100px;
+						  height:34px; }
 						 
 			.title_txt { width: 500px;
 						 height: 30px;
@@ -118,10 +125,14 @@
 					return;
 				}
 				
-				f.action = "info_thanks_insert.do";
+				f.action = "join_board_insert.do";
 				f.submit();
 			}
 			
+			//이메일 select -> text로 옮기기
+			function chk_email(email_addr){
+				f.board_email2.value = email_addr;
+			}
 
 		</script>
 		
@@ -129,11 +140,17 @@
 	
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		
 		<div id="container">
 			<p>감사합니다</p>
 			<form method="post"
-				  enctype="multipart/form-data">
+				  enctype="multipart/form-data"
+				  name="f">
 				
+				<input type="hidden" name="board_type" value="thanks">
+				<input type="hidden" name="page" value="${param.page}">
+
 				<table>
 					<tr>
 						<th>작성자 성함</th>
@@ -145,7 +162,7 @@
 					<tr>
 			            <th>휴대폰번호</th>
 			            <td>
-			              <select class="pat_phone_s" name="board_phone">
+			              <select class="board_phone_s" name="board_phone">
 			                <option value="010">010</option>
 			                <option value="011">011</option>
 			                <option value="016">016</option>
@@ -153,11 +170,28 @@
 			                <option value="018">018</option>
 			                <option value="019">019</option>
 			              </select> - 
-			              <input class="pat_phone" name="board_phone_1"> - 
-			              <input class="pat_phone" name="board_phone_2">
+			              <input class="board_phone" name="board_phone_1"> - 
+			              <input class="board_phone" name="board_phone_2">
 			              <p class="text">연락 가능한 전화번호를 입력해 주세요.</p>
 			            </td>
-			          </tr>
+			        </tr>
+			        
+			        <tr>
+                     <th>이메일</th>
+	                     <td>
+	                        <input class="email" name="board_email1">
+	                        <a> @ </a>
+	                        <input class="email" name="board_email2">
+	                        
+	                        <select id="email_addr" onchange="chk_email(this.value);">
+	                           <option value="">직접입력</option>
+	                           <option value="gmail.com">gmail.com</option>
+	                           <option value="hanmail.net">hanmail.net</option>
+	                           <option value="naver.com">naver.com</option>
+	                           <option value="nate.com">nate.com</option>
+	                        </select>
+	                     </td>
+                 	 </tr>
 					
 					<tr>
 						<th>제목</th>
@@ -187,7 +221,7 @@
 				
 				<div id="btn_div">
 					<input class="list_btn" type="button" value="감사합니다 전체보기"
-						   onclick="location.href='info_thanks_list_form.do'"/>
+						   onclick="location.href='join_thanks_list.do'"/>
 					<input class="insert_btn" type="button" value="확인" 
 						   onclick="insert(this.form);"/>
 				</div>

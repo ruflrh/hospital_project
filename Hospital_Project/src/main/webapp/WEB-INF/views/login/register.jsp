@@ -4,113 +4,144 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>회원가입</title>
 		
 		<style>
+			@font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
+			}
+			
+			*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 15px;}
+		
 			#main_div{
-				border: 1px solid black;
 				width: 1000px;
 				margin: 0px auto;
 			}
 			
 			/* 회원가입 div */
 			#register_div{
-				margin: 10px 0px;
 				text-align: center;
 			}
 			
 			/* a태그 - "회원가입" */
 			#register_text{
 				display: block;
-				font-size: 25px;
-				font-weight: bold;
-				margin: 10px 0px;
+				font-size: 40px;
 			}
 			
+			/* hr태그 */
+			#register_div hr{
+				width: 980px; /* 좌우로 여백 10px */
+				background-color: #12B8BA;
+				margin: 20px auto;
+			}	
 			/* 필수입력란 표시 */
 			.essential{
 				font-size: 10px;
 				color: red;
 			}
 			
-			table{
+			#register_div table{
 				text-align: left;
-				border-collapse: collapse;
 				margin: 0px auto;
 				margin-bottom: 10px; 
 			}
-			table th, td{
-				padding: 10px 10px;
+			#register_div table th{
+				width: 130px;
+				font-size: 18px; 
+			}
+			#register_div table input{
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			#register_div table th, td{
+				padding: 10px 0px;
 			}
 			
 			/* input[type="text"] 태그 - 모든 태그 기본설정 */
-			input{
-				border: 1px solid gray;
+			#register_div input{
+				border: 1px solid #E2E2E2;
 				width: 250px;
 				height: 35px;
 			}
+			#register_div input:focus{
+				border: 1px solid #12B8BA;
+			}
 			
 			/* input[type="button"] 태그 - 중복확인 버튼, 주소찾기 버튼 */
-			#id_btn, #address_btn{
+			#register_div #id_btn, #register_div #address_btn{
 				border: none;
-				width: 150px;
+				width: 130px;
 				height: 38px;
 				color: white;
-				background-color: #7cc4e8;
+				background-color: #12B8BA;
 			}
 			
 			/* input[type="text"] 태그 - 이메일 */
-			.email{
+			#register_div .email{
 				width: 200px;	
 			}
 			/* option 태그 - 이메일주소 */
-			#email_addr{
+			#register_div #email_addr{
+				border: 1px solid #E2E2E2;
 				height: 40px;
-				width: 100px;
+				width: 120px;
+				padding-left: 10px;
+				padding-right: 10px;
 			}
 			
 			/* input[type="text"] 태그 - 주소 */
-			#address_post{
-				width: 120px;
+			#register_div #address_post{
+				width: 100px;
 			}
-			#address_detail, #address_road{
+			#register_div #address_detail, #register_div #address_road{
 				width: 400px;
 				margin-top: 10px;
 			}
 			
-			
 			/* option 태그 - 전화번호 */
-			.pat_phone{
+			#register_div .pat_phone{
+				border: 1px solid #E2E2E2;
 				height: 40px;
-				width: 70px;
+				width: 80px;
+				padding-left: 10px;
+				padding-right: 10px;
 			}
 			
 			/* a태그 - "비밀번호가 일치하지 않습니다" */
-			#pwd_text{
-				font-size: 12px;
-				color: red;
+			#register_div #pwd_text{
+				font-size: 15px;
+				color: #3086C9;
 			}
 			
 			/* 가입취소, 회원가입 버튼 */
-			#back_btn, #reg_btn{
+			#register_div #back_btn, #register_div #reg_btn{
 				border: none;
-				widwth: 150px;
-				height: 40px;
+				width: 150px;
+				height: 45px;
 			}
-			#back_btn {
+			#register_div #back_btn {
 				border: 1px solid lightgray;
 				background-color: white;
 			}
-			#reg_btn {
-				background-color: gray;
+			#register_div #reg_btn {
+				background-color: #3086C9;
 				color: white;
 			}
 			
-			/* 성별 선택 radio */
-			.gender{
-				height: 15px;
-				width: 20px;
-			}
+			#register_div input[type='radio'] {
+				width: 40px;
+				height: 20px;
+				accent-color: #3086C9;
+			}	
+
 		</style>
 		
 		<script src="/hos/resources/js/httpRequest.js"></script>
@@ -139,13 +170,9 @@
 			}
 			
 			//이메일 주소에 따라 input text 값 변경하는 함수
-			function chk_email() {
-			    let email_addr = document.getElementById("email_addr");
+			function chk_email(email_addr) {
 			    let pat_email_addr = document.getElementsByName("pat_email_addr")[0];
-			    
-			    if (email_addr.options[email_addr.selectedIndex].value != "") {
-			    	pat_email_addr.value = email_addr.options[email_addr.selectedIndex].value;
-			    }
+			    pat_email_addr.value = email_addr;
 			}
 			
 			function chk_id_change() {
@@ -228,12 +255,14 @@
 		
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="main_div">
-		
 			<div id="register_div">
 				<a id="register_text">회원 가입</a>
+				<hr>
 				<form>
-					<table border="1">
+					<table>
 						<tr>
 							<th>이름<a class="essential">*</a></th>
 							<td><input name="pat_name"></td>
@@ -267,7 +296,7 @@
 								<a> @ </a>
 								<input class="email" name="pat_email_addr">
 								
-								<select id="email_addr" onchange="chk_email();">
+								<select id="email_addr" onchange="chk_email(this.value);">
 									<option value="">직접입력</option>
 									<option value="gmail.com">gmail.com</option>
 									<option value="hanmail.net">hanmail.net</option>
@@ -328,18 +357,23 @@
 						<tr>
 							<th>성별<a class="essential">*</a></th>
 							<td>
-								<input class="gender" type="radio" name="pat_gender" value="남자" checked>남자
-								<input class="gender" type="radio" name="pat_gender" value="여자">여자
+								<label>
+									<input class="gender" type="radio" name="pat_gender" value="남자" checked>남자
+									<input class="gender" type="radio" name="pat_gender" value="여자">여자
+								</label>
 							</td>
 						</tr>
 					</table>
 
+					<hr>
 					<!-- 회원가입 or 가입취소 버튼 ----------------------------------------------------------------->
 					<input id="back_btn" type="button" value="가입취소" onclick="history.back();">
 					<input id="reg_btn" type="button" value="회원가입" onclick="register( this.form );">
 				</form>
 			</div>
 		</div>
+		
+		<jsp:include page="/WEB-INF/views/main/Footer.jsp"/>
 	</body>
 	
 	<!-- 주소찾기 API ------------------------------------------------------------------------------>

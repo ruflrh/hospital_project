@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+	<!-- 공지사항 전체 조회 -->
+	<select id="select_notice_list"
+			resultType="vo.NoticeVO">
+		select * from notice
+	</select>
+	
+	<!-- 공지사항 상세 조회 -->
+	<select id="select_notice_one"
+		    resultType="vo.NoticeVO">
+		select * from notice
+		where not_idx = #{not_idx}
+	</select>
+
+</mapper>
