@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="patBoard">
+
+	<!-- 감사합니다 조회 -->
+	<select id="thanks_list"
+			resultType="vo.PatBoardVO">
+		select * from patBoard
+		where board_type = 'thanks'
+	</select>
+	
+	<!-- 감사합니다 추가 -->
+	<insert id="thanks_insert" parameterType="vo.PatBoardVO">
+		insert into patBoard values(
+						seq_patBoard_idx.nextVal,
+						1,
+						#{board_title},
+						#{board_content},
+						#{board_file},
+						null,
+						#{board_phone},
+						'thanks',
+						sysdate,
+						#{board_name} )
+		
+	</insert>
+</mapper>

@@ -10,10 +10,19 @@
 	
 	<typeAliases>
 		<typeAlias type="vo.PatientVO" alias="pat"/>
+		<typeAlias type="vo.DiagnosisVO" alias="dia"/>
+		<typeAlias type="vo.DeviceVO" alias="dev" />
+		<typeAlias type="vo.DepartmentVO" alias="dept"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="config/mybatis/mapper/patient.xml" />
+		<mapper resource="config/mybatis/mapper/login.xml" />
+		<mapper resource="config/mybatis/mapper/banner.xml" />
+		<mapper resource="config/mybatis/mapper/diagnosis.xml" />
+		<mapper resource="config/mybatis/mapper/medical_device.xml" />
+		<mapper resource="config/mybatis/mapper/patBoard.xml" />
+		<mapper resource="config/mybatis/mapper/mypage.xml" />
+		<mapper resource="config/mybatis/mapper/department.xml" />
 	</mappers>
 </configuration>
 

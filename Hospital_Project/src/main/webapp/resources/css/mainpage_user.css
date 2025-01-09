@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+*{margin: 0;
+padding: 0;}
+
+/* 전체 카드 스타일 */
+.transition-card {
+    overflow: hidden; /* 내용이 펼쳐지기 전 숨김 */
+    width: 300px;
+    height: 50px; /* 기본 상태에서의 높이 */
+    background-color: #4CAF50; /* 배경색 */
+    color: white;
+    border-radius: 5px;
+    transition: height 0.3s ease-in-out; /* 높이가 부드럽게 변경되도록 설정 */
+    text-align: center;
+    cursor: pointer;
+    border: none; /* 테두리 제거 */
+    margin-bottom: 30px;
+}
+
+#calling{
+	margin-top: 15px;
+}
+
+/* 상세 내용 초기 상태 */
+.transition-card .details input{
+	margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #ddd; /* 필요하면 테두리 조정 */
+    outline: none; /* 포커스 시 외곽선 제거 */
+    border-radius: 5px; /* 둥근 모서리 */
+    background-color: #f5f5f5; /* 밝은 배경색 */
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box; /* 패딩 포함한 박스 크기 계산 */
+}
+
+#calling_name{
+	margin-top: 30px;
+}
+
+/* 마우스 호버 상태 */
+.transition-card:hover {
+    height: 220px; /* 마우스 올렸을 때 카드가 펼쳐짐 */
+}
+
+.transition-card:hover .details {
+    display: block; /* 상세 내용을 표시 */
+}
+
+/* 제목 스타일 */
+.service-button .title {
+    font-weight: bold; /* 굵은 글씨 */
+    font-size: 22px; /* 제목 크기 */
+}
+
+/* 설명 스타일 */
+.service-button .description {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px; /* 설명 글씨 크기 */
+    line-height: 1.5; /* 줄 간격 */
+}
+
+#board_table th{
+	width: 300px;
+}
+
+.background {
+	overflow: hidden;
+    transition: height 0.3s ease; /* 높이 변화 애니메이션 */
+	width: 1920px; /* 컨테이너 너비를 전체로 설정 */
+    height: 300px; /* 높이는 원하는 크기로 설정 */
+    background-image: url('/hos/resources/images/메인배경2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+

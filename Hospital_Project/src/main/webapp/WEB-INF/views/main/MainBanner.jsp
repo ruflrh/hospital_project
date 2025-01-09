@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>     
-    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	
-	<link rel="stylesheet" href="/hos/resources/css/mainbanner.css">
+	<link rel="stylesheet" href="/hos/resources/css/mainbanner.css?v=1.0">
+	<script src="/hos/resources/js/httpRequest.js"></script>
 	
 	<script>
+		//배너 기본 기능들
 		document.addEventListener("DOMContentLoaded", () => {
 		    let slides = document.getElementById('slides');
 		    let slideCount = slides.childElementCount;
@@ -91,14 +94,29 @@
 		    createPagination();
 		    startAutoSlide();
 		});
+		
+		//배너 삭제
+		function delete_banner() {
+			const centerX = window.innerWidth / 2; // 화면 너비의 절반
+		    const centerY = window.innerHeight / 2; // 화면 높이의 절반
+		    
+		 	// 문자열 연결 방식으로 옵션 작성
+		    const options = "width=600,height=400,left=" + centerX + ",top=" + centerY;
+		    
+		    window.open(
+		        "delete_banner_page.do", // 팝업에 띄울 페이지
+		        "삭제할 배너의 이름을 선택해주세요", // 팝업창 이름
+		        options // 옵션
+		    );
+		}
 	</script>
 	
 	</head>
 	<body>
 		<div class="slider-container">
 		    <div class="slides" id="slides">
-		        <c:forEach var="image" items="${images}">
-		            <img src="${image}" alt="배너 이미지">
+		        <c:forEach var="vo" items="${images}">
+		             <img src="/hos/resources/images/${vo.banner_file}" alt="배너 이미지">
 		        </c:forEach>
 		    </div>
 		
@@ -107,6 +125,14 @@
 		    
 		    <!-- 페이징 도트 영역 -->
     		<div class="pagination" id="pagination"></div>
+    		
+		    <c:if test="${fn:trim(sessionScope.patient.pat_id) eq 'admin'}">
+		    	<input type="button" value="배너이미지추가" class="banner_master_button"
+		    		onclick="location.href='insert_banner_page.do?pat_idx=${param.pat_idx}'">
+		    		
+		    	<input type="button" value="배너이미지삭제" class="banner_master_button" style="right: 130px;"
+		    		onclick="delete_banner();">
+		    </c:if>
 		</div>
 	</body>
 </html>

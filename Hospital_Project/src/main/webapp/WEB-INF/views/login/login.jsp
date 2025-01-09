@@ -8,7 +8,8 @@
 		
 		<style>
 			#main_div{
-				width: 100%;
+				border: 1px solid black;
+				width: 1000px;
 				margin: 0px auto;
 			}
 			
@@ -69,6 +70,47 @@
 				background-color: light;
 			}
 		</style>
+		
+		<script src="/hos/resources/js/httpRequest.js"></script>
+		<script>
+			function login() {
+				let pat_id = document.getElementsByName("pat_id")[0].value;
+				let pat_pwd = document.getElementsByName("pat_pwd")[0].value;
+				
+				//유효성검사
+				if(pat_id == ''){
+					alert("아이디를 입력하세요.");
+					return;
+				}
+				if(pat_pwd == ''){
+					alert("비밀번호를 입력하세요.");
+					return;
+				}
+				
+				let url = "login_chk_correct.do";
+				let param = "pat_id=" + pat_id + "&pat_pwd=" + pat_pwd;
+				sendRequest(url, param, login_result_fn, "post");
+			}
+			function login_result_fn() {
+				if(xhr.readyState == 4 && xhr.status == 200){
+					let data = xhr.responseText;
+					let json = ( new Function('return '+data) )();
+					
+					if(json[0].result == "id_not_exist"){
+						alert("존재하지 않는 아이디 입니다.");
+						return;
+					}
+					else if(json[0].result == "id_exist"){
+						alert("비밀번호가 일치하지 않습니다.");
+						return;
+					} else {
+						alert("로그인 성공");
+						let pat_idx = json[1].pat_idx;
+						location.href="main.do?pat_idx=" + pat_idx;
+					}
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<!-- 로그인 메인 div -->
@@ -76,28 +118,28 @@
 			<div id="login_div">
 			
 				<a id="login_text">로그인</a>
-				
-				<table id="login_inputtb">
-					<tr>
-						<td><input name="pat_id" placeholder="아이디를 입력해주세요" size="30"></td>
-					</tr>
-					<tr>
-						<td><input name="pat_pwd" placeholder="비밀번호를 입력해주세요" size="30"></td>
-					</tr>
-					<tr>
-						<td><input id="login_btn" type="button" value="로그인"></td>
-					</tr>
-					
-				</table>
+				<form>
+					<table id="login_inputtb">
+						<tr>
+							<td><input name="pat_id" placeholder="아이디를 입력해주세요" size="30"></td>
+						</tr>
+						<tr>
+							<td><input name="pat_pwd" type="password" placeholder="비밀번호를 입력해주세요" size="30"></td>
+						</tr>
+						<tr>
+							<td><input id="login_btn" type="button" value="로그인"
+								 onclick="login(this.form);"></td>
+						</tr>
+					</table>
+				</form>
 				
 				<a id="find_text">아이디 또는 비밀번호를 잃어버리셨나요?</a>
-				<input class="find" type="button" value="아이디 찾기">
-				<input class="find" type="button" value="비밀번호 찾기"><br>
+				<input class="find" type="button" value="아이디 찾기" onclick="location.href='login_find_id_form.do'">
+				<input class="find" type="button" value="비밀번호 찾기" onclick="location.href='login_find_pwd_form.do'"><br>
 				
 				<a id="member_text">아직 회원가입을 하지 않으셨나요?</a>
 				<input id="member_btn" type="button" value="회원가입" 
-					   onclick="location.href='member_register.do'"><br>
-				
+					   onclick="location.href='register_page.do'"><br>
 			</div>  
 		</div>
 	</body>
