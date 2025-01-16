@@ -13,7 +13,7 @@
 			cursor: pointer;
 			}
 			
-			a:hover{ color:red; }
+			#menubar a:hover{ color:red; }
 			
 			#login,
 			#register,
