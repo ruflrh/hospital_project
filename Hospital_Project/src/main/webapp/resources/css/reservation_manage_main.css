@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+* {
+	text-decoration: none;
+}
+
+/* 큰 틀 */
+#container {
+	margin: 120px auto;
+	width: 1000px;
+}
+
+#reservation_table {
+	border-collapse: collapse;
+	width: 1000px;
+	text-align: center;
+	table-layout: fixed;
+	padding: 10px;
+}
+
+#reservation_table {
+	border: 1px solid black;
+}
+
+#reservation_table tr {
+	height: 50px;
+}
+
+#reservation_table th {
+	border-top: 1px solid black;
+	border-left: 1px solid gray;
+	background-color: orange;
+}
+
+#reservation_table td {
+	border: 1px solid gray;
+}
+
+input[type="button"] {
+	transition: all 0.3s ease;
+}
+
+input[type="button"]:hover {
+	color: red;
+}
+
+.btn_style_1 {
+	padding: 10px;
+	margin: 5px;
+	border: none;
+	color: white;
+	font-weight: bold;
+	background-color: orange;
+	cursor: pointer;
+}
+
+.btn_style_2 {
+	padding: 10px;
+	margin: 5px;
+	border: none;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	border: 1px solid gray;
+	cursor: pointer;
+}

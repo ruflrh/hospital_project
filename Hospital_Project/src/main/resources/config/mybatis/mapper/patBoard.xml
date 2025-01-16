@@ -6,22 +6,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 감사합니다 조회 -->
 	<select id="thanks_list"
-			resultType="vo.PatBoardVO">
-		select * from patBoard
+			resultType="vo.PatBoardVO"
+			parameterType="java.util.Map">
+		select * from 
+		( select rank() over( order by board_idx DESC ) no, b.*
+		from patBoard b )
 		where board_type = 'thanks'
+		AND no between #{start} and #{end}
+	</select>
+	
+	<!-- 감사합니다 게시판 게시글 수 -->
+	<select id="patBoard_count"
+			parameterType="java.util.Map"
+			resultType="int">
+		select COUNT(*) from patBoard
 	</select>
 	
 	<!-- 감사합니다 추가 -->
-	<insert id="thanks_insert" parameterType="vo.PatBoardVO">
+	<insert id="join_insert" parameterType="vo.PatBoardVO">
 		insert into patBoard values(
-						seq_patBoard_idx.nextVal,
-						1,
+						board_idx_seq.nextVal,
+						62,
 						#{board_title},
 						#{board_content},
 						#{board_file},
-						null,
+						#{board_email},
 						#{board_phone},
-						'thanks',
+						#{board_type},
 						sysdate,
 						#{board_name} )
 		

@@ -7,40 +7,60 @@
 		<title>증명서 발급</title>
 		
 		<style>
+			@font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
+			}
+			
+			*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+		
 			#main_div{
 				width: 1000px;
-				margin: 0px auto;
+				margin: 20px auto;
 			}
 
 			#cert_text{
 				display: block;
-				margin: 20px 10px;
-				font-size: 25px;
+				margin-bottom: 30px;
+				font-size: 40px;
+				font-weight: 500;
 			}
 			
 			/* 발급받을 증명서 목록 */
-			#cert_select{
-				font-size: 17px;
-				margin: 0px auto;
-				margin-top: 10px;
-				padding: 10px 0px;
-				width: 1000px;
-				background-color: #7cc4e8;
-				border: none;
+			#cert_select {
+			    font-size: 18px;
+			    margin: 0px auto;
+			    padding: 10px;
+			    width: 1000px;
+			    background-color: #12B8BA;
+			    color: white;
+			    border: none;
+			    appearance: none; /* 기본 브라우저 스타일 제거 */
+			}
+			
+			#cert_select option {
+			    font-size: 18px;
+			    padding-top: 10px; /* padding 적용 */
+			    padding-bottom: 10px; /* padding 적용 */
 			}
 			
 			.title{
-				font-size: 30px;
-				font-weight: bold;
-				margin-bottom: 10px;
+				font-size: 24px;
+				margin: 15px 0px;
 			}
 			
 			/* cert_info 태그들 */
-			table{	
+			#main_div table{	
 				border-collapse: collapse;
 				width: 1000px;
 			}
-			table td{
+			#main_div table td{
 				padding: 10px;
 			}
 			#table_header th{
@@ -48,33 +68,40 @@
 			}
 
 			/* 증명서 별로 달라지는 div구간 */
-			#cert_content{
-				margin: 10px;
+			.cert_section{
+				height: 500px;
 			}
 			
-			hr{
+			#main_div hr{
 				width: 1000px;
+				margin: 10px 0px;
 			}
 			
 			/* td - 환자정보 */
 			.pat_info, .period{
-				font-size: 20px;
+				font-size: 18px;
+			}
+			/* td - 기간선택 */
+			.period{
+				width: 70px;	
 			}
 			
 			/* input[type="date"] = 기간선택 */
 			input[type="date"] {
+				padding-left: 10px;
 				height: 40px;
 				width: 180px;
 			}
 			
 			/* 증명서 발급받기 버튼 */
-			input[type="button"]{
+			#main_div input[type="button"]{
 				display: block;
 				margin: 10px auto;
-				font-size: 17px;
+				font-size: 18px;
 				width: 200px;
 				height: 40px;
-				background-color: #7cc4e8;		
+				background-color: #12B8BA;		
+				color: white;
 				border: none;	
 			}
 		</style>
@@ -85,8 +112,10 @@
 				let selected_item = cert_select.value;
 				
 				//모든 div 숨기기
-				let all_section = document.querySelectorAll('.cart_section');
+				let all_section = document.querySelectorAll('.cert_section');
+				let info_section = document.querySelectorAll('.cert_info_section');
 				all_section.forEach(section => section.style.display = 'none');
+				info_section.forEach(section => section.style.display = 'none');
 				
 				//선택된 div만 보이기
 				selected_section = document.getElementById(selected_item)
@@ -95,9 +124,10 @@
 		</script>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		
 		<div id="main_div">
 			<a id="cert_text">증명서 발급</a>
-			<hr>
 			
 			<select id="cert_select" onchange="show_div();">
 				<option value="cert_info">진단서 발급 안내</option>
@@ -109,7 +139,7 @@
 			</select>
 			
 			<!-- 진단서 발급 안내 =========================================================-->
-			<div id="cert_info" class="cart_section">
+			<div id="cert_info" class="cert_info_section">
 				<p class="title">진단서, 소견서 및 입원사실 증명서 발급 절차 안내</p>
 				<hr>
 				
@@ -191,19 +221,14 @@
 			</div> <!-- cert_info -->
 			
 			<!-- 진료 사실 확인서 =========================================================-->
-			<div id="cert_confirm" class="cart_section" style="display:none">
+			<div id="cert_confirm" class="cert_section" style="display:none">
 				<p class="title">진료 사실 확인서</p>
 				<hr>
 				
 				<table>
-					<colgroup>
-						<col width="15%"/>
-						<col width="85%"/>
-					</colgroup>
-					
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -220,41 +245,36 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_confirm'">
 			</div>
 			
 			<!-- 진료비 납입 확인서 =========================================================-->
-			<div id="cert_payment" class="cart_section" style="display:none">
+			<div id="cert_payment" class="cert_section" style="display:none">
 				<p class="title">진료비 납입 확인서</p>
 				<hr>
 				
 				<table>
 				    <tr>
 				        <td class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_payment'">
 			</div>
 			
 			<!-- 진료비 계산서, 영수증 =========================================================-->
-			<div id="cert_receipt" class="cart_section" style="display:none">
+			<div id="cert_receipt" class="cert_section" style="display:none">
 				<p class="title">진료비 계산서, 영수증</p>
 				<hr>
 				
 				
 				<table>
-					<colgroup>
-						<col width="15%"/>
-						<col width="85%"/>
-					</colgroup>
-				
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -271,24 +291,19 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_receipt'">
 			</div>
 
 			<!-- 처방전 사본 =========================================================-->
-			<div id="cert_prescription" class="cart_section" style="display:none">
+			<div id="cert_prescription" class="cert_section" style="display:none">
 				<p class="title">처방전 사본</p>
 				<hr>
 				
 				
 				<table>
-					<colgroup>
-						<col width="15%"/>
-						<col width="85%"/>
-					</colgroup>
-					
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -305,23 +320,18 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_prescription'">
 			</div>
 			
 			<!-- 진단서 사본 =========================================================-->
-			<div id="cert_diagnosis" class="cart_section" style="display:none">
+			<div id="cert_diagnosis" class="cert_section" style="display:none">
 				<p class="title">진단서 사본</p>
 				<hr>
 				
 				<table>
-					<colgroup>
-						<col width="15%"/>
-						<col width="85%"/>
-					</colgroup>
-					
 				    <tr>
 				        <td colspan="2" class="pat_info">
-				            고결님 ( gogyul / 62002484 )
+				            ${ patient.pat_name }님 ( ${ patient.pat_idx } / ${ patient.pat_id } )
 				        </td>
 				    </tr>
 				    
@@ -338,9 +348,11 @@
 				</table>
 				<hr>
 				
-				<input type="button" value="증명서 발급받기">
+				<input type="button" value="증명서 발급받기" onclick="location.href='mypage_cert_confirm.do?file_type=cert_diagnosis'">
 			</div>
 			
 		</div><!-- main_div -->
+		
+		<jsp:include page="/WEB-INF/views/main/Footer.jsp"/>
 	</body>
 </html>

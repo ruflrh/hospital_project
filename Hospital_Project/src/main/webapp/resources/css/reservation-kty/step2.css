@@ -19,6 +19,7 @@
     background-color: #e0e0e0;
 }
 
+<<<<<<< HEAD
 
 #back-button {
     position: fixed; /* 화면에 고정 */
@@ -40,3 +41,11 @@
 
 #back-button input[type="button"]:hover {
     background-color: #ddd; /* 마우스 오버 시 배경색 변경 */
+=======
+.selected {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+#back{bottom:20px; margin: 0 auto;}
+>>>>>>> branch 'main' of https://github.com/ruflrh/hospital_project.git

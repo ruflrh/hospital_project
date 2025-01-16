@@ -7,38 +7,60 @@
     <title>비밀번호 찾기</title>
     
     <style>
+		@font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
+			}
+			
+		*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+		
 		#main_div{
 			width: 1000px;
-    		margin: 0px auto;
-    		text-align: center;
+			margin: 0px auto;
+			text-align: center;
 		}
 		
-		p{
-			font-size: 25px;
-			font-weight: bold;
+		#find_pwd_text{
+			font-size: 24px;
 		}
 		
-		input {
-			border: 1px solid gray;
-			width: 320px;
-			height: 40px;
+		#find_pwd_sub{
+			font-size: 18px;
+			color: gray;
+		}
+		
+		
+		#find_pwd_div input {
+			display: block;
+			border: 1px solid #E2E2E2;
+			width: 400px;
+			height: 50px;
+			margin: 10px auto;
+			padding-left: 10px;
+			padding-right: 10px;
 		}
 		
 		#pat_name, #pat_email, #input_number{
-			display: block;
-			margin: 10px auto;
+			margin-top: 30px;
 		}
 		
-		#cert_btn, #ok_btn {
-			width: 327px;
-			border: 1px solid lightgray;
-			color: black;				
-			background-color: light gray;
+		#find_pwd_div #cert_btn,
+		#find_pwd_div #ok_btn {
+			width: 420px;
+			border: none;
+			color: white;				
+			background-color: #12B8BA;
 		}
 		
-		#input_number {
-			color: red;
-			margin-top: 20px;
+		#find_pwd_div #input_number {
+			color:#3086C9;
+			margin-top: 30px;
 		}
     </style>
     
@@ -62,6 +84,8 @@
         let pat_idx;
         function result_mail() {
         	if(xhr.readyState == 4 && xhr.status == 200){
+        		document.getElementById("input_number").disabled = false;
+        		
 				let data = xhr.responseText;
 				let json = ( new Function('return '+data) )();
 				
@@ -92,15 +116,19 @@
     </script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
     <div id="main_div">
-        <form>
-            <p>비밀번호 재설정을 위한 이메일 인증</p>
-            <input id="pat_id" name="pat_id" placeholder="아이디를 입력하세요.">
-            <input id="pat_email" name="pat_email" placeholder="이메일을 입력하세요.">
-            <input id="cert_btn" type="button" value="인증하기" onclick="send_mail(document.forms[0]);"> 
-        </form>    
-        <input id="input_number" placeholder="인증번호 6자리를 입력하세요">
-        <input id="ok_btn" type="button" value="확인" onclick="chk_number();"> 
+    	<div id="find_pwd_div"> 
+	        <form>
+	            <p id="find_pwd_text">비밀번호 재설정을 위한 이메일 인증</p>
+	            <p id="find_pwd_sub">이메일 인증을 마치면, 비밀번호 재설정이 가능합니다.</p>
+	            <input id="pat_id" name="pat_id" placeholder="아이디를 입력하세요.">
+	            <input id="pat_email" name="pat_email" placeholder="이메일을 입력하세요.">
+	            <input id="cert_btn" type="button" value="인증하기" onclick="send_mail(document.forms[0]);"> 
+	        </form>    
+	        <input id="input_number" disabled="disabled" placeholder="인증번호 6자리를 입력하세요">
+	        <input id="ok_btn" type="button" value="확인" onclick="chk_number();"> 
+    	</div>
     </div>
 </body>
 </html>

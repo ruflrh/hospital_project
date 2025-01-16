@@ -24,18 +24,30 @@
 	
 	<!-- Autowired사용을 위한 속성 -->
 	<context:annotation-config/>
+	<context:component-scan base-package="service" />
 	
 	<beans:bean class="controller.LoginController">
 		<beans:property name="login_dao" ref="login_dao"/>
 		<beans:property name="banner_dao" ref="banner_dao"/>
 		<beans:property name="mss" ref="mss"/>
 		<beans:property name="mypage_dao" ref="mypage_dao"/>
+		<beans:property name="notice_dao" ref="notice_dao_bean"/>
 	</beans:bean>
 	
-	<beans:bean class="controller.InfoController"/>
+	<beans:bean class="controller.InfoController">
+		<beans:property name="notice_dao" ref="notice_dao_bean"/>
+	</beans:bean>
 
 	<beans:bean class="controller.ReservationController">
 		<beans:property name="reservation_dao" ref="reservation_dao"></beans:property>
+		<beans:property name="professor_dao" ref="professor_dao"></beans:property>
+		<beans:property name="schedule_dao" ref="schedule_dao"></beans:property>
+	</beans:bean>
+	
+	<beans:bean class="controller.ReservationManageController">
+		<beans:property name="professor_dao" ref="professor_dao"/>
+		<beans:property name="reservation_dao" ref="reservation_dao"/>
+		<beans:property name="login_dao" ref="login_dao"/>
 	</beans:bean>
 
 	<beans:bean class="controller.MypageController">
@@ -57,6 +69,8 @@
 	
 	<beans:bean class="controller.JoinController">
 		<beans:property name="patBoard_dao" ref="patBoard_dao_bean"/>
+		<beans:property name="volunteer_dao" ref="volunteer_dao_bean"/>
+		<beans:property name="volcomment_dao" ref="volcomment_dao_bean"/>
 	</beans:bean>	
 </beans:beans>
 

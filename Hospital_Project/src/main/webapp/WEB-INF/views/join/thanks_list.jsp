@@ -65,7 +65,7 @@
 						   margin:0 auto; }
 						   
 						    	
-			#container .content_div p { font-size:15px;
+			#container .content_div pre { font-size:15px;
 										color:#323232;
 										overflow:hidden;	
 										word-wrap: break-word;
@@ -112,56 +112,64 @@
 												 color: #464646;
 												 text-align:right; }
 		
-			.modal .modal_popup #close_btn { border:none;
+			.modal .modal_popup #close_btn { border:1px solid darkgray;
 											 width:35px;
 											 height:30px;
 											 font-size:20px;
 											 position:absolute;
 											 right:10px;
 											 top:10px; }
+											 
+			#pop_img { width:300px;
+					   height:200px;
+					   align:center;
+					   display:inline;
+					   margin: 0 250px; }
+			
 			/* 팝업 내용 스크롤 */								 
-			#pop_content_div { height:500px;
+			#pop_content_div { height:400px;
 							   overflow-y: scroll; }
 		
 		</style>
-		
-		
-		
-		
 		
 	</head>
 	
 	
 	<body>
+		<%-- <jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/> --%>
+	
 		<div id="container">
 			<p>감사합니다</p>
 			
 			<div id="btn_div">
 				<input class="myWrite_btn" type="button" value="내가 작성한 글 보기"/>
 				<input class="insert_btn" type="button" value="감사합니다 글쓰기"
-					   onclick="location.href='info_thanks_insert_form.do'"/>
+					   onclick="location.href='join_thanks_insert_form.do?page=${param.page}'"/>
 			</div>
 			
 			<div id="grid_div">
 				<c:forEach var="vo" items="${list}">
 					<div id="list_div" class="open_div">
-					<div class="title_div">
-						<p>${ vo.board_title }</p>
-					</div>
-					
-					<div class="content_div">
-						<p>
-							${ vo.board_content }
-						</p>
-					</div>
-					
-					<div class="date_name_div">
-						 ${fn:split(vo.board_date, ' ')[0]} ${ vo.board_name } 님 
-					</div>
+						<div class="title_div">
+							<p>${ vo.board_title }</p>
+						</div>
+						
+						<div class="content_div">
+							<pre>${ vo.board_content }</pre>
+						</div>
+						
+						<div class="date_name_div">
+							 ${fn:split(vo.board_date, ' ')[0]} ${ vo.board_name } 님 
+						</div>
+						
+						<div class="img_div" style="display:none;">
+							<img src="${ pageContext.request.contextPath }/resources/uploadThanksCompl/${vo.board_file}">
+						</div>
 					
 					</div>
 
 				</c:forEach>
+				
 				
 				<!-- 상세보기 팝업 -->
 				<div class="modal">
@@ -174,7 +182,10 @@
 							<pre id="pop_content"></pre>
 						</div>
 						
+						<img id="pop_img">
+						
 						<p id="pop_date_name"></p>
+						
 						
 					</div>
 				</div>
@@ -187,20 +198,23 @@
 				const modalTitle = document.querySelector('#pop_title');
 				const modalContent = document.querySelector('#pop_content');
 				const modalDateName = document.querySelector('#pop_date_name');
+				const modalImg = document.querySelector('#pop_img');
 
 				// 리스트 항목에 클릭 이벤트 추가
 				document.querySelectorAll('.open_div').forEach(item => {
 				    item.addEventListener('click', function() {
 				        // 클릭한 항목의 데이터를 가져오기
 				        const title = this.querySelector('.title_div p').textContent;
-				        const content = this.querySelector('.content_div p').textContent;
+				        const content = this.querySelector('.content_div pre').textContent;
 				        const dateName = this.querySelector('.date_name_div').textContent;
+				        const imgSrc = this.querySelector('.img_div img').getAttribute('src');
 
 				        // 모달 내용 업데이트
 				        modalTitle.textContent = title;
 				        modalContent.textContent = content;
 				        modalDateName.textContent = dateName;
-
+				        modalImg.setAttribute('src', imgSrc);
+				        
 				        // 모달 표시
 				        modal.style.display = 'block';
 				    });
@@ -213,14 +227,12 @@
 
 				</script>
 				
-				
-				
-				
-			
 			</div>
 			
-			<div id="page">
-				<p>&lt; 1 2 3 4 &gt;</p>  <!-- 페이징 처리 해야됨 -->
+
+			
+			<div align="center" style="font-size:20px;">
+				${ pageMenu }
 			</div>
 			
 		</div>

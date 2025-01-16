@@ -2,12 +2,20 @@
 
 *{margin: 0; padding: 0;}
 
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+}
+
+
 .slider-container {
-    width: 1920px;
-    height: 400px;
+    width: 1600px;
+    height: 459px;
     overflow: hidden;
+    margin: 0 auto;
     position: relative;
-    margin: auto;
 }
 
 .slides {
@@ -17,8 +25,14 @@
 
 .slides img {
     width: 100%;
+    height: auto;
     flex-shrink: 0;
     object-fit: cover;
+}
+
+.slider-wrapper {
+    padding: 0;
+    margin: 0;
 }
 
 /* 네비게이션 버튼 스타일 */
@@ -54,14 +68,14 @@
 
 .pagination .dot {
     width: 18px; /* 원의 너비 */
-    background-color: #d3d3d3; /* 비활성 dot 색상 */
+    background-color: #23507B; /* 비활성 dot 색상 */
     border-radius: 100%; /* 원형으로 표시 */
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 효과 */
 }
 
 .pagination .dot.active {
-    background-color: #f89e35; /* 활성 dot 색상 */
+    background-color: #12B8BA; /* 활성 dot 색상 */
 }
 
 .banner_master_button {

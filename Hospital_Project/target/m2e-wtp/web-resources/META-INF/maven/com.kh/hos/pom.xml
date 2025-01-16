@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kh</groupId>
 	<artifactId>hos</artifactId>
-	<name>hos</name>
+	<name>hospital_project_MAIN</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -180,7 +180,14 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>5.3.9</version>
 		</dependency>
-
+		
+		<!-- jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>

@@ -37,7 +37,9 @@ public class DeviceController {
 	//기기 목록 조회
 	@RequestMapping("/device_list.do")
 	public String select( Model model, Integer page ) {
-
+		
+		System.out.println("hihi");
+		
 		int nowPage = 1;
 		if (page != null) {
 			nowPage = page;
@@ -76,5 +78,36 @@ public class DeviceController {
 		return Common.Device.VIEW_PATH + "device_popup.jsp";		
 	}	
 	
+	// 검색 기능	
+	//@Autowired private DeviceService deviceService; // 주입 코드		
+	
+	/*
+	 * @Autowired private DeviceDAO deviceDao;
+	 */	
+	
+	@RequestMapping("/search.do")
+	public String searchDevices(
+	        @RequestParam(required = false, defaultValue = "") String keyword,
+	        @RequestParam(required = false, defaultValue = "name") String searchType, Model model) {
 
+	    if (keyword.trim().isEmpty()) {
+	        model.addAttribute("list", Collections.emptyList());
+	    } else {
+	        try {
+	            Map<String, Object> params = new HashMap<String, Object>();
+	            params.put("keyword", keyword.trim());
+	            params.put("searchType", searchType);
+
+	            System.out.println("Params: " + params);
+
+	            List<DeviceVO> deviceList = deviceDao.searchDevices(params);
+	            model.addAttribute("list", deviceList);
+	        } catch (Exception e) {
+	            System.out.println("Error during search: " + e.getMessage());
+	            e.printStackTrace();
+	            model.addAttribute("list", Collections.emptyList());
+	        }
+	    }
+	    return Common.Device.VIEW_PATH + "device_list.jsp";
+	}	
 }

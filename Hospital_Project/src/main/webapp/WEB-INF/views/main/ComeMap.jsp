@@ -4,38 +4,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="utf-8">
-   <title>지도 API를 활용해보자</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=io7bwup7x8"></script>
 </head>
 <body>
-   <div id="map" style="width:600px;height:300px;"></div>
 
-   <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7e65d449202d3df349a4ceebb55749b9"></script>
-   <script>
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-          mapOption = {
-              center: new kakao.maps.LatLng(37.49854, 127.03258), // 지도의 중심좌표
-              level: 1, // 지도의 확대 레벨
-              mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-          }; 
+<div id="map" style="width:600px; height:300px;"></div>
 
-      // 지도를 생성한다 
-      var map = new kakao.maps.Map(mapContainer, mapOption); 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var mapOptions = {
+        center: new naver.maps.LatLng(37.499036, 127.032924),
+        zoom: 18,
+        scrollWheel: false // 기본 휠 확대/축소 비활성화 (커스텀 동작 구현을 위해)
+    };
 
-      // 지도에 확대 축소 컨트롤을 생성한다
-      var zoomControl = new kakao.maps.ZoomControl();
+    var map = new naver.maps.Map('map', mapOptions);
 
-      // 지도의 우측에 확대 축소 컨트롤을 추가한다
-      map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    var marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(37.499036, 127.032924),
+        map: map
+    });
 
-      // 지도에 마커를 생성하고 표시한다
-      var marker = new kakao.maps.Marker({
-          position: new kakao.maps.LatLng(37.49854, 127.03258), // 마커의 좌표
-          map: map // 마커를 표시할 지도 객체
-      });
-   </script>
+    // 마우스 휠 이벤트 리스너
+    map.getElement().addEventListener('wheel', function (e) {
+        e.preventDefault(); // 기본 동작 방지
+        var zoomDelta = e.deltaY > 0 ? -1 : 1; // 휠 방향에 따라 줌 변경
+        map.zoomBy(zoomDelta, map.getCenter()); // 현재 중심을 기준으로 확대/축소
+    });
+});
+</script>
+
+
 </body>
 </html>
+
+​
 
 
 

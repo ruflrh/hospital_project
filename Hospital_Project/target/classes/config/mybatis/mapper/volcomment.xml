@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="volcomment">
+
+	<!-- 댓글 조회 -->
+	<select id="comm_list"
+			parameterType="int"
+			resultType="vo.VolcommentVO">
+		select * from volcomment
+		where vol_idx = #{vol_idx}
+	</select>
+
+	<!-- 댓글 추가 -->
+	<insert id="insert_comm"
+			parameterType="vo.VolcommentVO">
+		insert into volcomment values(
+						comm_idx_seq.nextVal,
+						#{vol_idx},
+						#{comm_content},
+						sysdate,
+						#{pat_idx},
+						#{comm_name}
+		) 
+	</insert>
+	
+	
+	
+
+</mapper>

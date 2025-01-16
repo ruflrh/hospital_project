@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+body {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('/hos/resources/images/reservation_background.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#left {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  min-width: 650px; /* 초기 상태에서도 최소 공간 확보 */
+  max-width: 650px;
+}
+
+#center {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  min-width: 650px; /* 초기 상태에서도 최소 공간 확보 */
+  max-width: 650px;
+  
+}
+
+#right {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+
+}
+#step1{ margin-top: 50px;}
+#left > #step1 > h1{ text-align: center;}
+#left > #step1 > h3{ text-align: center;}
+#left > #step1 > p{ text-align: center;}
+#left > .left-contanier{ text-align: center;}
+#left > .left-contanier > button{ border: none; padding: 10px 30px; background: #12B8BA; margin-top:5px; width: 300px;} 
+

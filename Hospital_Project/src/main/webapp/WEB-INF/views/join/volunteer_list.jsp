@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+   
 <!DOCTYPE html>
 <html>
 	<head>
@@ -66,6 +70,8 @@
 	</head>
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="container">
 		
 			<p>자원봉사 모집공지</p>
@@ -101,65 +107,23 @@
 						<th>파일</th>
 					</tr>
 					
-					<tr>
-						<td>1</td>
-						<td id="title_td">
-							<a href="#">[2024년 2학기 추가 모집] 월오전, 월오후, 화오전, 화오후, 수오전, 수오후, 목오전, 목오후, 금오전 결원 발생하였습니다.</a>
-						</td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
+					<c:forEach var="vo" items="${list}" varStatus="count">
+						<tr>
+							<td>${count.index + 1}</td>
+							<td id="title_td">
+								<a href="join_volunteer_view.do?pat_idx=${param.pat_idx}&vol_idx=${vo.vol_idx}">${vo.vol_title}</a>
+							</td>
+							<td>${fn:split(vo.vol_date, ' ')[0]}</td>
+							<td>${vo.vol_hits}</td>
+							<td>
+								<c:if test="${vo.vol_file ne null}">
+									<img src="/hos/resources/images/file.png">							
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
 					
-					<tr>
-						<td>1</td>
-						<td id="title_td">
-							<a href="#">[2024년 2학기 추가 모집] 월오전, 월오후, 화오전, 화오후, 수오전, 수오후, 목오전, 목오후, 금오전 결원 발생하였습니다.</a>
-						</td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
 					
-					<tr>
-						<td>1</td>
-						<td id="title_td">
-							<a href="#">[2024년 2학기 추가 모집] 월오전, 월오후, 화오전, 화오후, 수오전, 수오후, 목오전, 목오후, 금오전 결원 발생하였습니다.</a>
-						</td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
-					
-					<tr>
-						<td>1</td>
-						<td id="title_td">
-							<a href="#">[2024년 2학기 추가 모집] 월오전, 월오후, 화오전, 화오후, 수오전, 수오후, 목오전, 목오후, 금오전 결원 발생하였습니다.</a>
-						</td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
-					
-					<tr>
-						<td>1</td>
-						<td id="title_td">
-							<a href="#">[2024년 2학기 추가 모집] 월오전, 월오후, 화오전, 화오후, 수오전, 수오후, 목오전, 목오후, 금오전 결원 발생하였습니다.</a>
-						</td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
-					
-					<tr>
-						<td>1</td>
-						<td id="title_td">
-							<a href="#">[2024년 2학기 추가 모집] 월오전, 월오후, 화오전, 화오후, 수오전, 수오후, 목오전, 목오후, 금오전 결원 발생하였습니다.</a>
-						</td>
-						<td>2024-07-12</td>
-						<td>2551</td>
-						<td><img src="/hos/resources/images/file.png"></td>
-					</tr>
 					
 				</table>
 			</div>

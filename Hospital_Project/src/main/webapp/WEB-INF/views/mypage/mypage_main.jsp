@@ -8,205 +8,342 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Insert title here</title>
+        <title>마이페이지</title>
         <style>
-            * {margin: 0; padding: 0;}
-
-            a {
-                text-decoration: none;
-                color: black;
-                font-weight: bold;
-                font-size: 16px;
-                cursor: pointer;
-            }
-
-            a:hover {
-                color: red;
-            }
-
-            body {
-                display: flex; /* Flexbox 활성화 */
-                flex-wrap: wrap; /* 콘텐츠가 줄바꿈되도록 설정 */
-                justify-content: center; /* 가로 중앙 정렬 */
-                align-items: center; /* 세로 중앙 정렬 (선택 사항) */
-                background-color: #f5f5f5; /* 배경색 */
-            }
-
-            .container {
-                width: 600px;
- 				height: 200px;
-                padding: 20px;
-                border: 2px solid black; /* 테두리 */
-                border-radius: 10px; /* 모서리 둥글게 */
-                text-align: left;
-                margin: 5px; /* 간격 추가 */
-            }
-
-			.container:hover {
-				border: 2px solid #228006; /* 테두리 */
+            @font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
 			}
-
-            #welcome {
+			
+			*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+			
+            #main_div{
+            	display: flex;
+            	justify-content: space-between;
+            	flex-wrap: wrap;
+            	width: 1000px;
+            	margin: 20px auto;
+            }
+            
+            #main_div hr{
+            	background: black;
+            	height: 1px;
+            	border: none;
+            	margin-top: 10px;
+            }
+			
+			/* p태그 - 마이페이지 */
+			#mypage_title{
+				display: block;
+				width: 1000px;
+				font-size: 40px;
+				font-weight: 500;
+				margin-bottom: 20px;
+			}
+			
+            /* ================================================= */
+            /* 환자정보 div */
+            #patient_info_div {
+                width: 455px;
+ 				height: 220px;
+                padding: 20px;
+                border: 1px solid #D8D8D8; /* 테두리 */
+                border-top: 2px solid #12B8BA; /* 테두리 */
+                text-align: left;
+                display: inline-block;
+            }
+            /* p태그 - ~님(환자번호)*/
+            #welcome_text {
                 display: inline;
-                margin-right: 5px; /* "님 환영합니다!"와 간격 조정 */
+                margin-right: 5px;
+                font-size: 24px;
             }
 
+			/* table 태그 - 환자정보테이블 */
             #patient_table {
-                border-spacing: 0 15px; /* 행 간 15px 간격 */
-                border-collapse: separate; /* border-spacing 활성화 */
+                border-spacing: 0 15px; /* 행 간 간격 15px*/
             }
-
-            .sub_image {
-                width: 30px;
-                margin-left: 10px;
+            #patient_table th{
+            	width: 60px;
+            	border-right: 2px solid black;
             }
-
-            .container_a {
-                display: inline;
-                font-size: 32px;
-                font-weight: bold;
+            
+            /* 회원정보 수정, 회원탈퇴 버튼 */
+            #container1_btn1, #container1_btn2{
+            	width: 220px;
+            	padding: 5px 0px;
+            	border: none;
+            	color: white;
+            	background-color: #12B8BA;
+			    transition: all 0.2s ease;
             }
-
+            #container1_btn1{
+            	margin-right: 9px;
+            }
+			
+			/* ================================================= */
+            /* 예약내역 div */
+            #res_info_div {
+                width: 455px;
+ 				height: 220px;
+                padding: 20px;
+                border: 1px solid #D8D8D8; /* 테두리 */
+                border-top: 2px solid #12B8BA; /* 테두리 */
+                text-align: left;
+                display: inline-block;
+                position: relative;
+                
+            }
+            #res_info_div  a{
+            	font-size: 24px;
+            }
+            
+            #res_info_div input[type='button']{
+            	width: 25px;
+            	height: 25px;
+            	border: none;
+            	background-color: #12B8BA;
+            	color: white;
+            	text-align: center;
+            	
+            	position: absolute;
+            	right: 20px;
+            	top: 20px;
+            }
+            #res_ul_div ul{
+	 		  	margin-left:20px;
+                font-size: 18px;
+            }
+            #res_ul_div ul li{
+            	margin-top: 7px !important;
+            }
+            #res_ul_div ul li:first-child{
+            	margin-top: 0px !important;
+            }
+            
+            /* 스크롤바 추가 */
+            #res_ul_div {
+            	overflow-y: scroll; 
+            	height: 150px;
+            }
+            /* 스크롤바 css */
+			#res_ul_div::-webkit-scrollbar {
+				margin-top: 16px;
+			    width: 5px;
+			}
+			#res_ul_div::-webkit-scrollbar-track { 
+			    background-color: white;
+			}
+			#res_ul_div::-webkit-scrollbar-thumb { 
+			    background-color: #12B8BA;
+			}
+			#res_ul_div::-webkit-scrollbar-button {
+			    display: none;
+			}
+			
+			/* hover 효과 */
+			#res_ul_div::-webkit-scrollbar-thumb:hover {
+			    background-color: #0F9C9B;
+			    transition: all 0.2s; /* 작동 안 됨 */
+			}
+			
+			/* 코너에 라운드 효과 */
+			#res_ul_div::-webkit-scrollbar-track,
+			#res_ul_div::-webkit-scrollbar-thumb {
+			    border-radius: 5px;
+			}
+	
+            /* ================================================= */
+            /* 증명서 발급안내 div */
+            .container_cert{
+				width: 288px;
+ 				height: 220px;
+                padding: 20px;
+                border: 1px solid #D8D8D8; /* 테두리 */
+                border-top: 2px solid #12B8BA; /* 테두리 */
+                display: inline-block;
+                position: relative;
+			}
+			/* a태그 - 증명서발급안내 */
+			#cert_text{
+				text-decoration: none;
+				font-size: 24px;
+				color: black;
+			}
+			/* ul태그 - 증명서발급안내 */
             .container_ul {
                 margin-top: 10px;
                 margin-left: 20px;
+                font-size: 18px;
             }
-            
-            .container1_buttons{
+            .container_ul li{
+            	margin-top: 5px;
+            }
+            /* 증명서 발급 버튼 */
+            .container2_buttons{
+            	width: 290px;
             	padding: 5px 10px;
-			    font-weight: bold;
-			    cursor: pointer;
-			    transition: all 0.3s ease;
+            	border: none;
+            	color: white;
+            	background-color: #12B8BA;
+			    transition: all 0.2s ease;
+			    position: absolute;
+			    bottom: 20px;
+            }
+                        
+            /* ================================================= */
+            /* container2 클래스 객체들(진료비결제, 작성글관리 버튼) */
+            #etc_div {
+            	display: flex;
+			    justify-content: space-between;
+			    gap: 5px; /* 요소 간 간격 추가 */
+			    flex-wrap: wrap;
+            }
+            #etc_div div{
+                width: 288px;
+ 				height: 220px;
+                padding: 20px;
+                border: 1px solid #D8D8D8;
+                border-top: 2px solid #12B8BA;
+                display: inline-block;
+                position: relative;
             }
             
-            .container1_buttons:hover{
-            	color: red;
-            }
-            
-            .container3_div {
-			    display: inline-block;
-			    padding: 10px;
-			    width: 200px;
-			    border: 1px solid black;
-			    border-radius: 5px;
-			    cursor: pointer;
-			    text-align: center; /* 내부 텍스트(또는 a 태그)를 중앙 정렬 */
-			    transition: all 0.3s ease;
-			}
-			
-			.container3_div:hover {
-				background-color: #228006;
-			}
-			
-			.container3_p {
-			    display: inline-block;
-			    font-weight: bold;
-			    cursor: pointer;
-			    line-height: normal; /* p 태그 내부 텍스트의 줄 높이 초기화 */
-			    vertical-align: middle; /* 필요시 세로 정렬 보정 */
-			}
-			
+            .container2 input[type='button']{
+             	width: 290px;
+            	padding: 5px 10px;
+            	border: none;
+            	color: white;
+            	background-color: #12B8BA;
+			    transition: all 0.2s ease;
+			    position: absolute;
+			    bottom: 20px;
+             }
+             
+             .container2 a{
+             	font-size: 24px;
+             }
+             
+             .container2 p{
+             	margin-top: 10px;
+             	line-height: 1.5;
+             }
+             
+            /* 예약내역, 진료비결제, 작성글관리 버튼 */
 			.container3_image{
 				width: 150px;
 			}
-			
-			#container3_div_reservation{
-				display: inline-block;
-			    padding: 10px;
-			    width: 350px;
-			    height: 177px; /* 동일한 높이로 설정 */
-			    vertical-align: top; /* 세로 정렬 */
-			    border: 1px solid black;
-			    border-radius: 5px;
-			    text-align: center; /* 내부 텍스트(또는 a 태그)를 중앙 정렬 */
-			    transition: all 0.3s ease;
-			}
-			
-			.background {
-				position: absolute;
-			    top: 0;
-			    left: 0;
-			    width: 100%;
-			    height: 100%;
-			    background-image: url('/hos/resources/images/메인배경2.png');
-			    background-size: cover;
-			    background-position: center;
-			    background-repeat: no-repeat;
-			    z-index: -1; /* 배경을 뒤로 보냄 */
-			}
         </style>
-        
+    	
+    	<script>
+    		function withdrawal() {
+				if(confirm("탈퇴하시겠습니까?")){
+					if(confirm("· 회원 탈퇴 시 KH대학병원 홈페이지에서 온라인 서비스를 이용하실 수 없습니다.\n"
+							+ "· 회원 탈퇴 시 회원님의 회원정보가 모두 삭제되며 복구할 수 없습니다.")){
+						location.href='mypage_withdrawal.do?pat_idx=' + ${param.pat_idx};
+					}
+				}
+			}
+    	</script>
     </head>
     <body>
-    	<div class="background"></div>
-	    <!-- 메뉴바 -->
-	    <c:choose>
-	        <c:when test="${sessionScope.patient != null}">
-	            <c:if test="${fn:trim(sessionScope.patient.pat_id) eq 'admin'}">
-	                <jsp:include page="/WEB-INF/views/main/MenuBar_Master.jsp"/>
-	            </c:if>
-	            <c:if test="${sessionScope.patient.pat_id ne 'admin'}">
-	                <jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
-	            </c:if>
-	        </c:when>
-	    </c:choose>
-	
-	    <div class="container" style="margin-top: 150px;">
-	        <h1 id="welcome">${sessionScope.patient.pat_name}</h1><span>님 환영합니다!</span>
-	        <input type="button" class="container1_buttons" value="회원정보 수정"
-	               style="margin-left: 20px;" onclick="location.href='mypage_update_form.do?pat_idx=${sessionScope.patient.pat_idx}'">
-	        <hr width="580px;" style="margin-top: 10px;">
-	        <table id="patient_table">
-	            <tr>
-	                <th>연락처 |</th>
-	                <td>&emsp;${sessionScope.patient.pat_phone}</td>
-	            </tr>
-	            <tr>
-	                <th>이메일 |</th>
-	                <td>&emsp;${sessionScope.patient.pat_email}</td>
-	            </tr>
-	            <tr>
-	                <th>주소&emsp; |</th>
-	                <td>&emsp;${sessionScope.patient.pat_address_road},<br>
-	                    &emsp;${sessionScope.patient.pat_address_detail}</td>
-	            </tr>
-	        </table>
-	    </div>
-	    <br>
-	    <div class="container" style="width: 400px; margin-top: 150px;">
-	        <a class="container_a" href="mypage_certificates_print.do">증명서 발급 안내</a>
-	        <span><img src="/hos/resources/images/증명서 발급.png" class="sub_image"></span>
-	        <hr width="380px;" style="margin-top: 10px;">
-	        <ul class="container_ul">
-	            <li>진단서 발급 안내</li>
-	            <li>진료 사실 확인서</li>
-	            <li>진료비 납입 확인서</li>
-	            <li>진료비 계산서, 영수증</li>
-	            <li>처방전 사본</li>
-	            <li>진단서 사본</li>
-	        </ul>
-	    </div>
-	    <div class="container" style="width: 1060px; position: relative;">
-	        <div class="container3_div" onclick="location.href='mypage_reservation_list.do?pat_idx=${sessionScope.patient.pat_idx}'">
-	            <img src="/hos/resources/images/마이페이지_예약내역.png" class="container3_image"><br>
-	            <p class="container3_a">예약내역</p>
+    	<!-- 메뉴바 -->
+		<c:choose>
+		    <c:when test="${sessionScope.patient != null}">
+		        <c:if test="${fn:trim(sessionScope.patient.pat_id) eq 'admin'}">
+		            <jsp:include page="/WEB-INF/views/main/MenuBar_Master.jsp"/>
+		        </c:if>
+		        <c:if test="${sessionScope.patient.pat_id ne 'admin'}">
+		            <jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		        </c:if>
+		    </c:when>
+		</c:choose>
+		
+		<div id="main_div">
+		
+			<p id="mypage_title">마이페이지</p><br>
+			
+			<!-- 회원정보 및 회원정보수정칸 -->
+	        <div id="patient_info_div">
+	        
+	            <a id="welcome_text">${sessionScope.patient.pat_name}</a><span>( 환자번호 : ${sessionScope.patient.pat_idx} )</span>
+	            <hr>
+	            <table id="patient_table">
+	                <tr>
+	                    <th>연락처</th>
+	                    <td>&emsp;${sessionScope.patient.pat_phone}</td>
+	                </tr>
+	                <tr>
+	                    <th>이메일</th>
+	                    <td>&emsp;${sessionScope.patient.pat_email}</td>
+	                </tr>
+	                <tr>
+	                    <th>주소</th>
+	                    <td>&emsp;${sessionScope.patient.pat_address_road},<br>
+	                        &emsp;${sessionScope.patient.pat_address_detail}</td>
+	                </tr>
+	            </table>
+
+	            <input type="button" id="container1_btn1" value="회원정보 수정"
+	             onclick="location.href='mypage_update_form.do?pat_idx=${sessionScope.patient.pat_idx}'">
+	            <input type="button" id="container1_btn2" value="회원 탈퇴"
+	             onclick="withdrawal();">
 	        </div>
-	        <div class="container3_div" onclick="location.href='mypage_payment_page.do?pat_idx=${sessionScope.patient.pat_idx}'">
-	            <img src="/hos/resources/images/마이페이지_진료비결제.png" class="container3_image"><br>
-	            <p class="container3_a">진료비결제</p>
-	        </div>
-	        <div class="container3_div" onclick="location.href='mypage_managing_posts.do?pat_idx=${sessionScope.patient.pat_idx}'">
-	            <img src="/hos/resources/images/마이페이지_작성글관리.png" class="container3_image"><br>
-	            <p class="container3_a">작성글관리</p>
-	        </div>
-	        <div id="container3_div_reservation">
-	            <a class="container_a" href="#" style="display: inline;">예약 검색/조회</a>
-	            <img src="/hos/resources/images/마이페이지_검색.png" class="sub_image" style="margin-left: 20px;"><br>
-	        </div>
-	    </div>
-	    
-	    
-	</body>
+	        
+	        <!-- 예약내역 -->
+        	<div id="res_info_div" >
+        		<a>예약내역조회</a><input type="button"value="+" onclick="location.href='mypage_reservation_list.do?pat_idx=${sessionScope.patient.pat_idx}'">
+        		<hr>
+        		<div id="res_ul_div">
+	        		<ul>
+	        		<c:forEach var="res" items="${ list }">
+						<li>${ res.res_time } | ${ res.dept_name } (${ res.pro_name } 교수)</li>
+	        		</c:forEach>
+	        		</ul>
+        		</div>
+        	</div>
+	        
+	        <!-- 증명서 발급, 진료비결제, 작성글관리 등 -->
+			<div id="etc_div">
+			    <div class="container_cert" id="cert_div">
+			        <a id="cert_text">증명서 발급 안내</a>
+			        <hr>
+			        <ul class="container_ul">
+			            <li>진료 사실 확인서</li>
+			            <li>진료비 납입 확인서</li>
+			            <li>진료비 계산서, 영수증</li>
+			            <li>처방전 사본</li>
+			            <li>진단서 사본</li>
+			        </ul>
+			        <input type="button" class="container2_buttons" value="증명서 발급" 
+			         onclick="location.href='mypage_certificates_print.do?pat_idx=${sessionScope.patient.pat_idx}'">
+			    </div>
+			    
+			    <div class="container2">
+					<a>온라인 진료비 결제</a>
+					<hr>
+					<p>수납창구 방문 없이<br> 온라인으로 진료비를 결제할 수 있습니다.</p>
+			        <input type="button" class="container3_a" value="진료비결제" onclick="location.href='mypage_payment_page.do?pat_idx=${sessionScope.patient.pat_idx}'">
+			    </div>
+			    
+			    <div class="container2">
+					<a>나의 작성글 관리</a>
+					<hr>
+					<p>게시판에 작성한 글을<br> 수정, 삭제할 수 있습니다.</p>
+			        <input type="button" class="container3_a" value="작성글관리" onclick="location.href='mypage_managing_posts.do?pat_idx=${sessionScope.patient.pat_idx}'">
+			    </div>
+			</div>
+	        
+		</div>
+		
+		<jsp:include page="/WEB-INF/views/main/Footer.jsp"/>
+    </body>
 </html>
 
 

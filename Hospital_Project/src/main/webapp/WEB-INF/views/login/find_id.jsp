@@ -7,38 +7,59 @@
     <title>아이디 찾기</title>
     
     <style>
+    	@font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
+			}
+			
+		*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+		
 		#main_div{
 			width: 1000px;
-    		margin: 0px auto;
-    		text-align: center;
+			margin: 0px auto;
+			text-align: center;
 		}
 		
-		p{
-			font-size: 25px;
-			font-weight: bold;
+		#find_id_text{
+			font-size: 24px;
 		}
 		
-		input {
-			border: 1px solid gray;
-			width: 320px;
-			height: 40px;
+		#find_id_sub{
+			font-size: 18px;
+			color: gray;
 		}
 		
-		#pat_name, #pat_email, #input_number{
+		#find_id_div input {
 			display: block;
+			border: 1px solid #E2E2E2;
+			width: 400px;
+			height: 50px;
 			margin: 10px auto;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+
+		#pat_name{
+			margin-top: 30px;
+		}		
+		
+		#find_id_div #cert_btn, 
+		#find_id_div #ok_btn {
+			width: 420px;
+			border: none;
+			color: white;				
+			background-color: #12B8BA;
 		}
 		
-		#cert_btn, #ok_btn {
-			width: 327px;
-			border: 1px solid lightgray;
-			color: black;				
-			background-color: light gray;
-		}
-		
-		#input_number {
-			color: red;
-			margin-top: 20px;
+		#find_id_div #input_number {
+			color:#3086C9;
+			margin-top: 30px;
 		}
     </style>
     
@@ -62,6 +83,8 @@
         let pat_id;
         function result_mail() {
         	if(xhr.readyState == 4 && xhr.status == 200){
+                document.getElementById("input_number").disabled = false;
+                
 				let data = xhr.responseText;
 				let json = ( new Function('return '+data) )();
 				
@@ -92,15 +115,19 @@
     </script>
 </head>
 <body>
-    <div id="main_div">
-        <form>
-            <p>아이디 찾기를 위한 이메일 인증</p>
-            <input id="pat_name" name="pat_name" placeholder="이름을 입력하세요.">
-            <input id="pat_email" name="pat_email" placeholder="이메일을 입력하세요.">
-            <input id="cert_btn" type="button" value="인증하기" onclick="send_mail(document.forms[0]);"> 
-        </form>    
-        <input id="input_number" placeholder="인증번호 6자리를 입력하세요">
-        <input id="ok_btn" type="button" value="확인" onclick="chk_number();"> 
-    </div>
+	<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	<div id="main_div">
+	    <div id="find_id_div">
+	        <form>
+	            <p id="find_id_text">아이디 찾기를 위한 이메일 인증</p>
+	            <p id="find_id_sub">이메일 인증을 마치면, 아이디 확인이 가능합니다.</p>
+	            <input id="pat_name" name="pat_name" placeholder="이름을 입력하세요.">
+	            <input id="pat_email" name="pat_email" placeholder="이메일을 입력하세요.">
+	            <input id="cert_btn" type="button" value="인증하기" onclick="send_mail(document.forms[0]);"> 
+	        </form>    
+	        <input id="input_number" disabled="disabled" placeholder="인증번호 6자리를 입력하세요">
+	        <input id="ok_btn" type="button" value="확인" onclick="chk_number();"> 
+	    </div>
+	</div>	
 </body>
 </html>

@@ -67,6 +67,7 @@
 	
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
 		
 		<div id="container">
 			<p>오시는길</p>

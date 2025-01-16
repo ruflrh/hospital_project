@@ -40,10 +40,10 @@
 						height: 30px;
 						outline:none; }
 						
-			.pat_phone_s { width: 90px; 
+			.board_phone_s { width: 90px; 
 						   height: 34px; }
 			
-			.pat_phone { width: 90px;
+			.board_phone { width: 90px;
 						 height: 30px;
 						 outline:none; }
 						 
@@ -90,26 +90,74 @@
 						 
 		</style>
 		
+		<script>
+			function insert(f){
+				      
+				let board_name = f.board_name.value;
+				let board_title = f.board_title.value;
+				let board_content = f.board_content.value;
+				
+				let board_phone = f.board_phone.value;
+			    let board_phone_1 = f.board_phone_1.value;
+			    let board_phone_2 = f.board_phone_2.value;
+
+			    
+			    //유효성체크
+				if( board_name === '' ){
+					alert("이름을 입력하세요.");
+					return;
+				}
+				
+				if( board_phone_1 === '' || board_phone_2 === '' ){
+					alert("번호을 입력하세요.");
+					return;
+				} 
+				
+				if( board_title === '' ){
+					alert("제목을 입력하세요.");
+					return;
+				}
+				
+				if( board_content === '' ){
+					alert("내용을 입력하세요.");
+					return;
+				}
+				
+				f.action = "join_board_insert.do";
+				f.submit();
+			}
+			
+			//이메일 select -> text로 옮기기
+			function chk_email(email_addr){
+				f.board_email2.value = email_addr;
+			}
+
+		</script>
+		
 	</head>
 	
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="container">
 			<p>건의합니다</p>
 			<form method="post"
 				  enctype="multipart/form-data">
+				  
+				<input type="hidden" name="board_type" value="complaint">
 				<table>
 					<tr>
 						<th>작성자 성함</th>
 						<td>
-							<input class="name_txt"/>
+							<input class="name_txt" name="board_name"/>
 						</td>
 					</tr>
 					
 					<tr>
 						<th>휴대폰번호</th>
 						<td> 
-	                        <select class="pat_phone_s" name="pat_phone1_1">
+	                        <select class="board_phone_s" name="board_phone">
 	                           <option value="010">010</option>
 	                           <option value="011">011</option>
 	                           <option value="016">016</option>
@@ -117,9 +165,9 @@
 	                           <option value="018">018</option>
 	                           <option value="019">019</option>
 	                        </select> - 
-	                        <input class="pat_phone" name="pat_phone1_2"> -
+	                        <input class="board_phone" name="board_phone_1"> -
 	   
-	                        <input class="pat_phone" name="pat_phone1_3">
+	                        <input class="board_phone" name="board_phone_2">
 	                        <p class="text">연락가능한 전화번호를 입력 해 주시기 바랍니다.</p>
 	                     </td>
 					</tr>
@@ -127,11 +175,11 @@
 					<tr>
                      <th>이메일</th>
 	                     <td>
-	                        <input class="email" name="pat_email1">
+	                        <input class="email" name="board_email1">
 	                        <a> @ </a>
-	                        <input class="email" name="pat_email2">
+	                        <input class="email" name="board_email2">
 	                        
-	                        <select id="email_addr" onchange="chk_email();">
+	                        <select id="email_addr" onchange="chk_email(this.value);">
 	                           <option value="">직접입력</option>
 	                           <option value="gmail.com">gmail.com</option>
 	                           <option value="hanmail.net">hanmail.net</option>
@@ -145,14 +193,15 @@
 					<tr>
 						<th>제목</th>
 						<td>
-							<input class="title_txt"/>
+							<input class="title_txt" name="board_title"/>
 						</td>
 					</tr>
 					
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea class="content_txt" placeholder="한글 4000자 입력 가능합니다."></textarea>
+							<textarea class="content_txt" name="board_content" 
+									  placeholder="한글 4000자 입력 가능합니다."></textarea>
 						</td>
 					</tr>
 					
@@ -160,7 +209,8 @@
 					<tr class="last_tr">
 						<th>첨부파일</th>
 						<td>
-							<input type="file" class="file_btn" accept="image/gif, image/jpeg, image/png"/>
+							<input type="file" class="file_btn" 
+								   name="photo" accept="image/gif, image/jpeg, image/png"/>
 							<p>JPG, PNG 파일만 첨부 가능합니다. (5MB 이하)파일이름은 영문으로 작성해 주시기 바랍니다.</p>
 						</td>
 					</tr>
@@ -168,7 +218,8 @@
 				
 				<div id="btn_div">
 					<input class="list_btn" type="button" value="내가 쓴 글 보기"/>
-					<input class="insert_btn" type="button" value="확인"/>
+					<input class="insert_btn" type="button" value="확인"
+						   onclick="insert(this.form);"/>
 				</div>
 			</form>
 		</div>

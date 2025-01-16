@@ -1,11 +1,14 @@
 package dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import vo.MypagePayVO;
+import vo.MypageResListVO;
+import vo.PatBoardVO;
 import vo.PatientVO;
-import vo.ReservationVO;
 
 public class MypageDAO {
 	SqlSession sqlSession;
@@ -25,8 +28,45 @@ public class MypageDAO {
 		return res;
 	}
 	
-	//예약내역조회 (진료과, 교수명, 교수사진, 진료일정, 진료과위치)
-	//public ReservationVO selectReservationList(int pat_idx) {
-	//}
+	//회원탈퇴
+	public int withdrawalPatient(int pat_idx) {
+		int res = sqlSession.delete("mypage.withdrawal_patient", pat_idx);
+		return res;
+	}
 	
+	//예약내역조회 (진료과, 교수명, 교수사진, 진료일정, 진료과위치)
+	public List<MypageResListVO> selectReservationList(int pat_idx){
+		List<MypageResListVO> list = sqlSession.selectList("mypage.select_reservation_list", pat_idx);
+		return list;
+	}
+
+	//진료비내역조회
+	public List<MypagePayVO> selectPaymentList(int pat_idx){
+		List<MypagePayVO> list = sqlSession.selectList("mypage.select_payment_list", pat_idx);
+		return list;
+	}
+	
+	//작성글조회
+	public List<PatBoardVO> selectPatBoardList(int pat_idx){
+		List<PatBoardVO> list = sqlSession.selectList("mypage.select_patboard_list", pat_idx);
+		return list;
+	}
+	
+	//작성글내용조회
+	public PatBoardVO selectPatBoardDetail(int board_idx){
+		PatBoardVO vo = sqlSession.selectOne("mypage.select_patboard_detail", board_idx);
+		return vo;
+	}
+	
+	//작성글삭제
+	public int deletePatBoard(int board_idx) {
+		int res = sqlSession.delete("mypage.delete_pat_board", board_idx);
+		return res;
+	}
+	
+	//작성글수정
+	public int updatePatBoard(PatBoardVO vo) {
+		int res = sqlSession.update("mypage.update_pat_board", vo);
+		return res;
+	}
 }

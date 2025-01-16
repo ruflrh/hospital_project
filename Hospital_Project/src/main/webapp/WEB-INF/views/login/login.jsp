@@ -4,71 +4,79 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>로그인</title>
 		
 		<style>
-			#main_div{
-				border: 1px solid black;
-				width: 1000px;
-				margin: 0px auto;
+			@font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
 			}
 			
-			#login_div{
-				margin: 10px auto;
+			*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+			
+			#main_div{
+				width: 1000px;
+				margin: 20px auto;
 				text-align: center;
 			}
 			
-			a{
-				display: block;
-				margin: 10px 0px;
+			#login_div img{
+				width: 150px;
 			}
 			
 			#login_text{
-				font-size: 25px;
-				font-weight: bold;
+				display: block;
+				margin: 20px 0px;				
+				font-size: 40px;
+			}
+			#login_sub_text{
+				display: block;
+				margin: 20px 0px;				
+				font-size: 18px;
+				color: gray;
 			}
 			
-			#login_inputtb{
-				margin: 0px auto;
+			#login_form input{
+				display: block;
+				margin: 10px auto;
 			}
 			
-			input {
+			#login_div input {
 				border: 1px solid gray;
-				width: 320px;
-				height: 40px;
+				width: 400px;
+				height: 50px;
+				font-size: 18px;
+				padding-left: 10px;
+				padding-right: 10px;
 			}
 			
-			input[type="button"]{
-				magin: 10px 0pxl;
+			#main_div input[type="button"]{
+				display: block;
+				width: 425px;
+				height: 50px;
+				border: none;
 			}
 			
 			#login_btn{
-				border: none;
-				width: 326px;
-				height: 40px;
+				margin: 0px auto;
+				margin-top: 10px;
 				color: white;
-				background-color: #7cc4e8;
+				background-color: #12B8BA;
 			}
 			
-			#find_text, #member_text{
-				font-size: 15px;
+			#btn_div{
+				margin: 10px auto;
+			}
+			#btn_div .btn:hover{
+				color: #3086C9;
 			}
 			
-			.find{
-				border: none;
-				width: 160px;
-				height: 40px;
-				color: black;				
-				background-color: light;
-			}
-			
-			#member_btn{
-				border: none;
-				width: 326px;
-				height: 40px;
-				color: black;				
-				background-color: light;
-			}
 		</style>
 		
 		<script src="/hos/resources/js/httpRequest.js"></script>
@@ -113,34 +121,31 @@
 		</script>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+		
 		<!-- 로그인 메인 div -->
 		<div id="main_div">
 			<div id="login_div">
-			
+				<img src="/hos/resources/images/MEDICOMPILE LOGO.png">
 				<a id="login_text">로그인</a>
-				<form>
-					<table id="login_inputtb">
-						<tr>
-							<td><input name="pat_id" placeholder="아이디를 입력해주세요" size="30"></td>
-						</tr>
-						<tr>
-							<td><input name="pat_pwd" type="password" placeholder="비밀번호를 입력해주세요" size="30"></td>
-						</tr>
-						<tr>
-							<td><input id="login_btn" type="button" value="로그인"
-								 onclick="login(this.form);"></td>
-						</tr>
-					</table>
+				<a id="login_sub_text">MediCompile 홈페이지의 서비스는<br>로그인 후 이용하실 수 있습니다.</a>
+				
+				<form id="login_form">
+					<input name="pat_id" placeholder="아이디를 입력해주세요" size="30">
+					<input name="pat_pwd" type="password" placeholder="비밀번호를 입력해주세요" size="30">
+					<input id="login_btn" type="button" value="로그인" onclick="login(this.form);">
 				</form>
 				
-				<a id="find_text">아이디 또는 비밀번호를 잃어버리셨나요?</a>
-				<input class="find" type="button" value="아이디 찾기" onclick="location.href='login_find_id_form.do'">
-				<input class="find" type="button" value="비밀번호 찾기" onclick="location.href='login_find_pwd_form.do'"><br>
-				
-				<a id="member_text">아직 회원가입을 하지 않으셨나요?</a>
-				<input id="member_btn" type="button" value="회원가입" 
-					   onclick="location.href='register_page.do'"><br>
+				<div id="btn_div">
+					<a class="btn" type="button"onclick="location.href='login_find_id_form.do'">아이디 찾기</a>
+					<a>|</a>
+					<a class="btn" type="button"onclick="location.href='login_find_pwd_form.do'">비밀번호 찾기</a>
+					<a>|</a>
+					<a class="btn" type="button" onclick="location.href='register_page.do'">회원가입</a><br>
+				</div>
 			</div>  
 		</div>
+		
+		<jsp:include page="/WEB-INF/views/main/Footer.jsp"/>
 	</body>
 </html>

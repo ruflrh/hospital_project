@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.Common;
 import dao.BannerDAO;
 import dao.LoginDAO;
 import dao.MypageDAO;
+import dao.NoticeDAO;
 import service.MailSendService;
 import vo.BannerVO;
+import vo.NoticeVO;
 import vo.PatientVO;
 
 @Controller
@@ -41,6 +44,11 @@ public class LoginController {
 	public void setMypage_dao(MypageDAO mypage_dao) {
 		this.mypage_dao = mypage_dao;
 	}
+	
+	NoticeDAO notice_dao;
+	public void setNotice_dao(NoticeDAO notice_dao) {
+		this.notice_dao = notice_dao;
+	}
 
 	MailSendService mss;
 	public void setMss(MailSendService mss) {
@@ -49,12 +57,22 @@ public class LoginController {
 
 	//기본 메인화면
 	@RequestMapping(value = {"/", "main.do"})
-	public String main_start(Model model) {
+	public String main_start(Model model, Integer pat_idx) {
+		
+		int now_pat_idx = 0;
 
+		if(pat_idx != null) {
+			now_pat_idx = pat_idx; 
+		}
+		
 		//배너 이미지 담은 list들 DB에서 가져오기
-		List<BannerVO> list = banner_dao.selectBanner();
-
-		model.addAttribute("images", list);
+		List<BannerVO> list_banner = banner_dao.selectBanner();
+		
+		//공지사항 담은 list들 DB에서 가져오기
+		List<NoticeVO> list_notice = notice_dao.selectNotList();
+		
+		model.addAttribute("images", list_banner);
+		model.addAttribute("notices", list_notice);
 		return Common.main.VIEW_PATH + "MainPage_User.jsp";
 	}
 
@@ -129,7 +147,10 @@ public class LoginController {
 
 		//세션스코프에 로그인한 회원 정보 저장
 		session.setAttribute("patient", vo2);
-
+		
+		//세션 유지시간(30분(기존) -> 1시간)
+		session.setMaxInactiveInterval(3600);
+		
 		String resultStr = 
 				String.format("[{'result' : '%s'}, {'pat_idx' : '%d'}]", result, pat_idx);
 		return resultStr; 

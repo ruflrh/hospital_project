@@ -10,69 +10,101 @@
 		<title>회원 정보 수정</title>
 		
 		<style>
+            @font-face {
+			  font-family: 'Interop';
+			  src: url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff2')
+			      format('woff2'),
+			      url('https://raw.githubusercontent.com/payw-org/Interop/main/web/fonts/Interop-Regular.woff')
+			      format('woff');
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: block;
+			}
+			
+			*{margin: 0; padding: 0; font-family: 'Interop'; font-weight: 300; font-size: 18px;}
+			
 			#main_div{
 				width: 1000px;
+				height: 1000px;
 				margin: 0px auto;
 			}
 			
 			#update_text{
 				display: block;
-				margin: 20px 10px;
-				font-size: 25px;
+				font-size: 40px;
+				font-weight: 500;
+				margin: 20px 0px;
 			}
 			
 			/* hr태그 */					
 			hr{
-				width: 980px;
-				margin: 10px auto;
+				width: 1000px;
 			}
 			
 			/* 비밀번호 변경, 기본정보 변경 button ====================================================*/
 			#btn_div{
-				width: 1000px;
-				margin: 10px auto;
-				text-align: center;
+				position: relative;
 			}
-			#btn_div > input{
-				width: 490px;
-				height: 40px;
+			#btn_div input{
+				width: 500px;
+				height: 55px;
 				border: none;
+				border-bottom: 2px solid #12B8BA !important;
+				transition: all 0.2s ease;
 			}
 			
+			#change_pwd_btn{
+				background-color: #12B8BA;
+				color: white;
+				position: absolute;
+			}
 			#change_info_btn{
 				background-color: white;
-				border-bottom: 1px solid gray;
-			}
-			#change_pwd_btn{
-				background-color: #7cc4e8;
+				color: black;
+				position: absolute;
+				left: 500px;
 			}
 			
 			/* 비밀번호 변경에 속한 태그들 ====================================================*/
 			#update_pwd{
 				text-align: center;
+				position: absolute;
+				top: 250px;
 			}
-			#title{
-				font-weight: bold;
-				font-size: 25px;
+			#update_pwd #title{
+				font-size: 24px;
 				margin: 20px;
 			}
-			#sub_title{
+			#update_pwd #sub_title{
 				font-size: 15px;
 				margin: 20px;
 			}
-			#pat_name{
-				color: #7cc4e8;
+			#update_pwd #pat_name{
+				color: #3086C9;
 			}
+			
+			#update_pwd input {
+				border: 1px solid #E2E2E2;
+				width: 320px;
+				height: 40px;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			
 			#update_pwd table{
 				width: 600px;
 				margin: 20px auto;
 			}
 			#update_pwd hr{
-				width: 980px;
+				width: 1000px;
+				height: 1px;
 				margin: 0px auto;
+				border: none;
+				background: #D2D2D2;
 			}
 			
-			#pwd_btn{
+			#update_pwd #pwd_btn, 
+			#update_pwd #back_btn{
 				border: none;
 				width: 150px;
 				height: 40px; 
@@ -80,84 +112,99 @@
 				background-color: white;
 				margin-bottom: 20px;
 			}
+			
 			/* 기본정보 변경에 속한 태그들 ====================================================*/
 			#update_infomation{
 				text-align: center;
+				position: absolute;
+				top: 270px;
 			}
 			#update_infomation table{
 				text-align: left;
 				border-collapse: collapse;
-				margin: 0px auto;
-				margin-bottom: 10px; 
+				margin: 10px auto;
+				width: 1000px;
 			}
 			#update_infomation table th, td{
-				padding: 10px 10px;
+				padding: 15px 10px;
+			}
+			#update_infomation table th{
+				padding-left: 45px;
+				width: 200px;
+			}
+			#update_infomation table tr{
+				border-top: 1px solid #D2D2D2; 
 			}
 			
 			/* input[type="text"] 태그 - 모든 태그 기본설정 */
-			input {
-				border: 1px solid gray;
+			#update_infomation input {
+				border: 1px solid #E2E2E2;
 				width: 250px;
 				height: 35px;
+				padding-left: 10px;
+				padding-right: 10px;
 			}
 			
-			/* input[type="button"] 태그 - 중복확인 버튼, 주소찾기 버튼 */
-			#id_btn, #address_btn{
+			/*중복확인 버튼, 주소찾기 버튼 */
+			#update_infomation #address_btn{
 				border: none;
-				width: 150px;
+				width: 130px;
 				height: 38px;
 				color: white;
-				background-color: #7cc4e8;
+				background-color: #12B8BA;
 			}
 			
 			/* input[type="text"] 태그 - 이메일 */
-			.email{
+			#update_infomation .email{
 				width: 200px;	
 			}
 			/* option 태그 - 이메일주소 */
-			#email_addr{
+			#update_infomation #email_addr{
+				border: 1px solid #E2E2E2;
 				height: 40px;
-				width: 100px;
+				width: 120px;
+				padding-left: 10px;
+				padding-right: 10px;
 			}
 			
 			/* input[type="text"] 태그 - 주소 */
-			#address_post{
+			#update_infomation #address_post{
 				width: 120px;
 			}
-			#address_detail, #address_road{
+			#update_infomation #address_detail, 
+			#update_infomation #address_road{
 				width: 400px;
 				margin-top: 10px;
 			}
 
 			/* option 태그 - 전화번호 */
-			.pat_phone{
+			#update_infomation .pat_phone{
+				border: 1px solid #E2E2E2;
 				height: 40px;
-				width: 70px;
+				width: 80px;
+				padding-left: 10px;
+				padding-right: 10px;
 			}
 			
 			/* 성별 선택 radio */
-			.gender{
-				height: 15px;
-				width: 20px;
+			#update_infomation .gender{
+				width: 40px;
+				height: 20px;
+				accent-color: #3086C9;
 			}
 			
 			/* 가입취소, 회원가입 버튼 */
-			.back_btn, #reg_btn{
+			#update_infomation #back_btn,
+			#update_infomation #reg_btn {
 				border: none;
 				width: 150px;
-				height: 40px;
-			}
-			#back_btn {
+				height: 40px; 
 				border: 1px solid lightgray;
 				background-color: white;
+				margin: 20px 0;
 			}
 			
-			#reg_btn {
-				background-color: gray;
-				color: white;
-			}
-			
-			.essential{
+			#update_infomation .essential{
 				font-size: 10px;
 				color: red;
 			}
@@ -173,15 +220,19 @@
 				let update_infomation = document.getElementById("update_infomation");
 				
 				if( id == "change_pwd_btn") {//비밀번호 변경 버튼을 누른 경우 
-					pwd_btn.style.backgroundColor = "#7cc4e8";
+					pwd_btn.style.backgroundColor = "#12B8BA";
+					pwd_btn.style.color = "white";
 					info_btn.style.backgroundColor = "white";
+					info_btn.style.color = "black";
 					
 					update_infomation.style.display = "none";
 					update_pwd.style.display = "block";
 				}
 				else {//비밀번호 변경 버튼을 누른 경우 
-					info_btn.style.backgroundColor = "#7cc4e8";
+					info_btn.style.backgroundColor = "#12B8BA";
+					info_btn.style.color = "white";
 					pwd_btn.style.backgroundColor = "white";
+					pwd_btn.style.color = "black";
 					
 					update_pwd.style.display = "none";
 					update_infomation.style.display = "block";
@@ -256,9 +307,10 @@
 	</head>
 	
 	<body>
+		<jsp:include page="/WEB-INF/views/main/MenuBar_User.jsp"/>
+	
 		<div id="main_div">
 			<a id="update_text">회원정보수정</a>
-			<hr>
 			
 			<div id="btn_div">
 				<input id="change_pwd_btn" type="button" value="비밀번호 변경" onclick="change_mode('change_pwd_btn');">
@@ -287,7 +339,7 @@
 				</table>
 		
 				<input id="pwd_btn" type="button" value="비밀번호 변경" onclick="chk_pwd();">		
-				<input class="back_btn" type="button" value="취소" onclick="history.back();">
+				<input id="back_btn" type="button" value="취소" onclick="history.back();">
 				<hr>
 			</div>
 			
@@ -298,8 +350,8 @@
 					<input type="hidden" name="pat_name" value="${ vo.pat_name }">
 					<input type="hidden" name="pat_pwd" value="${ vo.pat_pwd }">
 				 
-					<table border="1">
-						<tr>
+					<table>
+						<tr style="border-top: 2px solid #C2C2C2">
 							<th>이름</th>
 							<td>${ vo.pat_name }</td>
 						</tr>
@@ -351,9 +403,9 @@
 									<option value="018">018</option>
 									<option value="019">019</option>
 								</select> - 
-								<input class="pat_phone" name="pat_phone1_1" value="${fn:split(vo.pat_phone,'-')[1]}"> -
+								<input class="pat_phone" name="pat_phone1_1" maxlength="4" value="${fn:split(vo.pat_phone,'-')[1]}"> -
 	
-								<input class="pat_phone" name="pat_phone1_2" value="${fn:split(vo.pat_phone,'-')[2]}">
+								<input class="pat_phone" name="pat_phone1_2" maxlength="4" value="${fn:split(vo.pat_phone,'-')[2]}">
 							</td>
 						</tr>
 						<tr>
@@ -378,7 +430,7 @@
 								 value="${ fn:split(vo.pat_birthday, ' ')[0] }"></td>
 							
 						</tr>
-						<tr>
+						<tr style="border-bottom: 2px solid #C2C2C2">
 							<th>성별</th>
 							<td>
 								<input class="gender" type="radio" name="pat_gender" value="남자"
@@ -389,8 +441,8 @@
 						</tr>
 					</table>
 	
-					<input class="back_btn" type="button" value="취소" onclick="history.back();">
 					<input id="reg_btn" type="button" value="기본정보수정" onclick="update_info(this.form);">
+					<input id="back_btn" type="button" value="취소" onclick="history.back();">
 				</form>
 
 			</div> <!-- update_infomation -->

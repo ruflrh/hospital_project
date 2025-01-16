@@ -101,7 +101,7 @@
 		    const centerY = window.innerHeight / 2; // 화면 높이의 절반
 		    
 		 	// 문자열 연결 방식으로 옵션 작성
-		    const options = "width=600,height=400,left=" + centerX + ",top=" + centerY;
+		    const options = "width=500,height=400,left=" + centerX + ",top=" + centerY;
 		    
 		    window.open(
 		        "delete_banner_page.do", // 팝업에 띄울 페이지

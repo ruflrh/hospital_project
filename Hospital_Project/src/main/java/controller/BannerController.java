@@ -29,8 +29,8 @@ public class BannerController {
 
 	//배너 이미지 추가 페이지로 이동
 	@RequestMapping("insert_banner_page.do")
-	public String insert_banner_page(int pat_idx) {
-		return Common.main.VIEW_PATH + "Insert_Banner_Page.jsp?pat_idx=" + pat_idx;
+	public String insert_banner_page() {
+		return Common.main.VIEW_PATH + "Insert_Banner_Page.jsp";
 	}
 
 	//배너 이미지 추가

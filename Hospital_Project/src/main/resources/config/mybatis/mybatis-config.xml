@@ -13,16 +13,24 @@
 		<typeAlias type="vo.DiagnosisVO" alias="dia"/>
 		<typeAlias type="vo.DeviceVO" alias="dev" />
 		<typeAlias type="vo.DepartmentVO" alias="dept"/>
+		<typeAlias type="vo.ProfessorVO" alias="pro"/>
+		<typeAlias type="vo.ScheduleVO" alias="sche"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/login.xml" />
+		<mapper resource="config/mybatis/mapper/mypage.xml" />
 		<mapper resource="config/mybatis/mapper/banner.xml" />
 		<mapper resource="config/mybatis/mapper/diagnosis.xml" />
 		<mapper resource="config/mybatis/mapper/medical_device.xml" />
-		<mapper resource="config/mybatis/mapper/patBoard.xml" />
-		<mapper resource="config/mybatis/mapper/mypage.xml" />
 		<mapper resource="config/mybatis/mapper/department.xml" />
+		<mapper resource="config/mybatis/mapper/reservation.xml" />
+		<mapper resource="config/mybatis/mapper/professor.xml" />
+		<mapper resource="config/mybatis/mapper/schedule.xml" />
+		<mapper resource="config/mybatis/mapper/patBoard.xml" />
+		<mapper resource="config/mybatis/mapper/volunteer.xml" />
+		<mapper resource="config/mybatis/mapper/volcomment.xml" />
+		<mapper resource="config/mybatis/mapper/notice.xml" />
 	</mappers>
 </configuration>
 
