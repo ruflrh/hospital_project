@@ -41,18 +41,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 예약 가능한 시간 생성
-    function generateTimeSlots() {
-        var slots = [];
-        for (var hour = 9; hour <= 12; hour++) {
-            slots.push(hour + ":00");
-            if (hour !== 12) slots.push(hour + ":30");
-        }
-        for (var hour = 14; hour <= 17; hour++) {
-            slots.push(hour + ":00");
-            if (hour !== 17) slots.push(hour + ":30");
-        }
-        return slots;
-    }
+	function generateTimeSlots() {
+	    var slots = [];
+	    for (var hour = 9; hour <= 12; hour++) {
+	        slots.push((hour < 10 ? '0' + hour : hour) + ":00"); // 시간 정규화
+	        if (hour !== 12) slots.push((hour < 10 ? '0' + hour : hour) + ":30"); // 시간 정규화
+	    }
+	    for (var hour = 14; hour <= 17; hour++) {
+	        slots.push((hour < 10 ? '0' + hour : hour) + ":00"); // 시간 정규화
+	        if (hour !== 17) slots.push((hour < 10 ? '0' + hour : hour) + ":30"); // 시간 정규화
+	    }
+	    return slots;
+	}
 
     // 캘린더 이벤트 생성
     function generateEvents(year, month) {

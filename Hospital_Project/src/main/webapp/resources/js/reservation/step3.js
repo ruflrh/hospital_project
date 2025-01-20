@@ -41,17 +41,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 예약 가능한 시간 생성
     function generateTimeSlots() {
-        var slots = [];
-        for (var hour = 9; hour <= 12; hour++) {
-            slots.push(hour + ":00");
-            if (hour !== 12) slots.push(hour + ":30");
-        }
-        for (var hour = 14; hour <= 17; hour++) {
-            slots.push(hour + ":00");
-            if (hour !== 17) slots.push(hour + ":30");
-        }
-        return slots;
+    var slots = [];
+    for (var hour = 9; hour <= 12; hour++) {
+        slots.push((hour < 10 ? '0' + hour : hour) + ":00"); // 시간 정규화
+        if (hour !== 12) slots.push((hour < 10 ? '0' + hour : hour) + ":30"); // 시간 정규화
     }
+    for (var hour = 14; hour <= 17; hour++) {
+        slots.push((hour < 10 ? '0' + hour : hour) + ":00"); // 시간 정규화
+        if (hour !== 17) slots.push((hour < 10 ? '0' + hour : hour) + ":30"); // 시간 정규화
+    }
+    return slots;
+}
 
     // 캘린더 이벤트 생성
     function generateEvents(year, month) {
@@ -117,42 +117,43 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 
-function showTimeSlots(selectedDate) {
-    timeSlotsEl.innerHTML = ''; // 초기화
-    var allSlots = generateTimeSlots();
-    var url = 'hos/getReservedTime.do';
-    var params = 'date=' + selectedDate + '&pro_idx=' + professor.pro_idx;
+ function showTimeSlots(selectedDate) {
+        timeSlotsEl.innerHTML = ''; // 초기화
+        var allSlots = generateTimeSlots();
+        var url = 'hos/getReservedTime.do';
+        var params = 'date=' + selectedDate + '&pro_idx=' + professor.pro_idx;
 
-    console.log('Sending Request to: ' + url);
-    console.log('With Parameters: ' + params);
-    
-    sendRequest(url, params, function (response) {
-        try {
-            var reservedTimes = JSON.parse(response);
-            console.log('Reserved times:', reservedTimes);
+        console.log('Sending Request to: ' + url);
+        console.log('With Parameters: ' + params);
 
-            allSlots.forEach(function (time) {
-                var button = document.createElement('button');
-                button.textContent = time;
-                button.classList.add('time-slot');
+        sendRequest(url, params, function (response) {
+            try {
+                var reservedTimes = JSON.parse(response);
+                console.log('Reserved times:', reservedTimes);
 
-                if (reservedTimes.includes(time)) {
-                    button.disabled = true;
-                    button.classList.add('reserved');
-                } else {
-                    button.addEventListener('click', function () {
-                        reserveTime(selectedDate, time, button);
-                    });
-                }
+                allSlots.forEach(function (time) {
+                    var button = document.createElement('button');
+                    button.textContent = time;
+                    button.classList.add('time-slot');
 
-                timeSlotsEl.appendChild(button);
-            });
-        } catch (error) {
-            console.error('JSON 파싱 오류:', error);
-            alert('서버에서 받은 데이터 처리 중 오류가 발생했습니다.');
-        }
-    }, 'POST');
-}
+                    if (reservedTimes.includes(time)) {
+                        console.log('Disabling button for reserved time:', time);
+                        button.disabled = true;
+                        button.classList.add('reserved');
+                    } else {
+                        button.addEventListener('click', function () {
+                            reserveTime(selectedDate, time, button);
+                        });
+                    }
+
+                    timeSlotsEl.appendChild(button);
+                });
+            } catch (error) {
+                console.error('JSON 파싱 오류:', error);
+                alert('서버에서 받은 데이터 처리 중 오류가 발생했습니다.');
+            }
+        }, 'POST');
+    }
 
     
     //콜백 method

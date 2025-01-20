@@ -50,23 +50,23 @@
 		    <div id="calendar"></div>
 		
 		    <!-- 예약 가능한 시간 표시 영역 -->
-		<div id="timePage">
-			<p>예약 가능한 시간</p>
-		    <hr class="pro">
-		  	<div id="timeSlots">
-			    <div class="time-buttons">
-			        <c:forEach var="button" items="${buttons}">
-			            <button 
-			                class="time-slot" 
-			                data-time="${button.time}" 
-			                data-pro-idx="${pro_idx}" 
-			                ${button.disabled == 'true' ? 'disabled' : ''}>
-			                ${button.time}
-			            </button>
-			        </c:forEach>
-			    </div>
-			</div>
-		</div>
+	<div id="timePage">
+				<p>예약 가능한 시간</p>
+			    <hr class="pro">
+			  	<div id="timeSlots">
+				    <div class="time-buttons">
+				        <c:forEach var="button" items="${buttons}">
+				            <button 
+				                class="time-slot" 
+				                data-time="${button.time}" 
+				                data-pro-idx="${pro_idx}" 
+				                ${button.disabled == 'true' ? 'disabled' : ''}>
+				                ${button.time}
+				            </button>
+				        </c:forEach>
+				    </div>
+				</div>
+
 		</div>	  
 	</body>
 </html>

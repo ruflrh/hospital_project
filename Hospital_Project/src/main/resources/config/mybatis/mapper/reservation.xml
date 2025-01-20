@@ -12,11 +12,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    AND pro_idx = #{pro_idx}
 	</select>
 
+
     <!-- 예약 정보 저장 -->
 	<insert id="insertReservation">
-        INSERT INTO reservation (res_idx, pat_idx, pro_idx, res_time, res_chk, pay_chk, contact)
-        VALUES (res_idx_seq.NEXTVAL, #{pat_idx}, #{pro_idx}, TO_DATE(#{res_time}, 'YYYY-MM-DD HH24:MI'), 1, 0, #{contact})
-    </insert>
+	    INSERT INTO reservation (res_idx, pat_idx, pro_idx, res_time, res_chk, pay_chk, contact)
+	    VALUES (res_idx_seq.NEXTVAL, #{pat_idx}, #{pro_idx}, TO_DATE(#{res_time}, 'YYYY-MM-DD HH24:MI'), 1, 0, #{contact})
+	</insert>
+
     
     <!-- 예약취소 -->
     <delete id="cancel_res" parameterType="int">

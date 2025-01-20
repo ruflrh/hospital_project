@@ -158,6 +158,22 @@ public class ReservationController {
                                  @RequestParam("res_time") String resTime, @RequestParam("contact") String contact) {
     	System.out.println("pat_idx :" + patIdx +"pro_idx:"+proIdx + "res_time:" + resTime );
         try {
+        	 System.out.println("Received res_time (raw): " + resTime);
+
+             // 시간 정규화
+             if (resTime.contains(" ")) {
+                 String[] parts = resTime.split(" ");
+                 String timePart = parts[1];
+                 if (timePart.length() == 4) {
+                     resTime = parts[0] + " " + "0" + timePart;
+                 }
+             }
+
+             System.out.println("Final normalized res_time: " + resTime);
+
+        	
+        	
+        	
             Map<String, Object> reservationData = new HashMap<String, Object>();
             reservationData.put("pat_idx", patIdx);
             reservationData.put("pro_idx", proIdx);
